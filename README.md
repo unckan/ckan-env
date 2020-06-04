@@ -1,4 +1,5 @@
-# CKAN environment
+[![Build Status](https://travis-ci.org/avdata99/ckan-env.svg?branch=master)](https://travis-ci.org/avdata99/ckan-env)
+# Entorno CKAN
 
-CKAN 2.8 environment
+Deploy a dockerhub test
 
