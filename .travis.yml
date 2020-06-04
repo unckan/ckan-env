@@ -1,0 +1,14 @@
+language: python
+
+services:
+  - docker
+
+jobs:
+  include:
+    - stage: build docker image
+      script:
+      - export TAG=ckan-env:$TRAVIS_BRANCH
+      - docker build -t $DOCKER_USERNAME/$TAG .
+      after_success:
+        - echo "$DOCKER_PASSWORD" | docker login -u $DOCKER_USERNAME --password-stdin
+        - docker push $DOCKER_USERNAME/$TAG

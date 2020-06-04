@@ -1,0 +1,17 @@
+# custom compose files for devs
+docker-compose-dev*
+
+src/*
+
+*.pyc
+*.pyo
+
+__pycache__
+
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+.vscode/
