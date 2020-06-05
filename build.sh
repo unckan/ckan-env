@@ -1,3 +1,4 @@
+#!/bin/bash
 set -e
 
 IMAGE="$DOCKER_USERNAME/ckan-env"
