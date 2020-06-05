@@ -8,5 +8,10 @@ echo "Docker login"
 docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 echo "Docker push 1"
 docker push ${IMAGE}:${VERSION}
-echo "Docker push 2"
-docker push ${IMAGE}:latest
+
+if [ "$TRAVIS_BRANCH" = "master" ]; then
+    echo "Docker push to :latest"
+    docker push ${IMAGE}:latest
+else
+    echo "Docker NO push to :latest"
+fi
