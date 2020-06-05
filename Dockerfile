@@ -14,5 +14,6 @@ ADD requirements.txt /requirements.txt
 
 RUN pip install --upgrade pip && \
     pip install -e git+https://github.com/ckan/ckanext-harvest.git#egg=ckanext-harvest && \
+    pip install -e git+https://github.com/ckan/ckanext-pages.git#egg=ckanext-pages && \
     pip install -e git+https://github.com/avdata99/ckanext-siu-harvester.git#egg=ckanext-siu-harvester && \
     pip install -r /requirements.txt

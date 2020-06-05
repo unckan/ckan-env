@@ -11,4 +11,5 @@ deploy:
   provider: script
   script: bash deploy.sh
   on:
-    branch: master
+    all_branches: true
+    # condition: $TRAVIS_BRANCH =~ ^(develop|master)$
