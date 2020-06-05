@@ -11,5 +11,5 @@ if [ "$TRAVIS_BRANCH" = "master" ]; then
     echo "Docker push to :latest"
     docker push ${IMAGE}:latest
 else
-    docker push ${IMAGE}:develop
+    docker push ${IMAGE}:$TRAVIS_BRANCH
 fi
