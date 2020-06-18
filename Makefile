@@ -5,9 +5,9 @@ TAG := $(shell if [ ${VERSION} = 'master' ] ; then echo 'latest' ; else echo ${V
 test:
 	true
 
-image:
-	echo "Tag: ${IMAGE}:${TAG}"
-	docker build -t ${IMAGE}:${TAG} .
+local-image:
+	echo "Tag: ckan-env:${TAG}"
+	docker build -t ckan-env:${TAG} .
 	
 push-image:
 	echo "Push: ${IMAGE}:${TAG}"
