@@ -7,3 +7,14 @@
 
 Deploy a dockerhub test
 
+## Publicar imagenes
+
+Se realiza automáticamente con cada push (vía _Travis_) a `$DOCKER_USERNAME/ckan-env/latest` (para rama `master`) o `$DOCKER_USERNAME/ckan-env:BRANCH-NAME` (en otras ramas)
+
+## Para trabajo local
+
+Compilar localmente como `ckan-env:latest` (para rama `master`) o `ckan-env:BRANCH-NAME` (en otras ramas)
+
+```
+make local-image
+```
