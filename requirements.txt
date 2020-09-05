@@ -12,3 +12,9 @@ siu-data>=0.2.16
 pyexcel>=-0.5.15
 pyexcel-xls>=0.5.8
 pyexcel-xlsx>=0.5.8
+
+-e git+https://github.com/ckan/ckanext-harvest.git#egg=ckanext-harvest
+-e git+https://github.com/ckan/ckanext-pages.git#egg=ckanext-pages
+-e git+https://github.com/ckan/ckanext-xloader.git#egg=ckanext-xloader
+-e git+https://github.com/avdata99/ckanext-siu-harvester.git#egg=ckanext-siu-harvester
+-e git+https://github.com/avdata99/ckanext-datasetpreview.git#egg=ckanext-datasetpreview
