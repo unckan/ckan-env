@@ -1,0 +1,346 @@
+{
+    "username": "xxxx",
+    "password": "xxxx",
+    "only_files": [
+        "1-PRESUPUESTO-tablero_01.json",
+        "1-PRESUPUESTO-tablero_02.json",
+        "1-PRESUPUESTO-tablero_03.json",
+        "1-PRESUPUESTO-tablero_04.json",
+        "1-PRESUPUESTO-tablero_05.json",
+        "2-COMPRAS-tablero_06.json",
+        "2-COMPRAS-tablero_07.json",
+        "2-COMPRAS-tablero_08.json",
+        "2-COMPRAS-tablero_09.json",
+        "2-COMPRAS-tablero_10.json",
+        "3-PATRIMONIO-tablero_11.json",
+        "3-PATRIMONIO-tablero_12.json",
+        "3-PATRIMONIO-tablero_13.json",
+        "3-PATRIMONIO-tablero_14.json",
+        "3-PATRIMONIO-tablero_15.json",
+        "4-RRHH-tablero_16.json",
+        "4-RRHH-tablero_17.json",
+        "4-RRHH-tablero_18.json",
+        "4-RRHH-tablero_19.json",
+        "4-RRHH-tablero_20.json",
+        "5-ACADEMICA-tablero_21.json",
+        "5-ACADEMICA-tablero_22.json",
+        "5-ACADEMICA-tablero_23.json",
+        "5-ACADEMICA-tablero_24.json",
+        "5-ACADEMICA-tablero_25.json",
+        "5-ACADEMICA-tablero_26.json"
+    ],
+    "override": {
+        "1-PRESUPUESTO-tablero_01.json": {
+            "title": "Gasto por fuente de financiamiento",
+            "name": "gastos-por-fuente-de-financiamiento", 
+            "notes": "",
+            "tags": ["Presupuesto", "Gastos", "Fuentes de financiamiento"],
+            "groups": ["Presupuesto"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "1-PRESUPUESTO-tablero_02.json": {
+            "title": "Evolución del crédito por ejercicio y fuente de financiamiento",
+            "name": "evolucion-del-credito-por-ejercicio-y-fuente-de-financiamiento", 
+            "notes": "",
+            "tags": ["Presupuesto", "Gastos", "Crédito"],
+            "groups": ["Presupuesto"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "1-PRESUPUESTO-tablero_03.json": {
+            "title": "Evolución del gasto por ejercicio",
+            "name": "evolucion-del-gasto-por-ejercicio", 
+            "notes": "",
+            "tags": ["Presupuesto", "Gastos", "Crédito"],
+            "groups": ["Presupuesto"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "1-PRESUPUESTO-tablero_04.json": {
+            "title": "Distribución de gasto por dependencia",
+            "name": "distribucion-de-gasto-por-dependencia", 
+            "notes": "Esta es la distribución de gastos por dependencia",
+            "tags": ["Presupuesto", "Gastos", "Dependencias"],
+            "groups": ["Presupuesto"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "1-PRESUPUESTO-tablero_05.json": {
+            "title": "Distribución de gasto por inciso",
+            "name": "distribucion-de-gasto-por-inciso", 
+            "notes": "Esta es la distribución de gastos por inciso",
+            "tags": ["Presupuesto", "Gastos"],
+            "groups": ["Presupuesto"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "2-COMPRAS-tablero_06.json": {
+            "title": "Evolución del total comprado por dependencia",
+            "name": "comprado-por-dependencia", 
+            "notes": "",
+            "tags": ["Compras", "Gastos", "Dependencias"],
+            "groups": ["Patrimonio"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "2-COMPRAS-tablero_07.json": {
+            "title": "Evolución del total comprado por ejercicio",
+            "name": "comprado-por-ejercicio", 
+            "notes": "",
+            "tags": ["Compras", "Gastos"],
+            "groups": ["Patrimonio"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "2-COMPRAS-tablero_08.json": {
+            "title": "Top 10 de proveedores adjudicados por monto",
+            "name": "top-proveedores-por-monto", 
+            "notes": "",
+            "tags": ["Compras", "Gastos", "Proveedores"],
+            "groups": ["Patrimonio"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "2-COMPRAS-tablero_09.json": {
+            "title": "Top proveedor por rubro",
+            "name": "top-proveedor-por-rubro", 
+            "notes": "",
+            "tags": ["Compras", "Gastos", "Proveedores"],
+            "groups": ["Patrimonio"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "2-COMPRAS-tablero_10.json": {
+            "title": "Compras por rubro",
+            "name": "compras-rubro", 
+            "notes": "",
+            "tags": ["Compras", "Gastos"],
+            "groups": ["Patrimonio"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "3-PATRIMONIO-tablero_11.json": {
+            "title": "Altas patrimoniales por dependencia",
+            "name": "altas-patrimoniales-por-dependencia", 
+            "notes": "",
+            "tags": ["Patrimonio", "Dependencias"],
+            "groups": ["Patrimonio"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "3-PATRIMONIO-tablero_12.json": {
+            "title": "Valuación patrimonial por dependencia",
+            "name": "valuacion-patrimonial-por-dependencia", 
+            "notes": "",
+            "tags": ["Patrimonio", "Dependencias"],
+            "groups": ["Patrimonio"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "3-PATRIMONIO-tablero_13.json": {
+            "title": "Altas patrimoniales por dependencia",
+            "name": "altas-patrimoniales-por-dependencia", 
+            "notes": "",
+            "tags": ["Patrimonio", "Dependencias"],
+            "groups": ["Patrimonio"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "3-PATRIMONIO-tablero_14.json": {
+            "title": "Altas patrimoniales por partida parcial",
+            "name": "altas-patrimoniales-por-partida-parcial", 
+            "notes": "",
+            "tags": ["Patrimonio", "Dependencias"],
+            "groups": ["Patrimonio"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "3-PATRIMONIO-tablero_15.json": {
+            "title": "Valuación patrimonial por partida parcial",
+            "name": "valuacion-patrimonial-por-partida-parcial", 
+            "notes": "",
+            "tags": ["Patrimonio", "Dependencias"],
+            "groups": ["Patrimonio"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "4-RRHH-tablero_16.json": {
+            "title": "Distribución de cargos activos por escalafón",
+            "name": "distribucion-de-cargos-por-escalafon", 
+            "notes": "",
+            "tags": ["Cargos", "Personal"],
+            "groups": ["recursos-humanos"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "4-RRHH-tablero_17.json": {
+            "title": "Distribución de cargos activos por dependencia",
+            "name": "distribucion-de-cargos-por-dependencia", 
+            "notes": "",
+            "tags": ["Cargos", "Personal", "Dependencias"],
+            "groups": ["recursos-humanos"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "4-RRHH-tablero_18.json": {
+            "title": "Evolución de cargos activos por escalafón",
+            "name": "evolucion-de-cargos-activos-por-escalafon", 
+            "notes": "",
+            "tags": ["Cargos", "Personal"],
+            "groups": ["recursos-humanos"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "4-RRHH-tablero_19.json": {
+            "title": "Evolución de cargos activos por dependencia",
+            "name": "evolucion-de-cargos-activos-por-dependencia", 
+            "notes": "",
+            "tags": ["Cargos", "Personal", "Dependencias"],
+            "groups": ["recursos-humanos"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "4-RRHH-tablero_20.json": {
+            "title": "Evolución de cargos activos por género",
+            "name": "evolucion-de-cargos-activos-por-genero", 
+            "notes": "",
+            "tags": ["Cargos", "Personal", "Dependencias"],
+            "groups": ["recursos-humanos"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "5-ACADEMICA-tablero_21.json": {
+            "title": "Distribución de egresados por facultad",
+            "name": "distribucion-de-egresados-por-facultad", 
+            "notes": "Esta es la cantidad de egresados por facultad de este año",
+            "tags": ["Egresados"],
+            "groups": ["academica"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "5-ACADEMICA-tablero_22.json": {
+            "title": "Distribución de egresados por carrera",
+            "name": "distribucion-de-egresados-por-carrera", 
+            "notes": "Esta es la cantidad de egresados por carrera",
+            "tags": ["Egresados", "Carreras"],
+            "groups": ["academica"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "5-ACADEMICA-tablero_23.json": {
+            "title": "Nuevos inscriptos por Facultad",
+            "name": "nuevos-inscriptos-por-facultad", 
+            "notes": "",
+            "tags": ["Egresados", "Dependencia"],
+            "groups": ["academica"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "5-ACADEMICA-tablero_24.json": {
+            "title": "Nuevos inscriptos por Facultad por año",
+            "name": "nuevos-inscriptos-por-facultad-por-anio", 
+            "notes": "Cantidad de ingresantes por año por facultad",
+            "tags": ["Egresados", "Dependencia"],
+            "groups": ["academica"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "5-ACADEMICA-tablero_25.json": {
+            "title": "Egresados por año",
+            "name": "nuevos-egresados-por-anio", 
+            "notes": "Cantidad de egresados por año por facultad",
+            "tags": ["Egresados", "Dependencia"],
+            "groups": ["academica"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        },
+        "5-ACADEMICA-tablero_26.json": {
+            "title": "Egresados por Facultad por año",
+            "name": "egresados-por-facultad-por-anio", 
+            "notes": "Cantidad de egresados por facultad durante un año académico. Porcentaje según facultad",
+            "tags": ["Egresados", "Dependencia"],
+            "groups": ["academica"],
+            "extras": {
+                "dataset_preview": {
+                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    }
+                }
+        }
+    }
+}
