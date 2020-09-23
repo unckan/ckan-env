@@ -237,12 +237,7 @@
             "name": "evolucion-de-cargos-activos-por-escalafon", 
             "notes": "",
             "tags": ["Cargos", "Personal"],
-            "groups": ["recursos-humanos"],
-            "extras": {
-                "dataset_preview": {
-                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
-                    }
-                }
+            "groups": ["recursos-humanos"]
         },
         "4-RRHH-tablero_19.json": {
             "title": "Evolución de cargos activos por dependencia",
