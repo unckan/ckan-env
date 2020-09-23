@@ -38,7 +38,7 @@
             "groups": ["Presupuesto"],
             "extras": {
                 "dataset_preview": {
-                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    "chart": {"height": "250", "chart_type": "Bar", "chart_color": "#FF3331", "fields": "[0, 1]"}
                     }
                 }
         },
@@ -62,7 +62,7 @@
             "groups": ["Presupuesto"],
             "extras": {
                 "dataset_preview": {
-                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    "chart": {"height": "250", "chart_type": "Pie", "chart_color": "#00AADD", "fields": "[0, 1]"}
                     }
                 }
         },
@@ -74,7 +74,7 @@
             "groups": ["Presupuesto"],
             "extras": {
                 "dataset_preview": {
-                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    "chart": {"height": "250", "chart_type": "Bar", "chart_color": "#00DD32", "fields": "[0, 1]"}
                     }
                 }
         },
@@ -98,7 +98,7 @@
             "groups": ["Patrimonio"],
             "extras": {
                 "dataset_preview": {
-                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    "chart": {"height": "250", "chart_type": "Pie", "chart_color": "#30AA71", "fields": "[0, 1]"}
                     }
                 }
         },
@@ -194,7 +194,7 @@
             "groups": ["Patrimonio"],
             "extras": {
                 "dataset_preview": {
-                    "chart": {"height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"}
+                    "chart": {"height": "250", "chart_type": "Bar", "chart_color": "#AA0071", "fields": "['partida_parcial_desc', 'total_valor_bienes']"}
                     }
                 }
         },
