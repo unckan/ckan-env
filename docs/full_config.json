@@ -45,12 +45,7 @@
             "name": "evolucion-del-credito-por-ejercicio-y-fuente-de-financiamiento", 
             "notes": "",
             "tags": ["Presupuesto", "Gastos", "Crédito"],
-            "groups": ["Presupuesto"],
-            "extras": {
-                "dataset_preview": {
-                    "height": "250", "chart_type": "Column", "chart_color": "#30AA71", "fields": "[0, 1]"
-                    }
-                }
+            "groups": ["Presupuesto"]
         },
         "1-PRESUPUESTO-tablero_03.json": {
             "title": "Evolución del gasto por ejercicio",
