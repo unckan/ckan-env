@@ -13,10 +13,6 @@ COPY ckan/docker-entrypoint.d/* /docker-entrypoint.d/
 ADD requirements.txt /requirements.txt
 
 RUN pip install --upgrade pip && \
-    pip install -r /requirements.txt
+    pip install -r /requirements.txt --use-feature=2020-resolver
 
-RUN pip install -e git+https://github.com/ckan/ckanext-harvest.git#egg=ckanext-harvest && \
-    pip install -e git+https://github.com/ckan/ckanext-pages.git#egg=ckanext-pages && \
-    pip install -e git+https://github.com/ckan/ckanext-xloader.git#egg=ckanext-xloader && \
-    pip install -e git+https://github.com/avdata99/ckanext-siu-harvester.git#egg=ckanext-siu-harvester && \
-    pip install -e git+https://github.com/avdata99/ckanext-datasetpreview.git#egg=ckanext-datasetpreview
+RUN chown -R ckan:ckan $CKAN_STORAGE_PATH
