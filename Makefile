@@ -29,6 +29,10 @@ debug:
 up:
 	docker-compose up
 
+build-up:
+	docker-compose build
+	docker-compose up
+
 harvest-gather-local:
 	docker-compose exec ckan paster --plugin=ckanext-harvest harvester gather_consumer
 

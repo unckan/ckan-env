@@ -18,3 +18,4 @@ pyexcel-xlsx>=0.5.8
 -e git+https://github.com/ckan/ckanext-xloader.git#egg=ckanext-xloader
 -e git+https://github.com/avdata99/ckanext-siu-harvester.git#egg=ckanext-siu-harvester
 -e git+https://github.com/avdata99/ckanext-datasetpreview.git#egg=ckanext-datasetpreview
+-e git+https://github.com/localidata/ckanext-basiccharts.git#egg=ckanext-basiccharts
