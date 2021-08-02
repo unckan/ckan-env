@@ -30,7 +30,3 @@ El portal completo está compuesto por:
 ```
 docker-compose up
 ```
-
-## Deploy a dockerhub 
-
-Se realiza automáticamente con cada push (vía _Travis_) a `$DOCKER_USERNAME/ckan-env/latest` (para rama `master`) o `$DOCKER_USERNAME/ckan-env:BRANCH-NAME` (en otras ramas)

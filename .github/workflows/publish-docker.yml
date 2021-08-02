@@ -23,11 +23,11 @@ jobs:
           context: ckan-2.8
           file: ckan-2.8/Dockerfile
           push: true
-          tags: avdata99/ckan-2.8-test
+          tags: avdata99/ckan-env:ckan28
       - name: Build ckan-base 2.9
         uses: docker/build-push-action@v2
         with:
           context: ckan-2.9/ckan
           file: ckan-2.9/ckan/Dockerfile
           push: true
-          tags: avdata99/ckan-2.9-test
+          tags: avdata99/ckan-env:ckan29
