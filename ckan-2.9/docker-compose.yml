@@ -2,31 +2,40 @@ version: "3"
 
 services:
   ckan:
-    build: 
-      context: .
+    build:
+      context: ckan/
+      dockerfile: Dockerfile
+      args:
+        - TZ=${TZ}
     env_file:
       - .env
-    depends_on:
+    links:
       - db
       - solr
       - redis
     ports:
-      - "5000:5000"
+      - "0.0.0.0:${CKAN_PORT}:5000"
     volumes:
       - ./src:/srv/app/src_extensions
       - ckan_storage:/var/lib/ckan
-      # debug locally
       # - /home/user/myfolder/ckanext-siu-harvester:/srv/app/src_extensions/ckanext-siu-harvester
 
   db:
-    env_file:
-      - .env
+    container_name: db
     build:
       context: postgresql/
+      args:
+        - DATASTORE_READONLY_PASSWORD=${DATASTORE_READONLY_PASSWORD}
+        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    environment:
+      - DATASTORE_READONLY_PASSWORD=${DATASTORE_READONLY_PASSWORD}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - PGDATA=/var/lib/postgresql/data/db
     volumes:
       - pg_data:/var/lib/postgresql/data
 
   solr:
+    container_name: solr
     build:
       context: solr/
     ports:
@@ -35,6 +44,7 @@ services:
       - solr_data:/opt/solr/server/solr/ckan/data/index
 
   redis:
+    container_name: redis
     image: redis:alpine
 
 volumes:

@@ -1,0 +1,22 @@
+ckantoolkit==0.0.3
+pika>=1.1.0
+pyOpenSSL==18.0.0
+# redis>=3.5.3
+redis>=2.10.6
+six>=1.12.0
+messytables==0.15.2
+Unidecode==1.0.22
+requests>=2.23.0
+python-slugify>=1.2.6
+siu-data>=0.2.16
+pyexcel>=-0.5.15
+pyexcel-xls>=0.5.8
+pyexcel-xlsx>=0.5.8
+
+-e git+https://github.com/ckan/ckanext-harvest.git#egg=ckanext-harvest
+-e git+https://github.com/ckan/ckanext-pages.git#egg=ckanext-pages
+-e git+https://github.com/ckan/ckanext-xloader.git#egg=ckanext-xloader
+-e git+https://github.com/avdata99/ckanext-siu-harvester.git#egg=ckanext-siu-harvester
+-e git+https://github.com/avdata99/ckanext-datasetpreview.git#egg=ckanext-datasetpreview
+-e git+https://github.com/localidata/ckanext-basiccharts.git#egg=ckanext-basiccharts
+# -e git+https://github.com/avdata99/ckanext-ui-universidad.git#egg=ckanext-ui-universidad
