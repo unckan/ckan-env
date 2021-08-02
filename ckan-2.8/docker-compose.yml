@@ -16,8 +16,7 @@ services:
       - ./src:/srv/app/src_extensions
       - ckan_storage:/var/lib/ckan
       # debug locally
-      # - /home/hudson/dev/UNC/ckanext-siu-harvester:/srv/app/src_extensions/ckanext-siu-harvester
-      
+      # - /home/user/myfolder/ckanext-siu-harvester:/srv/app/src_extensions/ckanext-siu-harvester
 
   db:
     env_file:
