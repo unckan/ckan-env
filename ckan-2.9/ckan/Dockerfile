@@ -55,6 +55,7 @@ RUN apk add --no-cache tzdata \
     # Install pip, supervisord and uwsgi
     curl -o ${SRC_DIR}/get-pip.py https://bootstrap.pypa.io/get-pip.py && \
     python3 ${SRC_DIR}/get-pip.py && \
+    pip3 install -U pip && \
     pip3 install supervisor && \
     mkdir /etc/supervisord.d && \
     #pip wheel --wheel-dir=/wheels uwsgi gevent && \
@@ -104,7 +105,7 @@ RUN cp /usr/share/zoneinfo/$TZ /etc/localtime
 
 # Install this project requirements
 COPY ckan-uni-requirements.txt ${APP_DIR}
-RUN pip install --no-binary :all: -r ${APP_DIR}/ckan-uni-requirements.txt
+RUN pip3 install --no-binary :all: -r ${APP_DIR}/ckan-uni-requirements.txt
 
 # Apply any patches needed to CKAN core or any of the built extensions (not the
 # runtime mounted ones)
@@ -119,4 +120,5 @@ RUN for d in $APP_DIR/patches/*; do \
         fi ; \
     done
 
+ENV SRC_EXTENSIONS_DIR=/srv/app/src_extensions
 CMD ["/srv/app/start_ckan.sh"]

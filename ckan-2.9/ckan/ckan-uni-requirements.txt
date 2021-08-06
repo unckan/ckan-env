@@ -1,3 +1,4 @@
+siu-data>=0.3.5
 ckantoolkit==0.0.3
 pika>=1.1.0
 pyOpenSSL==18.0.0
@@ -8,7 +9,6 @@ messytables==0.15.2
 Unidecode==1.0.22
 requests>=2.23.0
 python-slugify>=1.2.6
-siu-data>=0.2.16
 pyexcel>=-0.5.15
 pyexcel-xls>=0.5.8
 pyexcel-xlsx>=0.5.8

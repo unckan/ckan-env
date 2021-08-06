@@ -18,7 +18,11 @@ services:
     volumes:
       - ./src:/srv/app/src_extensions
       - ckan_storage:/var/lib/ckan
-      # - /home/user/myfolder/ckanext-siu-harvester:/srv/app/src_extensions/ckanext-siu-harvester
+      # - /home/user/myfolder/ckanext-siu-harvester:/srv/app/src/ckanext-siu-harvester
+      - /home/victor/dev/unc/ckanext-siu-harvester:/srv/app/src_extensions/ckanext-siu-harvester
+      - /home/victor/dev/unc/ckanext-datasetpreview:/srv/app/src_extensions/ckanext-datasetpreview
+      - /home/victor/dev/unc/pySIUdata/siu_data:/usr/lib/python3.8/site-packages/siu_data
+      - /home/victor/dev/unc/ckanext-harvest:/srv/app/src_extensions/ckanext-harvest
 
   db:
     container_name: db
