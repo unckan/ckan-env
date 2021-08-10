@@ -100,8 +100,11 @@ HEALTHCHECK --interval=60s --timeout=5s --retries=5 CMD curl --fail http://local
 
 # Set timezone
 ARG TZ
-RUN echo $TZ > /etc/timezone
-RUN cp /usr/share/zoneinfo/$TZ /etc/localtime
+# RUN echo $TZ > /etc/timezone
+# RUN cp /usr/share/zoneinfo/$TZ /etc/localtime
+
+RUN echo America/Argentina/Cordoba > /etc/timezone
+RUN cp /usr/share/zoneinfo/America/Argentina/Cordoba /etc/localtime
 
 RUN pip3 install siu-data==0.3.5 --ignore-installed
 # Install this project requirements
