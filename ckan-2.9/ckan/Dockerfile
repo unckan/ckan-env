@@ -106,7 +106,6 @@ ARG TZ
 RUN echo America/Argentina/Cordoba > /etc/timezone
 RUN cp /usr/share/zoneinfo/America/Argentina/Cordoba /etc/localtime
 
-RUN pip3 install siu-data==0.3.5 --ignore-installed
 # Install this project requirements
 COPY ckan-uni-requirements.txt ${APP_DIR}
 RUN pip3 install --no-binary :all: -r ${APP_DIR}/ckan-uni-requirements.txt
