@@ -6,27 +6,30 @@
 # Entorno CKAN para Universidades Argentinas
 
 Entorno completo CKAN orientado a Universidades Argentinas.  
+Este proyecto esta orientado a permitir automatizar la publicación de datos universitario masivamente y sin requerir mayor esfuerzo técnico.  
+Por el momento permite automatizar la publicación de datos ya contenidos en los sistemas SIU, que ya utilizan casi todas las universidades argentinas.  
+Esta en los planes extraer datos de las instancias de SIGEva de CONICET.  
+Al estar desarrollado sobre CKAN este proyecto permite además subir datos manualmente o desarrollar conectores a otros sistemas.  
 
-Permite extraer datos de sistemas SIU con el plugin [ckanext-siu-harvester](https://github.com/avdata99/ckanext-siu-harvester) (que incluye la librería [siu-data](https://github.com/avdata99/pySIUdata)).  
-
-Incluye tambien la extension para previsualizaciones [ckanext-datasetpreview](https://github.com/avdata99/ckanext-datasetpreview/blob/master/README.md).  
-
-El template usado está en el repositorio [ckanext-ui-universidad](https://github.com/avdata99/ckanext-ui-universidad).
-
-ckan-env/develop imagen oficial actual.
 
 ## Entorno
 
 El portal completo está compuesto por:
- - CKAN 2.9 (python 3) y CKAN 2.8.4 (Python 2, requiere actualizarse)
+ - CKAN 2.9 (python 3) y preserva la version anterior con CKAN 2.8.4 (Python 2)
    + Portal de datos base
- - ckanext-siu-harvester
-   + Extensión para cosechar datos desde sistemas SIU
- - ckanext-datasetpreview
-   + Extension para agregar gráficos en la lista de datasets
+ - Extensiones
+   + [SIU Harvester](https://github.com/avdata99/ckanext-siu-harvester): Extensión para cosechar datos desde sistemas [SIU](https://www.siu.edu.ar/) usando la librería [pySIUData](https://github.com/avdata99/pySIUdata) (creada especialmente como parte de este proceso).
+   + [Dataset previews](https://github.com/avdata99/ckanext-datasetpreview): Extensión CKAN para agregar gráficos a los datasets de manera simple.
+   + El template CKAN usado está en el repositorio [UI Universidad](https://github.com/avdata99/ckanext-ui-universidad).
+   + Incluye además otras extensiones desarrolladas por la comunidad CKAN.
+   + [En desarrollo](https://github.com/avdata99/pysigeva): Integración con el [SIGEva (Sistema Integral de Gestión y Evaluación)](https://sigeva.conicet.gov.ar/) de CONICET.
 
 ## Correr localmente
 
 ```
 docker-compose up
 ```
+
+## Imagen pública
+
+La compilación de esta imagen esta [disponible en DockerHub](https://hub.docker.com/r/avdata99/ckan-env/tags?page=1&ordering=last_updated) (el tag ckan29 corresponde a la ultima version en desarrollo).  
