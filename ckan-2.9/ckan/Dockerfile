@@ -108,7 +108,7 @@ RUN cp /usr/share/zoneinfo/America/Argentina/Cordoba /etc/localtime
 
 # Install this project requirements
 COPY ckan-uni-requirements.txt ${APP_DIR}
-RUN pip3 install --no-binary :all: -r ${APP_DIR}/ckan-uni-requirements.txt
+RUN pip3 install -r ${APP_DIR}/ckan-uni-requirements.txt
 
 # Apply any patches needed to CKAN core or any of the built extensions (not the
 # runtime mounted ones)
