@@ -91,6 +91,7 @@ ADD https://raw.githubusercontent.com/ckan/ckan/${GIT_BRANCH}/wsgi.py ${APP_DIR}
 
 # Create entrypoint directory for children image scripts
 ONBUILD RUN mkdir /docker-entrypoint.d
+COPY docker-entrypoint.d/* /docker-entrypoint.d/
 
 RUN chown ckan -R /srv/app
 
