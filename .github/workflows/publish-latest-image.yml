@@ -1,4 +1,4 @@
-name: Build and publish docker-ckan image
+name: Build and publish production docker-ckan image version
 on: 
   push:
     branches:
