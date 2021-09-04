@@ -125,6 +125,4 @@ RUN for d in $APP_DIR/patches/*; do \
         fi ; \
     done
 
-ENV SRC_EXTENSIONS_DIR=/srv/app/src_extensions
-RUN pip3 install flask-debugtoolbar
-CMD ["/srv/app/start_ckan_dev.sh"]
+CMD ["/srv/app/start_ckan.sh"]

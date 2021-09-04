@@ -1,5 +1,6 @@
 # custom compose files for devs
 docker-compose.yml
+docker-compose-prod.yml
 
 ckan-2.8/src/*
 ckan-2.9/src/*
