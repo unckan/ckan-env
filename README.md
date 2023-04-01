@@ -15,7 +15,7 @@ Al estar desarrollado sobre CKAN este proyecto permite además subir datos manua
 ## Entorno
 
 El portal completo está compuesto por:
- - CKAN 2.9 (python 3) y preserva la version anterior con CKAN 2.8.4 (Python 2)
+ - CKAN 2.9 (python 3)
    + Portal de datos base
  - Extensiones
    + [SIU Harvester](https://github.com/unckan/ckanext-siu-harvester): Extensión para cosechar datos desde sistemas [SIU](https://www.siu.edu.ar/) usando la librería [pySIUData](https://github.com/unckan/pySIUdata) (creada especialmente como parte de este proceso).
