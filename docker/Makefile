@@ -1,7 +1,20 @@
 .PHONY: build clean up debug
 	
 build:
-	docker-compose build
+	@if [ ! -f .env ]; then cp .env.example .env; fi
+	@if [ ! -f docker-compose.yml ]; then cp docker-compose.example.yml docker-compose.yml; fi
+	$(eval -include .env)
+	BUILDKIT_PROGRESS=plain docker build \
+		--file ckan/Dockerfile \
+		--build-arg ENV_NAME=${ENV_NAME} \
+		--build-arg CKAN_GIT_URL=${CKAN_GIT_URL} \
+		--build-arg CKAN_GIT_BRANCH=${CKAN_GIT_BRANCH} \
+		--build-arg TZ=${TZ} \
+		-t unckan:${ENV_NAME} ckan
+	docker compose build
+
+down:
+	docker-compose down
 
 clean:
 	docker-compose down -v --remove-orphans
@@ -16,15 +29,6 @@ up:
 build-up:
 	docker-compose build
 	docker-compose up
-
-gather:
-	docker-compose exec ckan ckan harvester gather-consumer
-
-fetch:
-	docker-compose exec ckan ckan harvester fetch-consumer
-
-harvest-run:
-	docker-compose exec ckan ckan harvester run
 
 ckan-worker:
 	docker-compose exec ckan ckan jobs worker

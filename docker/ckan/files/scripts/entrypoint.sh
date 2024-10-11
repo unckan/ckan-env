@@ -1,5 +1,10 @@
 #!/bin/bash -e
 echo "Executing entrypoint.sh for $ENV_NAME environment"
+while TRUE:
+do
+    echo "Waiting for database to be ready..."
+    sleep 3
+done
 
 if [ "$ENV_NAME" = "local" ] ; then
     # If we are in the local environment, install the local extensions
@@ -30,16 +35,9 @@ echo "Applying migrations for announcements"
 ckan db upgrade -p announcements
 echo "Applying migrations for uni"
 ckan db upgrade -p uni
-echo "Applying migrations for Datapusher+"
-ckan db upgrade -p datapusher_plus
-echo "Applying migrations for tracking"
-ckan db upgrade -p tracking
 
 # Rebuild search index
 ckan search-index rebuild
-# Update tracking
-LAST_MONTH=$(date -d '60 days ago' +'%Y-%m-%d')
-ckan tracking update $LAST_MONTH
 
 # Datapusher+ requires a valid API token to operate
 echo "Creating a valid API token for Datapusher+"
