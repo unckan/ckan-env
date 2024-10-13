@@ -1,7 +1,9 @@
 #!/bin/bash -e
 
+echo "Installing CKAN ..."
+
+
 # load env vars from ${APP_DIR}/.env
-echo "Export envs"
 set -o allexport
 . ${APP_DIR}/.env
 set +o allexport
@@ -10,8 +12,8 @@ echo "Setup python env for python ver $(python3 --version)"
 python3 -m venv ${APP_DIR}/venv
 source ${APP_DIR}/venv/bin/activate
 
-echo "Creating CKAN storage directory: $CKAN_STORAGE_PATH"
-mkdir -p ${APP_DIR}/${CKAN_STORAGE_PATH}
+echo "Creating CKAN storage directory: $CKAN_STORAGE_FOLDER"
+mkdir -p ${APP_DIR}/${CKAN_STORAGE_FOLDER}
 
 echo "------ Checking out upstream CKAN: $GIT_BRANCH ------"
 cd ${SRC_DIR}
@@ -21,7 +23,8 @@ cd ckan
 echo "------ Installing requirements ------"
 pip install -r requirements.txt
 
-if [ "$ENV_NAME" = "dev" ]; then
+# The boolean IS_DEV_ENV define if we need to install dev requirements
+if [ "$IS_DEV_ENV" = "true" ] ; then
   echo "------ Installing dev requirements ------"
   pip install -r dev-requirements.txt
   pip install flask-debugtoolbar
@@ -41,5 +44,7 @@ for dir in ${PATCH_FOLDER}/*; do \
     done ; \
 done
 
-echo "------ Installing CKAN ------"
+echo "Installing CKAN package"
 pip install .
+
+echo "CKAN installed"

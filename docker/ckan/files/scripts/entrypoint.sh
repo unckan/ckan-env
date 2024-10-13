@@ -1,6 +1,7 @@
 #!/bin/bash -e
 echo "Executing entrypoint.sh for $ENV_NAME environment"
-while TRUE:
+# infinite loop
+while true;
 do
     echo "Waiting for database to be ready..."
     sleep 3
