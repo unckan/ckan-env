@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-echo "Installing CKAN ..."
+echo "Installing CKAN $CKAN_GIT_BRANCH :: $CKAN_GIT_URL"
 
 
 # load env vars from ${APP_DIR}/.env
@@ -15,9 +15,10 @@ source ${APP_DIR}/venv/bin/activate
 echo "Creating CKAN storage directory: $CKAN_STORAGE_FOLDER"
 mkdir -p ${APP_DIR}/${CKAN_STORAGE_FOLDER}
 
-echo "------ Checking out upstream CKAN: $GIT_BRANCH ------"
-cd ${SRC_DIR}
-git clone -b "$GIT_BRANCH" https://github.com/ckan/ckan.git ckan
+# Create a source folder
+mkdir src
+cd src
+git clone -b "$CKAN_GIT_BRANCH" $CKAN_GIT_URL ckan
 cd ckan
 
 echo "------ Installing requirements ------"

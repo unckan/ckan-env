@@ -17,7 +17,13 @@ COPY files ${APP_DIR}/files
 RUN ${APP_DIR}/files/scripts/build-env-vars.sh
 
 # Install OS dependencies
+RUN ${APP_DIR}/files/scripts/install-python.sh
 RUN ${APP_DIR}/files/scripts/install-os-deps.sh
+
+# Create the ckan user
+RUN useradd -m -s /bin/bash ckan
+RUN chown ckan -R ${APP_DIR}
+USER ckan
 
 # Install CKAN
 RUN ${APP_DIR}/files/scripts/install-ckan.sh
