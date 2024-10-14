@@ -1,16 +1,15 @@
 #!/bin/bash -e
-echo "Executing entrypoint.sh for $ENV_NAME environment"
-# infinite loop
-while true;
-do
-    echo "Waiting for database to be ready..."
-    sleep 3
-done
 
-if [ "$ENV_NAME" = "local" ] ; then
+# load env vars from ${APP_DIR}/.env
+set -o allexport
+. ${APP_DIR}/.env
+set +o allexport
+
+echo "Executing entrypoint.sh"
+
+if [ "$IS_DEV_ENV" = "true" ] ; then
     # If we are in the local environment, install the local extensions
     PREPARE_SCRIPT=$APP_DIR/files/scripts/prepare-local-dev-extensions.sh
-    chmod u+x $PREPARE_SCRIPT
     $PREPARE_SCRIPT
 fi
 
@@ -18,6 +17,12 @@ if [ -z "$SQLALCHEMY_URL" ]; then
   echo "SQLALCHEMY_URL is not set. Exiting."
   exit 1
 fi
+
+while true;
+do
+    echo "Waiting to be ready..."
+    sleep 3
+done
 
 # Wait for the database to be ready
 until psql -d $SQLALCHEMY_URL -c '\q'; do
