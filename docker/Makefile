@@ -19,7 +19,7 @@ clean:
 
 debug:
 	docker compose build
-	docker compose run --service-ports ckan
+	docker compose run --service-ports ckan_uni
 
 up:
 	docker compose up
@@ -29,4 +29,7 @@ build-up:
 	docker compose up
 
 ckan-worker:
-	docker compose exec ckan ckan jobs worker
+	docker compose exec ckan_uni ckan jobs worker
+
+bash:
+	docker compose exec ckan_uni bash

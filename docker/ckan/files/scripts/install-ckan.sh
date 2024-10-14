@@ -15,8 +15,7 @@ echo "Creating CKAN storage directory: $CKAN_STORAGE_FOLDER"
 mkdir -p ${APP_DIR}/${CKAN_STORAGE_FOLDER}
 
 # Create a source folder
-mkdir src
-cd src
+cd ${APP_DIR}
 git clone -b "$CKAN_GIT_BRANCH" $CKAN_GIT_URL ckan
 cd ckan
 

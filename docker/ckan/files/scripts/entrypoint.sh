@@ -59,7 +59,4 @@ supervisorctl start ckan
 
 echo "Finished entrypoint.sh"
 
-while true; do
-  sleep 1000
-  echo "Sleeping"
-done
+tail -f /var/log/supervisor/*.log
