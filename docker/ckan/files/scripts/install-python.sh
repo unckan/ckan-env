@@ -1,13 +1,6 @@
 #!/bin/bash -e
 
-echo "Installing OS dependencies"
-
-# load env vars from ${APP_DIR}/.env
-set -o allexport
-. ${APP_DIR}/.env
-set +o allexport
-
-apt update
+echo "Installing Python"
 
 # =====================================================
 # Install Python3 with the default version
