@@ -3,6 +3,7 @@
 # From ckan docker base
 # https://github.com/ckan/ckan-docker-base/blob/main/ckan-2.10/dev/setup/start_ckan_development.sh#L9-L48
 # All CKAN extensions in this folder will be installed in the CKAN development environment
+source ${APP_DIR}/venv/bin/activate
 cd $APP_DIR
 
 SRC_EXTENSIONS_DIR=$APP_DIR/src_extensions

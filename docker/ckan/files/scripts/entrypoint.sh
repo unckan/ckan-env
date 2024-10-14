@@ -41,16 +41,20 @@ ckan config-tool ckan.ini "ckanext.datapusher_plus.api_token=${DATAPUSHER_TOKEN}
 # Rebuild webassets in can they were patched
 ckan asset build
 
-# Execute gunicorn pointing to CKAN's wsgi application
-echo "Starting gunicorn"
-GUNICORN=${APP_DIR}/venv/bin//gunicorn
-
+# Start supervidor
+echo "Supervisor start"
+supervisorctl start
+echo "Updating supervisor"
+supervisorctl reread
+supervisorctl update
 
 # Start the development server as the ckan user with automatic reload
+echo "Starting CKAN gunicorn"
 if [ "$IS_DEV_ENV" = "true" ] ; then
     supervisorctl start ckan-dev
 else
-    $GUNICORN -w 4 -b 0.0.0.0:5000 --chdir $APP_DIR wsgi:application --timeout 360
+    supervisorctl start ckan
+    # $GUNICORN -w 4 -b 0.0.0.0:5000 --chdir $APP_DIR wsgi:application --timeout 360
 fi
 
 echo "Finished entrypoint.sh"
