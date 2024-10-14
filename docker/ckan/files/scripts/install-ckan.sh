@@ -5,10 +5,11 @@ set -o allexport
 . ${APP_DIR}/.env
 set +o allexport
 
-echo "Installing CKAN $CKAN_GIT_BRANCH :: $CKAN_GIT_URL :: $(python3 --version)"
+echo "Installing CKAN $CKAN_GIT_BRANCH :: $CKAN_GIT_URL :: $(python --version)"
 
-python3 -m venv ${APP_DIR}/venv
+python -m venv ${APP_DIR}/venv
 source ${APP_DIR}/venv/bin/activate
+pip install gunicorn
 
 echo "Creating CKAN storage directory: $CKAN_STORAGE_FOLDER"
 mkdir -p ${APP_DIR}/${CKAN_STORAGE_FOLDER}

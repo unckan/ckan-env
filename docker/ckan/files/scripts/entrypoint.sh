@@ -24,6 +24,8 @@ done
 
 echo "Postgres is up, continue"
 
+source ${APP_DIR}/venv/bin/activate
+
 echo "CKAN DB init"
 ckan db init
 
@@ -36,40 +38,19 @@ DATAPUSHER_TOKEN=$(ckan user token add default datapusher_multi expires_in=365 u
 ckan config-tool ckan.ini "ckan.datapusher.api_token=${DATAPUSHER_TOKEN}"
 ckan config-tool ckan.ini "ckanext.datapusher_plus.api_token=${DATAPUSHER_TOKEN}"
 
-# Start supervisor to run CKAN workers (Datapusher+)
-echo "Starting supervisor"
-service supervisor start
-
-# Ensure storage directory with ckan permission (exclude venv which is huge)
-chown -R ckan:ckan $APP_DIR/storage
-
 # Rebuild webassets in can they were patched
 ckan asset build
 
-# If exists, fix $APP_DIR/webassets for local
-if [ -d "$APP_DIR/webassets" ]; then
-    chown -R ckan:ckan $APP_DIR/webassets
-fi
-
-echo "Validating yacron"
-# Validate yacron file
-yacron -c /etc/yacron.d/yacrontab.yaml --validate
-
-echo "Starting yacron"
-# Start yacron in the background
-yacron -c /etc/yacron.d/yacrontab.yaml &
-
 # Execute gunicorn pointing to CKAN's wsgi application
 echo "Starting gunicorn"
-GUNICORN=$APP_DIR/venv/bin/gunicorn
+GUNICORN=${APP_DIR}/venv/bin//gunicorn
+
 
 # Start the development server as the ckan user with automatic reload
-if [ "$ENV_NAME" = "local" ] ; then
-    CERT=$APP_DIR/files/cert/localhost.cert
-    KEY=$APP_DIR/files/cert/localhost.key
-    su - ckan -c "$GUNICORN -w 4 -b 0.0.0.0:5000 --chdir $APP_DIR --certfile=$CERT --keyfile=$KEY --reload wsgi:application"
+if [ "$IS_DEV_ENV" = "true" ] ; then
+    supervisorctl start ckan-dev
 else
-    su - ckan -c "$GUNICORN -w 4 -b 0.0.0.0:5000 --chdir $APP_DIR wsgi:application --timeout 360"
+    $GUNICORN -w 4 -b 0.0.0.0:5000 --chdir $APP_DIR wsgi:application --timeout 360
 fi
 
 echo "Finished entrypoint.sh"

@@ -19,6 +19,7 @@ RUN ${APP_DIR}/files/scripts/build-env-vars.sh
 # Install OS dependencies
 RUN ${APP_DIR}/files/scripts/install-python.sh
 RUN ${APP_DIR}/files/scripts/install-os-deps.sh
+RUN ${APP_DIR}/files/scripts/prepare-supervisor.sh
 
 # Create the ckan user
 RUN useradd -m -s /bin/bash ckan
@@ -26,6 +27,7 @@ RUN chown ckan -R ${APP_DIR}
 USER ckan
 
 # Install CKAN
+RUN mv ${APP_DIR}/files/ckan.ini ${CKAN_INI}
 RUN ${APP_DIR}/files/scripts/install-ckan.sh
 
 COPY files/scripts/entrypoint.sh ${APP_DIR}/entrypoint.sh 
