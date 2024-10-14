@@ -43,18 +43,23 @@ ckan asset build
 
 # Start supervidor
 echo "Supervisor start"
-supervisorctl start
+# get all stdout and stderr for "service supervisor start"
+service supervisor start
+echo "Supervisor started: $?"
+
 echo "Updating supervisor"
 supervisorctl reread
+echo "Superivsor reread: $?"
 supervisorctl update
+echo "Superivsor update: $?"
 
 # Start the development server as the ckan user with automatic reload
 echo "Starting CKAN gunicorn"
-if [ "$IS_DEV_ENV" = "true" ] ; then
-    supervisorctl start ckan-dev
-else
-    supervisorctl start ckan
-    # $GUNICORN -w 4 -b 0.0.0.0:5000 --chdir $APP_DIR wsgi:application --timeout 360
-fi
+supervisorctl start ckan
 
 echo "Finished entrypoint.sh"
+
+while true; do
+  sleep 1000
+  echo "Sleeping"
+done
