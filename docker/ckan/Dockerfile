@@ -29,6 +29,7 @@ USER ckan
 # Install CKAN
 RUN mv ${APP_DIR}/files/ckan.ini ${CKAN_INI}
 RUN ${APP_DIR}/files/scripts/install-ckan.sh
+RUN ${APP_DIR}/files/scripts/setup-ckan-ini-file.sh
 
 COPY files/scripts/entrypoint.sh ${APP_DIR}/entrypoint.sh 
 
