@@ -32,4 +32,5 @@ HEALTHCHECK --interval=60s --timeout=5s --retries=5 CMD curl --fail http://local
 
 EXPOSE 5000
 
-ENTRYPOINT [ "./files/scripts/entrypoint.sh" ]
+COPY files/scripts/entrypoint.sh ${APP_DIR}/entrypoint.sh 
+ENTRYPOINT [ "./entrypoint.sh" ]

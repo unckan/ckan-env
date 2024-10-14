@@ -5,7 +5,7 @@ set -o allexport
 . ${APP_DIR}/.env
 set +o allexport
 
-echo "Executing entrypoint.sh"
+echo "Executing entrypoint.sh ($IS_DEV_ENV)"
 
 if [ "$IS_DEV_ENV" = "true" ] ; then
     # If we are in the local environment, install the local extensions

@@ -9,24 +9,24 @@ build:
 		--build-arg ENV_NAME=${ENV_NAME} \
 		--build-arg TZ=${TZ} \
 		-t unckan:${ENV_NAME} ckan
-	# docker compose build
+	echo "Build done unckan:${ENV_NAME}"
 
 down:
-	docker-compose down
+	docker compose down
 
 clean:
-	docker-compose down -v --remove-orphans
+	docker compose down -v --remove-orphans
 
 debug:
-	docker-compose build
-	docker-compose run --service-ports ckan
+	docker compose build
+	docker compose run --service-ports ckan
 
 up:
-	docker-compose up
+	docker compose up
 
 build-up:
-	docker-compose build
-	docker-compose up
+	docker compose build
+	docker compose up
 
 ckan-worker:
-	docker-compose exec ckan ckan jobs worker
+	docker compose exec ckan ckan jobs worker
