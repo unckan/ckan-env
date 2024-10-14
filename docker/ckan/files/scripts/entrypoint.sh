@@ -43,20 +43,9 @@ ckan asset build
 
 # Start supervidor
 echo "Supervisor start"
-# get all stdout and stderr for "service supervisor start"
 service supervisor start
-echo "Supervisor started: $?"
-
-echo "Updating supervisor"
-supervisorctl reread
-echo "Superivsor reread: $?"
-supervisorctl update
-echo "Superivsor update: $?"
-
-# Start the development server as the ckan user with automatic reload
-echo "Starting CKAN gunicorn"
-supervisorctl start ckan
 
 echo "Finished entrypoint.sh"
+sleep 3
 
 tail -f /var/log/supervisor/*.log
