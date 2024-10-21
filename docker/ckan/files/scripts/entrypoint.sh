@@ -48,4 +48,5 @@ service supervisor start
 echo "Finished entrypoint.sh"
 sleep 3
 
+# Any other command to continue running and allow to stop CKAN
 tail -f /var/log/supervisor/*.log
