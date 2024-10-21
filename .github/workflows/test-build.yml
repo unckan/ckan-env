@@ -25,7 +25,9 @@ jobs:
         with:
           context: docker/ckan
           file: docker/ckan/Dockerfile
+          args: |
+            ENV_NAME=gh-action
           push: false
         env:
           CKAN_UNI_VERSION: ${{ env.CKAN_UNI_VERSION }}
-          ENV_NAME: "gh-action"
+          
