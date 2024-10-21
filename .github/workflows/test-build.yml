@@ -25,8 +25,9 @@ jobs:
         with:
           context: docker/ckan
           file: docker/ckan/Dockerfile
-          args: |
+          build-args: |
             ENV_NAME=gh-action
+            TZ=America/Argentina/Cordoba
           push: false
         env:
           CKAN_UNI_VERSION: ${{ env.CKAN_UNI_VERSION }}
