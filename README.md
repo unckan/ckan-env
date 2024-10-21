@@ -1,7 +1,7 @@
-[![Docker Stars](https://img.shields.io/docker/stars/avdata99/ckan-env.svg)](https://hub.docker.com/r/avdata99/ckan-env/tags)
-[![Docker Pulls](https://img.shields.io/docker/pulls/avdata99/ckan-env.svg)](https://hub.docker.com/r/avdata99/ckan-env/tags)
-[![Docker Automated](https://img.shields.io/docker/automated/avdata99/ckan-env.svg)](https://hub.docker.com/r/avdata99/ckan-env/tags)
-[![Docker Build](https://img.shields.io/docker/build/avdata99/ckan-env.svg)](https://hub.docker.com/r/avdata99/ckan-env/tags)
+[![Docker Stars](https://img.shields.io/docker/stars/avdata99/unckan.svg)](https://hub.docker.com/r/avdata99/unckan/tags)
+[![Docker Pulls](https://img.shields.io/docker/pulls/avdata99/unckan.svg)](https://hub.docker.com/r/avdata99/unckan/tags)
+[![Docker Automated](https://img.shields.io/docker/automated/avdata99/unckan.svg)](https://hub.docker.com/r/avdata99/unckan/tags)
+[![Docker Build](https://img.shields.io/docker/build/avdata99/unckan.svg)](https://hub.docker.com/r/avdata99/unckan/tags)
 
 # Entorno CKAN para Universidades Argentinas
 
@@ -15,9 +15,9 @@ Al estar desarrollado sobre CKAN este proyecto permite además subir datos manua
 ## Entorno
 
 El portal completo está compuesto por:
- - CKAN 2.9 (python 3)
+ - CKAN 2.10.5 (python 3)
    + Portal de datos base
- - Extensiones
+ - Extensiones (en progreso)
    + [SIU Harvester](https://github.com/unckan/ckanext-siu-harvester): Extensión para cosechar datos desde sistemas [SIU](https://www.siu.edu.ar/) usando la librería [pySIUData](https://github.com/unckan/pySIUdata) (creada especialmente como parte de este proceso).
    + [Dataset previews](https://github.com/unckan/ckanext-datasetpreview): Extensión CKAN para agregar gráficos a los datasets de manera simple.
    + El template CKAN usado está en el repositorio [UI Universidad](https://github.com/unckan/ckanext-ui-universidad).
@@ -32,4 +32,4 @@ docker-compose up
 
 ## Imagen pública
 
-La compilación de esta imagen esta [disponible en DockerHub](https://hub.docker.com/r/avdata99/ckan-env/tags?page=1&ordering=last_updated) (el tag ckan29 corresponde a la ultima version en desarrollo).  
+La compilación de esta imagen esta [disponible en DockerHub](https://hub.docker.com/r/avdata99/unckan/tags?page=1&ordering=last_updated).  
