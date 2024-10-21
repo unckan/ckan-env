@@ -17,10 +17,10 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build develop version for ckan-base 2.9
+      - name: Build develop version for UNCKAN
         uses: docker/build-push-action@v2
         with:
-          context: ckan-2.9/ckan
-          file: ckan-2.9/ckan/Dockerfile
+          context: docker/ckan
+          file: docker/ckan/Dockerfile
           push: true
-          tags: avdata99/ckan-env:ckan29
+          tags: avdata99/unckan:dev
