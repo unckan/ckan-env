@@ -1,130 +1,62 @@
-FROM alpine:3.13
+FROM debian:stable-slim
+
+# Args
+ARG TZ
+ARG ENV_NAME
 
 # Internals, you probably don't need to change these
-ENV APP_DIR=/srv/app
-ENV SRC_DIR=/srv/app/src
+ENV APP_DIR=/app/unckan
 ENV CKAN_INI=${APP_DIR}/ckan.ini
-ENV PIP_SRC=${SRC_DIR}
-ENV CKAN_STORAGE_PATH=/var/lib/ckan
-ENV GIT_URL=https://github.com/ckan/ckan.git
-# CKAN version to build
-ENV GIT_BRANCH=ckan-2.9.8
-# Customize these on the .env file if needed
-ENV CKAN_SITE_URL=http://localhost:5000
-ENV CKAN__PLUGINS image_view text_view recline_view datastore envvars
 
 WORKDIR ${APP_DIR}
+RUN apt update
 
-# Install necessary packages to run CKAN
-RUN apk add --no-cache tzdata \
-        git \
-        gettext \
-        postgresql-client \
-        python3 \
-        libxml2 \
-        libxslt \
-        musl-dev \
-        uwsgi \
-        uwsgi-http \
-        uwsgi-corerouter \
-        uwsgi-python \
-        py3-gevent \
-        uwsgi-gevent \
-        libmagic \
-        curl \
-        patch \
-        sudo && \
-    # Packages to build CKAN requirements and plugins
-    apk add --no-cache --virtual .build-deps \
-        postgresql-dev \
-        gcc \
-        make \
-        g++ \
-        autoconf \
-        automake \
-    	libtool \
-        python3-dev \
-        libxml2-dev \
-        libxslt-dev \
-        linux-headers \
-        openssl-dev \
-        libffi-dev \
-        cargo && \
-    # Create SRC_DIR
-    mkdir -p ${SRC_DIR} && \
-    # Install pip, supervisord and uwsgi
-    curl -o ${SRC_DIR}/get-pip.py https://bootstrap.pypa.io/get-pip.py && \
-    python3 ${SRC_DIR}/get-pip.py && \
-    pip3 install -U pip && \
-    pip3 install supervisor && \
-    mkdir /etc/supervisord.d && \
-    #pip wheel --wheel-dir=/wheels uwsgi gevent && \
-    rm -rf ${SRC_DIR}/get-pip.py
+# Copy files one by one to ensure Dockerfile is caching layers
+# and the change in one file does not invalidate the cache of the others
 
-COPY common/supervisord.conf /etc
+# Prepare the environment vars
+COPY files/scripts/build-env-vars.sh ${APP_DIR}/files/scripts/build-env-vars.sh
+
+COPY files/env/base.env ${APP_DIR}/files/env/base.env
+COPY files/env/${ENV_NAME}.env ${APP_DIR}/files/env/${ENV_NAME}.env
+RUN ${APP_DIR}/files/scripts/build-env-vars.sh
+
+# Install OS dependencies
+COPY files/scripts/install-python.sh ${APP_DIR}/files/scripts/install-python.sh
+RUN ${APP_DIR}/files/scripts/install-python.sh
+
+COPY files/scripts/install-os-deps.sh ${APP_DIR}/files/scripts/install-os-deps.sh
+RUN ${APP_DIR}/files/scripts/install-os-deps.sh
+
+COPY files/etc/supervisord.base ${APP_DIR}/files/etc/supervisord.conf
+COPY files/etc/ckan*.conf ${APP_DIR}/files/etc/
+COPY files/scripts/prepare-supervisor.sh ${APP_DIR}/files/scripts/prepare-supervisor.sh
+RUN ${APP_DIR}/files/scripts/prepare-supervisor.sh
+
+# Copy all pending files
+COPY files/scripts/prepare-local-dev-extensions.sh ${APP_DIR}/files/scripts/prepare-local-dev-extensions.sh
+COPY files/cert/localhost.cert ${APP_DIR}/files/cert/localhost.cert
+COPY files/cert/localhost.key ${APP_DIR}/files/cert/localhost.key
+
+COPY files/patches ${APP_DIR}/files/patches
+COPY files/ckan.ini ${CKAN_INI}
+COPY files/scripts/install-ckan.sh ${APP_DIR}/files/scripts/install-ckan.sh
+COPY files/scripts/setup-ckan-ini-file.sh ${APP_DIR}/files/scripts/setup-ckan-ini-file.sh
+
+# Create the ckan user
+RUN useradd -m -s /bin/bash ckan
+RUN chown ckan -R ${APP_DIR}
+RUN chown ckan -R /var/log/supervisor
+USER ckan
 
 # Install CKAN
-RUN pip3 install -e git+${GIT_URL}@${GIT_BRANCH}#egg=ckan && \
-    cd ${SRC_DIR}/ckan && \
-    cp who.ini ${APP_DIR} && \
-    pip3 install -r requirement-setuptools.txt && \
-    pip3 install --no-binary :all: -r requirements.txt && \
-    # Install CKAN envvars to support loading config from environment variables
-    pip3 install -e git+https://github.com/okfn/ckanext-envvars.git#egg=ckanext-envvars && \
-    # Create and update CKAN config
-    ckan generate config ${CKAN_INI} && \
-    ckan config-tool ${CKAN_INI} "ckan.plugins = ${CKAN__PLUGINS}" && \
-    ckan config-tool ${CKAN_INI} "ckan.site_url = ${CKAN__SITE_URL}"
-
-# Create a local user and group to run the app
-RUN addgroup -g 92 -S ckan && \
-    adduser -u 92 -h /srv/app -H -D -S -G ckan ckan
-
-# Create local storage folder
-RUN mkdir -p $CKAN_STORAGE_PATH && \
-    chown -R ckan:ckan $CKAN_STORAGE_PATH
-
-COPY setup/prerun.py ${APP_DIR}
-COPY setup/supervisor.worker.conf /etc/supervisord.d/worker.conf
-COPY setup/start_ckan.sh ${APP_DIR}
-COPY setup/start_ckan_dev.sh ${APP_DIR}
-ADD https://raw.githubusercontent.com/ckan/ckan/${GIT_BRANCH}/wsgi.py ${APP_DIR}
-
-# Create entrypoint directory for children image scripts
-ONBUILD RUN mkdir /docker-entrypoint.d
-COPY docker-entrypoint.d/* /docker-entrypoint.d/
-
-RUN chown ckan -R /srv/app
-
-EXPOSE 5000
+RUN ${APP_DIR}/files/scripts/install-ckan.sh
+RUN cp $APP_DIR/ckan/wsgi.py .
+RUN chmod u+x wsgi.py
+RUN ${APP_DIR}/files/scripts/setup-ckan-ini-file.sh
 
 HEALTHCHECK --interval=60s --timeout=5s --retries=5 CMD curl --fail http://localhost:5000/api/3/action/status_show || exit 1
+EXPOSE 5000
 
-# Set timezone
-ARG TZ
-# RUN echo $TZ > /etc/timezone
-# RUN cp /usr/share/zoneinfo/$TZ /etc/localtime
-
-RUN echo America/Argentina/Cordoba > /etc/timezone
-RUN cp /usr/share/zoneinfo/America/Argentina/Cordoba /etc/localtime
-
-# Install this project requirements
-COPY ckan-uni-requirements.txt ${APP_DIR}
-RUN pip3 install -r ${APP_DIR}/ckan-uni-requirements.txt
-
-# Apply any patches needed to CKAN core or any of the built extensions (not the
-# runtime mounted ones)
-# See https://github.com/okfn/docker-ckan#applying-patches
-COPY patches ${APP_DIR}/patches
-
-RUN for d in $APP_DIR/patches/*; do \
-        if [ -d $d ]; then \
-            for f in `ls $d/*.patch | sort -g`; do \
-                cd $SRC_DIR/`basename "$d"` && echo "$0: Applying patch $f to $SRC_DIR/`basename $d`"; patch -p1 < "$f" ; \
-            done ; \
-        fi ; \
-    done
-
-ENV SRC_EXTENSIONS_DIR=/srv/app/src_extensions
-RUN pip3 install flask-debugtoolbar
-CMD ["/srv/app/start_ckan_dev.sh"]
+COPY files/scripts/entrypoint.sh ${APP_DIR}/entrypoint.sh 
+ENTRYPOINT [ "./entrypoint.sh" ]
