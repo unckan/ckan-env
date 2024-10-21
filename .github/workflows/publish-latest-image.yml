@@ -10,6 +10,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Read CKAN_UNI_VERSION from docker/ckan/files/env/base.env
+        run: |
+          echo "CKAN_UNI_VERSION=$(grep CKAN_UNI_VERSION docker/ckan/files/env/base.env | cut -d '=' -f2)" >> $GITHUB_ENV
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Login to DockerHub
@@ -17,10 +20,12 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build develop version for UNCKAN
+      - name: Build develop UNCKAN ver ${{ CKAN_UNI_VERSION }}
         uses: docker/build-push-action@v2
         with:
           context: docker/ckan
           file: docker/ckan/Dockerfile
           push: true
-          tags: avdata99/unckan:dev
+          tags: |
+            avdata99/unckan:latest
+            avdata99/unckan:prod-${{ CKAN_UNI_VERSION }}

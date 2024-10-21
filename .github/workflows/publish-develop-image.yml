@@ -11,8 +11,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Read env vars from docker/ckan/files/env/base.env
-        id: env
+      - name: Read CKAN_UNI_VERSION from docker/ckan/files/env/base.env
         run: |
           echo "CKAN_UNI_VERSION=$(grep CKAN_UNI_VERSION docker/ckan/files/env/base.env | cut -d '=' -f2)" >> $GITHUB_ENV
       - name: Set up Docker Buildx
@@ -28,4 +27,6 @@ jobs:
           context: docker/ckan
           file: docker/ckan/Dockerfile
           push: true
-          tags: avdata99/unckan:dev-$CKAN_UNI_VERSION
+          tags: |
+            avdata99/unckan:dev
+            avdata99/unckan:dev-${{ CKAN_UNI_VERSION }}
