@@ -13,7 +13,9 @@ jobs:
       - name: Read CKAN_UNI_VERSION from docker/ckan/files/env/base.env
         id: read_version
         run: |
-          echo "CKAN_UNI_VERSION=$(grep CKAN_UNI_VERSION docker/ckan/files/env/base.env | cut -d '=' -f2)" >> $GITHUB_ENV
+          UNI_VERSION=$(grep CKAN_UNI_VERSION docker/ckan/files/env/base.env | cut -d '=' -f2)
+          echo "CKAN_UNI_VERSION found $UNI_VERSION"
+          echo "CKAN_UNI_VERSION=$UNI_VERSION" >> $GITHUB_ENV
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -26,3 +28,4 @@ jobs:
           push: false
         env:
           CKAN_UNI_VERSION: ${{ env.CKAN_UNI_VERSION }}
+          ENV_NAME: "gh-action"
