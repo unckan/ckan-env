@@ -41,6 +41,7 @@ COPY files/cert/localhost.key ${APP_DIR}/files/cert/localhost.key
 COPY files/patches ${APP_DIR}/files/patches
 COPY files/ckan.ini ${CKAN_INI}
 COPY files/scripts/install-ckan.sh ${APP_DIR}/files/scripts/install-ckan.sh
+COPY files/scripts/install-extensions.sh ${APP_DIR}/files/scripts/install-extensions.sh
 COPY files/scripts/setup-ckan-ini-file.sh ${APP_DIR}/files/scripts/setup-ckan-ini-file.sh
 
 # Create the ckan user
@@ -51,6 +52,7 @@ USER ckan
 
 # Install CKAN
 RUN ${APP_DIR}/files/scripts/install-ckan.sh
+RUN ${APP_DIR}/files/scripts/install-extensions.sh
 RUN cp $APP_DIR/ckan/wsgi.py .
 RUN chmod u+x wsgi.py
 RUN ${APP_DIR}/files/scripts/setup-ckan-ini-file.sh
