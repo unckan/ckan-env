@@ -1,49 +1,56 @@
 services:
-  ckan:
-    build:
-      context: ckan/
-      dockerfile: Dockerfile
+  ckan_uni:
+    container_name: ckan_uni
+    image: unckan:local
+    depends_on:
+      postgresql_uni:
+        condition: service_healthy
     links:
-      - db
-      - solr
-      - redis
+      - postgresql_uni
+      - solr_uni
+      - redis_uni
     ports:
       - "0.0.0.0:5000:5000"
     volumes:
-      - ./src:/srv/app/src_extensions
-      - ckan_storage:/var/lib/ckan
-      # - /home/user/myfolder/ckanext-siu-harvester:/srv/app/src/ckanext-siu-harvester
-      # - /home/user/myfolder/ckanext-siu-harvester:/srv/app/src_extensions/ckanext-siu-harvester
-      # - /home/user/myfolder/ckanext-datasetpreview:/srv/app/src_extensions/ckanext-datasetpreview
-      # - /home/user/myfolder/pySIUdata/siu_data:/usr/lib/python3.8/site-packages/siu_data
+      - ./src:/app/unckan/src_extensions
+      - ckan_storage:/app/unckan/storage
       # - /home/user/myfolder/ckanext-harvest:/srv/app/src_extensions/ckanext-harvest
 
-  db:
-    container_name: db
-    build:
-      context: postgresql/
-      args:
-        - DATASTORE_READONLY_PASSWORD=${DATASTORE_READONLY_PASSWORD}
-        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+  postgresql_uni:
+    container_name: postgresql_uni
+    # https://github.com/ckan/ckan-postgres-dev
+    image: ckan/ckan-postgres-dev:2.10
     environment:
-      - DATASTORE_READONLY_PASSWORD=${DATASTORE_READONLY_PASSWORD}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - PGDATA=/var/lib/postgresql/data/db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
     volumes:
       - pg_data:/var/lib/postgresql/data
-
-  solr:
-    container_name: solr
-    build:
-      context: solr/
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     ports:
-      - "8983:8983"
-    volumes:
-      - solr_data:/opt/solr/server/solr/ckan/data/index
+      - "8012:5432"
 
-  redis:
-    container_name: redis
-    image: redis:alpine
+  redis_uni:
+    container_name: redis_uni
+    image: public.ecr.aws/ubuntu/redis:latest
+    ports:
+      - "8013:6379"
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_ALLOW_REMOTE_CONNECTIONS=yes
+      - REDIS_AOF_ENABLED=no
+
+  solr_uni:
+    container_name: solr_uni
+    image: ckan/ckan-solr:2.10
+    ports:
+      - "8014:8983"
+    volumes:
+      - solr_data:/var/solr
 
 volumes:
   ckan_storage:

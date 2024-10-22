@@ -1,7 +1,3 @@
-[![Docker Stars](https://img.shields.io/docker/stars/avdata99/unckan.svg)](https://hub.docker.com/r/avdata99/unckan/tags)
-[![Docker Pulls](https://img.shields.io/docker/pulls/avdata99/unckan.svg)](https://hub.docker.com/r/avdata99/unckan/tags)
-[![Docker Automated](https://img.shields.io/docker/automated/avdata99/unckan.svg)](https://hub.docker.com/r/avdata99/unckan/tags)
-
 # Entorno CKAN para Universidades Argentinas
 
 Entorno completo CKAN orientado a Universidades Argentinas.  
