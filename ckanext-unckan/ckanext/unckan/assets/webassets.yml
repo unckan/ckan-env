@@ -1,0 +1,14 @@
+# unckan-js:
+#   filter: rjsmin
+#   output: ckanext-unckan/%(version)s-unckan.js
+#   contents:
+#     - js/unckan.js
+#   extra:
+#     preload:
+#       - base/main
+
+# unckan-css:
+#   filter: cssrewrite
+#   output: ckanext-unckan/%(version)s-unckan.css
+#   contents:
+#     - css/unckan.css
