@@ -14,7 +14,11 @@ services:
     volumes:
       - ./src:/app/unckan/src_extensions
       - ckan_storage:/app/unckan/storage
-      # - /home/user/myfolder/ckanext-harvest:/srv/app/src_extensions/ckanext-harvest
+      # Montar la extension base para que se cargue en modo editable
+      - ../ckanext-unckan:/app/unckan/src_extensions/ckanext-unckan
+      # Para trabajar en vivo con otras extensiones cargarlas aqui,
+      # pueden estar en cualquier carpeta de origen
+      # - /home/user/myfolder/ckanext-XXXX:/app/unckan/src_extensions/ckanext-XXXX
 
   postgresql_uni:
     container_name: postgresql_uni

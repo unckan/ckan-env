@@ -48,5 +48,9 @@ service supervisor start
 echo "Finished entrypoint.sh"
 sleep 3
 
+echo "************************************************"
+echo "*********** CKAN is ready to use ***************"
+echo "************ at $CKAN_SITE_URL *****************"
+echo "************************************************"
 # Any other command to continue running and allow to stop CKAN
 tail -f /var/log/supervisor/*.log
