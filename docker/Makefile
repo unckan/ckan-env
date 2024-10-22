@@ -1,7 +1,7 @@
 .PHONY: build clean up debug
 
 build:
-	@if [ ! -f docker-compose.yml ]; then cp docker-compose.example.yml docker-compose.yml; fi
+	@if [ ! -f docker-compose.yml ]; then cp docker-compose.sample.yml docker-compose.yml; fi
 	@if [ ! -f docker/ckan/files/env/local.env ]; then touch ckan/files/env/local.env; fi
 	$(eval TZ ?= America/Argentina/Cordoba)
 	$(eval ENV_NAME ?= local)
