@@ -39,7 +39,7 @@ jobs:
 
     - name: Flake8
       run: |
-        whoami
+        su - ckan
         ls -la
         cd ckanext-unckan
         ls -la
