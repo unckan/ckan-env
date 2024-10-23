@@ -1,13 +1,20 @@
 name: Tests UNCKAN extension
-on: [push]
+on:
+  - push
+
 jobs:
   test:
     runs-on: ubuntu-latest
+
     container:
       image: avdata99/unckan:dev
+      options: --user root
+
     services:
+
       solr:
         image: ckan/ckan-solr:2.10-solr9
+
       postgres:
         image: ckan/ckan-postgres-dev:2.10
         env:
@@ -15,8 +22,9 @@ jobs:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: postgres
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
       redis:
-          image: redis:3
+          image: redis
 
     env:
       CKAN_SQLALCHEMY_URL: postgresql://ckan_default:pass@postgres/ckan_test
