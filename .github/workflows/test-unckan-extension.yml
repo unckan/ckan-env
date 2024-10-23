@@ -39,10 +39,10 @@ jobs:
 
     - name: Flake8
       run: |
+        chown -R ckan:ckan /app/unckan
         su - ckan
-        ls -la
+        source /app/unckan/venv/bin/activate
         cd ckanext-unckan
-        ls -la
         pip install flake8
         flake8 . \
           --count \
@@ -54,6 +54,8 @@ jobs:
     - name: Install requirements
       # Install any extra requirements your extension has here (dev requirements, other extensions etc)
       run: |
+        su - ckan
+        source /app/unckan/venv/bin/activate
         cd ckanext-unckan
         pip install -r requirements.txt
         pip install -r dev-requirements.txt
@@ -62,6 +64,8 @@ jobs:
     - name: Setup extension
       # Extra initialization steps
       run: |
+        su - ckan
+        source /app/unckan/venv/bin/activate
         cd ckanext-unckan
         # Replace default path to CKAN core config file with the one on the container
         sed -i -e 's/use = config:.*/use = config:\/srv\/app\/src\/ckan\/test-core.ini/' test.ini
@@ -71,5 +75,7 @@ jobs:
 
     - name: Run tests
       run: |
+        su - ckan
+        source /app/unckan/venv/bin/activate
         cd ckanext-unckan
         pytest --ckan-ini=test.ini -v --disable-warnings ckanext/unckan
