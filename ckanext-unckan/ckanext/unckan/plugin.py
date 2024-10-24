@@ -22,5 +22,5 @@ class UnCKANPlugin(plugins.SingletonPlugin):
 
     def get_helpers(self):
         return {
-            'get_unckan_version': base.get_unckan_version
+            'get_unckan_version': base.get_unckan_version,
         }

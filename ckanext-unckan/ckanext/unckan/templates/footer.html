@@ -1,0 +1,6 @@
+{% ckan_extends %}
+
+{% block footer_attribution %}
+    {{ super() }}
+    <p>UNCKAN v{{ h.get_unckan_version() }}</p>
+{% endblock %}
