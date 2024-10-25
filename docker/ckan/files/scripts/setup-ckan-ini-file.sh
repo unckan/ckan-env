@@ -36,12 +36,13 @@ ckan config-tool ${CKAN_INI} "solr_url = ${SOLR_URL}"
 ckan config-tool ${CKAN_INI} "ckan.redis.url = ${CKAN_REDIS_URL}"
 
 # Example: postgresql://<user>:<pass>@<name>.postgres.database.azure.com/datastore_default?sslmode=require
-# ckan config-tool ${CKAN_INI} "ckan.datastore.write_url = ${DATASTORE_WRITE_URL}"
-# ckan config-tool ${CKAN_INI} "ckan.datastore.read_url = ${DATASTORE_READ_URL}"
+ckan config-tool ${CKAN_INI} "ckan.datastore.write_url = ${DATASTORE_WRITE_URL}"
+ckan config-tool ${CKAN_INI} "ckan.datastore.read_url = ${DATASTORE_READ_URL}"
 
 # It look like the local auth app is different from the dev env app
 if [ "$IS_DEV_ENV" = "true" ] ; then
     # Increase vervosity for local environment
+    ckan config-tool ckan.ini "ckanext.datapusher_plus.ssl_verify = false"
     ckan config-tool ${CKAN_INI} -s logger_ckan "level = INFO"
     ckan config-tool ${CKAN_INI} -s logger_ckanext "level = DEBUG"
 else
