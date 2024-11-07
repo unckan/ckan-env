@@ -1,4 +1,4 @@
-FROM debian:stable-slim
+FROM harbor.psi.unc.edu.ar/docker-hub/debian:stable-slim
 
 # Args
 ARG TZ
