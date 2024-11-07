@@ -1,10 +1,12 @@
 FROM harbor.psi.unc.edu.ar/docker-hub/debian:stable-slim
 
 # Args
-ARG TZ
-ARG ENV_NAME
+#ARG TZ
+#ARG ENV_NAME
 
 # Internals, you probably don't need to change these
+ENV TZ=America/Argentina/Cordoba
+ENV ENV_NAME=base
 ENV APP_DIR=/app/unckan
 ENV CKAN_INI=${APP_DIR}/ckan.ini
 
