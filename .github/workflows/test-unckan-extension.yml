@@ -75,6 +75,8 @@ jobs:
         ckan -c test.ini db init
         # ckan -c test.ini db upgrade -p unckan
         ckan -c test.ini db upgrade -p datapusher_plus
+        echo "Applying migrations for tracking"
+        ckan db upgrade -p api_tracking
 
     - name: Run tests
       shell: bash
