@@ -28,7 +28,11 @@ fi
 pip install git+https://github.com/ckan/ckanext-pdfview.git#egg=ckanext-pdfview
 
 echo "Installing Datapusher+extension"
-pip install -e  git+https://github.com/okfn/datapusher-plus.git@okfn_tmp#egg=datapusher_plus && \
+pip install -e  git+https://github.com/okfn/datapusher-plus.git@okfn_tmp#egg=datapusher_plus
 pip install -r https://raw.githubusercontent.com/okfn/datapusher-plus/okfn_tmp/requirements.txt
+
+echo "Installing API-tracking extension"
+pip install -e git+https://github.com/NorwegianRefugeeCouncil/ckanext-api-tracking.git@0.4.1#egg=ckanext-api-tracking
+pip install -r https://raw.githubusercontent.com/NorwegianRefugeeCouncil/ckanext-api-tracking/refs/tags/0.4.1/requirements.txt
 
 echo "CKAN extensions installed"
