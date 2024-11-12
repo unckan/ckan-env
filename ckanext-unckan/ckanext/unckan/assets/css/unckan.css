@@ -4,12 +4,12 @@ body {
 }
 
 .masthead {
-    background: var(--primary-color);
+    background: var(--seagull);
 }
 
 .account-masthead {
     min-height: 30px;
-    color: #fff;
+    color: var(--westar);
     background: var(--primary-color);
 }
 
