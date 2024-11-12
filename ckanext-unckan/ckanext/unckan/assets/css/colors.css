@@ -1,0 +1,13 @@
+/*
+Definir los colores principales como variables a reutilizar
+*/
+:root {
+    --regal-blue: #003c69;
+    --finn: #53284f;
+    --seagull: #6aade4;
+    --tangaroa: #031e2f;
+    --westar: #e0d3d8;
+
+    
+    --primary-color: var(--tangaroa);
+}
