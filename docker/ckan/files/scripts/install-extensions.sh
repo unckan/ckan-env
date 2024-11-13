@@ -13,10 +13,10 @@ source ${APP_DIR}/venv/bin/activate
 # Si estamos en el entorno de desarrollo ya esta montada la carpeta de la extension unckan
 # Para produccion hay que instalarlo desde el repositorio principal
 if [ "$IS_DEV_ENV" != "true" ] ; then
-    echo "Installing unckan extension locally"
+    echo "Installing unckan extension"
     # En este caso, el archivo pyproject.toml esta en una subcarpeta del repo, en
     # https://github.com/unckan/ckan-env/tree/start_extension/ckanext-unckan
-    git clone git@github.com:unckan/ckan-env.git
+    git clone https://github.com/unckan/ckan-env.git
     cd ckan-env/ckanext-unckan
     # Ir al tag CKAN_UNI_VERSION
     git checkout tags/${CKAN_UNI_VERSION}
