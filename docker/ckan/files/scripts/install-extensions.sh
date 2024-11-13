@@ -17,11 +17,13 @@ if [ "$IS_DEV_ENV" != "true" ] ; then
     # En este caso, el archivo pyproject.toml esta en una subcarpeta del repo, en
     # https://github.com/unckan/ckan-env/tree/start_extension/ckanext-unckan
     git clone git@github.com:unckan/ckan-env.git
-    cd ckan-env
+    cd ckan-env/ckanext-unckan
+    # Ir al tag CKAN_UNI_VERSION
+    git checkout tags/${CKAN_UNI_VERSION}
     pip install .
     # Instalar sus requerimientos
     pip install -r requirements.txt
-    cd ..
+    cd ../..
 fi
 
 # PDF view https://github.com/ckan/ckanext-pdfview
