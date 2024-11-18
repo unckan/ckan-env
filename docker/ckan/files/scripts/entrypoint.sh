@@ -31,6 +31,8 @@ echo "Datapusher+ DB upgrade"
 ckan db upgrade -p datapusher_plus
 echo "Applying migrations for tracking"
 ckan db upgrade -p api_tracking
+# echo "Applying migrations for superset"
+# ckan db upgrade -p superset
 
 # Rebuild search index
 ckan search-index rebuild
