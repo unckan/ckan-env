@@ -25,6 +25,17 @@ ckan config-tool ${CKAN_INI} "beaker.session.validate_key = ${BEAKER_SESSION_VAL
 # debug
 ckan config-tool ${CKAN_INI} "debug = ${CKAN_DEBUG}"
 
+# Ensure USE_LOCAL_HTTPS and CKAN_SITE_URL are in sync 
+if [ "$USE_LOCAL_HTTPS" = "false" ]; then
+  if [ "$IS_DEV_ENV" = "true" ] ; then
+    # if CKAN_SITE_URL starts with https replace it with http
+    if [[ $CKAN_SITE_URL == https* ]]; then
+      echo "ERROR USE_LOCAL_HTTPS is false and CKAN_SITE_URL starts with https, replacing it with http"
+      CKAN_SITE_URL=${CKAN_SITE_URL/https/http}
+    fi
+  fi
+fi
+
 ckan config-tool ${CKAN_INI} "ckan.site_url = ${CKAN_SITE_URL}"
 ckan config-tool ${CKAN_INI} "ckan.storage_path = $APP_DIR/${CKAN_STORAGE_FOLDER}"
 
