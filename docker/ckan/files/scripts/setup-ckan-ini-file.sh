@@ -61,4 +61,16 @@ else
     ckan config-tool ${CKAN_INI} -s logger_ckanext "level = INFO"
 fi
 
+# Superset settings
+ckan config-tool ${CKAN_INI} "ckanext.superser.instance.url = ${SUPERSER_URL}"
+ckan config-tool ${CKAN_INI} "ckanext.superser.instance.user = ${SUPERSER_USER}"
+ckan config-tool ${CKAN_INI} "ckanext.superser.instance.pass = ${SUPERSER_PASS}"
+ckan config-tool ${CKAN_INI} "ckanext.superser.instance.provider = ${SUPERSER_PROVIDER}"
+ckan config-tool ${CKAN_INI} "ckanext.superser.instance.refresh = ${SUPERSER_REFRESH}"
+ckan config-tool ${CKAN_INI} "ckanext.superser.proxy.url = ${SUPERSER_PROXY_URL}"
+ckan config-tool ${CKAN_INI} "ckanext.superser.proxy.port = ${SUPERSER_PROXY_PORT}"
+ckan config-tool ${CKAN_INI} "ckanext.superser.proxy.user = ${SUPERSER_PROXY_USER}"
+ckan config-tool ${CKAN_INI} "ckanext.superser.proxy.pass = ${SUPERSER_PROXY_PASS}"
+
+
 echo "Configuration file setup complete"
