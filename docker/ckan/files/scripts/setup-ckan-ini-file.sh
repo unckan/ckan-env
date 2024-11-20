@@ -62,15 +62,15 @@ else
 fi
 
 # Superset settings
-ckan config-tool ${CKAN_INI} "ckanext.superser.instance.url = ${SUPERSER_URL}"
-ckan config-tool ${CKAN_INI} "ckanext.superser.instance.user = ${SUPERSER_USER}"
-ckan config-tool ${CKAN_INI} "ckanext.superser.instance.pass = ${SUPERSER_PASS}"
-ckan config-tool ${CKAN_INI} "ckanext.superser.instance.provider = ${SUPERSER_PROVIDER}"
-ckan config-tool ${CKAN_INI} "ckanext.superser.instance.refresh = ${SUPERSER_REFRESH}"
-ckan config-tool ${CKAN_INI} "ckanext.superser.proxy.url = ${SUPERSER_PROXY_URL}"
-ckan config-tool ${CKAN_INI} "ckanext.superser.proxy.port = ${SUPERSER_PROXY_PORT}"
-ckan config-tool ${CKAN_INI} "ckanext.superser.proxy.user = ${SUPERSER_PROXY_USER}"
-ckan config-tool ${CKAN_INI} "ckanext.superser.proxy.pass = ${SUPERSER_PROXY_PASS}"
+ckan config-tool ${CKAN_INI} "ckanext.superset.instance.url = ${SUPERSER_URL}"
+ckan config-tool ${CKAN_INI} "ckanext.superset.instance.user = ${SUPERSER_USER}"
+ckan config-tool ${CKAN_INI} "ckanext.superset.instance.pass = ${SUPERSER_PASS}"
+ckan config-tool ${CKAN_INI} "ckanext.superset.instance.provider = ${SUPERSER_PROVIDER}"
+ckan config-tool ${CKAN_INI} "ckanext.superset.instance.refresh = ${SUPERSER_REFRESH}"
+ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.url = ${SUPERSER_PROXY_URL}"
+ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.port = ${SUPERSER_PROXY_PORT}"
+ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.user = ${SUPERSER_PROXY_USER}"
+ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.pass = ${SUPERSER_PROXY_PASS}"
 
 
 echo "Configuration file setup complete"
