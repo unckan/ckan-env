@@ -38,7 +38,7 @@ pip install -e git+https://github.com/NorwegianRefugeeCouncil/ckanext-api-tracki
 pip install -r https://raw.githubusercontent.com/NorwegianRefugeeCouncil/ckanext-api-tracking/refs/tags/0.4.1/requirements.txt
 
 echo "Installing Apache Superset extension"
-pip install -e git+https://github.com/unckan/ckanext-superset.git@0.1.3#egg=ckanext-superset
-pip install -r https://raw.githubusercontent.com/unckan/ckanext-superset/refs/tags/0.1.3/requirements.txt
+pip install -e git+https://github.com/unckan/ckanext-superset.git@0.1.4#egg=ckanext-superset
+pip install -r https://raw.githubusercontent.com/unckan/ckanext-superset/refs/tags/0.1.4/requirements.txt
 
 echo "CKAN extensions installed"
