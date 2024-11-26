@@ -80,6 +80,8 @@ jobs:
         ckan -c test.ini db upgrade -p api_tracking
         # echo "Applying migrations for superset"
         # ckan -c test.ini db upgrade -p superset
+        # echo "Applying migrations for announcements"
+        # ckan -c test.ini db upgrade -p announcements
 
     - name: Run tests
       shell: bash
