@@ -43,6 +43,6 @@ pip install -r https://raw.githubusercontent.com/unckan/ckanext-superset/refs/ta
 
 echo "Installing Announcements extension"
 pip install -e git+https://github.com/okfn/ckanext-announcements.git@0.1.3#egg=ckanext-announcements
-pip install -r https://raw.githubusercontent.com/okfn/ckanext-announcements/refs/tags/0.1.3/requirements.txt
+pip install -r https://raw.githubusercontent.com/okfn/ckanext-announcements/0.1.3/requirements.txt
 
 echo "CKAN extensions installed"
