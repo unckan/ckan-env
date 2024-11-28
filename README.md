@@ -12,7 +12,10 @@ Al estar desarrollado sobre CKAN este proyecto permite además subir datos manua
 El portal completo está compuesto por:
  - CKAN 2.10.5 (python 3)
    + Portal de datos base
- - Extensiones (en progreso)
+ - Extensiones:
+   + UNCKAN: Extension interna para la personaización de este portal.
+   + [Superset](https://github.com/unckan/ckanext-superset): Extension de CKAN para conectar con [Apache Superset](https://superset.apache.org/).
+ - Extensiones (en progreso):
    + [SIU Harvester](https://github.com/unckan/ckanext-siu-harvester): Extensión para cosechar datos desde sistemas [SIU](https://www.siu.edu.ar/) usando la librería [pySIUData](https://github.com/unckan/pySIUdata) (creada especialmente como parte de este proceso).
    + [Dataset previews](https://github.com/unckan/ckanext-datasetpreview): Extensión CKAN para agregar gráficos a los datasets de manera simple.
    + (TODO deprecated) El template CKAN usado está en el repositorio [UI Universidad](https://github.com/unckan/ckanext-ui-universidad).

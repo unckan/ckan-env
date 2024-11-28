@@ -1,13 +1,20 @@
 name: Tests UNCKAN extension
-on: [push]
+on:
+  - push
+
 jobs:
   test:
     runs-on: ubuntu-latest
+
     container:
       image: avdata99/unckan:dev
+      options: --user root
+
     services:
+
       solr:
         image: ckan/ckan-solr:2.10-solr9
+
       postgres:
         image: ckan/ckan-postgres-dev:2.10
         env:
@@ -15,8 +22,9 @@ jobs:
           POSTGRES_PASSWORD: postgres
           POSTGRES_DB: postgres
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
       redis:
-          image: redis:3
+          image: redis
 
     env:
       CKAN_SQLALCHEMY_URL: postgresql://ckan_default:pass@postgres/ckan_test
@@ -27,10 +35,15 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Flake8
+      shell: bash
       run: |
+        chown -R ckan:ckan /app/unckan
+        su - ckan
+        source /app/unckan/venv/bin/activate
+        cd ckanext-unckan
         pip install flake8
         flake8 . \
           --count \
@@ -38,27 +51,42 @@ jobs:
           --max-complexity=12 \
           --max-line-length=130 \
           --statistics
-      working-directory: ckanext-unckan
 
     - name: Install requirements
+      shell: bash
       # Install any extra requirements your extension has here (dev requirements, other extensions etc)
       run: |
+        su - ckan
+        source /app/unckan/venv/bin/activate
+        cd ckanext-unckan
         pip install -r requirements.txt
         pip install -r dev-requirements.txt
         pip install -e .
-      working-directory: ckanext-unckan
 
     - name: Setup extension
-      # Extra initialization steps
+      shell: bash
       run: |
+        su - ckan
+        source /app/unckan/venv/bin/activate
+        cd ckanext-unckan
         # Replace default path to CKAN core config file with the one on the container
-        sed -i -e 's/use = config:.*/use = config:\/srv\/app\/src\/ckan\/test-core.ini/' test.ini
+        sed -i -e 's/use = config:.*/use = config:\/app\/unckan\/ckan\/test-core.ini/' test.ini
 
         ckan -c test.ini db init
+        # No tenemos tablas propias por ahora
         # ckan -c test.ini db upgrade -p unckan
-      working-directory: ckanext-unckan
+        ckan -c test.ini db upgrade -p datapusher_plus
+        echo "Applying migrations for tracking"
+        ckan -c test.ini db upgrade -p api_tracking
+        # echo "Applying migrations for superset"
+        # ckan -c test.ini db upgrade -p superset
+        echo "Applying migrations for announcements"
+        ckan -c test.ini db upgrade -p announcements
 
     - name: Run tests
+      shell: bash
       run: |
+        su - ckan
+        source /app/unckan/venv/bin/activate
+        cd ckanext-unckan
         pytest --ckan-ini=test.ini -v --disable-warnings ckanext/unckan
-      working-directory: ckanext-unckan

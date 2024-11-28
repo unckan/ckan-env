@@ -22,12 +22,19 @@ until psql -d $SQLALCHEMY_URL -c '\q'; do
   sleep 3
 done
 
-echo "Postgres is up, continue"
-
 source ${APP_DIR}/venv/bin/activate
 
 echo "CKAN DB init"
 ckan db init
+
+echo "Datapusher+ DB upgrade"
+ckan db upgrade -p datapusher_plus
+echo "Applying migrations for tracking"
+ckan db upgrade -p api_tracking
+# echo "Applying migrations for superset"
+# ckan db upgrade -p superset
+echo "Applying migrations for announcements"
+ckan db upgrade -p announcements
 
 # Rebuild search index
 ckan search-index rebuild
@@ -38,6 +45,23 @@ DATAPUSHER_TOKEN=$(ckan user token add default datapusher_multi expires_in=365 u
 ckan config-tool ckan.ini "ckan.datapusher.api_token=${DATAPUSHER_TOKEN}"
 ckan config-tool ckan.ini "ckanext.datapusher_plus.api_token=${DATAPUSHER_TOKEN}"
 
+ckan config-tool ckan.ini "ckanext.unckan.version=${CKAN_UNI_VERSION}"
+
+# for local env, create a sysadmin user
+if [ "$IS_DEV_ENV" = "true" ] ; then
+    # check if user exists
+    echo "Checking if sysadmin user exists"
+    OUT=$(ckan user show ckan_admin)
+    # if the output says "User: None" then the user does not exist
+    # We are not going to get an error
+    if [[ $OUT == *"User: None"* ]]; then
+        echo "Creating sysadmin user"
+        ckan user add ckan_admin password=testpass email=ckan_admin@localhost
+        ckan sysadmin add ckan_admin
+    else
+        echo "Sysadmin user already exists"
+    fi
+fi
 # Rebuild webassets in can they were patched
 ckan asset build
 

@@ -66,8 +66,12 @@ done
 
 cd $APP_DIR
 
-# Allow HTTPS locally
-ckan config-tool ckan.ini "ckan.devserver.ssl_cert = ${APP_DIR}/files/cert/localhost.cert"
-ckan config-tool ckan.ini "ckan.devserver.ssl_key = ${APP_DIR}/files/cert/localhost.key"
+# if USE_LOCAL_HTTPS=true enable certs
+if [ "$USE_LOCAL_HTTPS" = "true" ]; then
+    echo "USE_LOCAL_HTTPS is true, enabling HTTPS"
+    # Allow HTTPS locally
+    ckan config-tool ckan.ini "ckan.devserver.ssl_cert = ${APP_DIR}/files/cert/localhost.cert"
+    ckan config-tool ckan.ini "ckan.devserver.ssl_key = ${APP_DIR}/files/cert/localhost.key"
+fi
 
 echo "prepare-local-dev-extensions Finished"

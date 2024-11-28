@@ -11,6 +11,8 @@ build:
 		--build-arg TZ=${TZ} \
 		-t unckan:${ENV_NAME} ckan
 	echo "Build done unckan:${ENV_NAME}"
+	BUILDKIT_PROGRESS=plain docker compose build postgresql_uni
+	echo "Build done postgresql_uni"
 
 down:
 	docker compose down

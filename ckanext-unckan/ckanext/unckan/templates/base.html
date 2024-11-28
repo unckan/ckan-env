@@ -1,0 +1,12 @@
+{% ckan_extends %}
+
+{% block styles %}
+    {{ super() }}
+    {% asset 'unckan/unckan-css' %}
+{% endblock %}
+
+{% block body_extras %}
+    {{ super() }}
+    {% asset 'unckan/unckan-js' %}
+
+{% endblock %}

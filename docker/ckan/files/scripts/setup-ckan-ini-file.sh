@@ -25,6 +25,17 @@ ckan config-tool ${CKAN_INI} "beaker.session.validate_key = ${BEAKER_SESSION_VAL
 # debug
 ckan config-tool ${CKAN_INI} "debug = ${CKAN_DEBUG}"
 
+# Ensure USE_LOCAL_HTTPS and CKAN_SITE_URL are in sync 
+if [ "$USE_LOCAL_HTTPS" = "false" ]; then
+  if [ "$IS_DEV_ENV" = "true" ] ; then
+    # if CKAN_SITE_URL starts with https replace it with http
+    if [[ $CKAN_SITE_URL == https* ]]; then
+      echo "ERROR USE_LOCAL_HTTPS is false and CKAN_SITE_URL starts with https, replacing it with http"
+      CKAN_SITE_URL=${CKAN_SITE_URL/https/http}
+    fi
+  fi
+fi
+
 ckan config-tool ${CKAN_INI} "ckan.site_url = ${CKAN_SITE_URL}"
 ckan config-tool ${CKAN_INI} "ckan.storage_path = $APP_DIR/${CKAN_STORAGE_FOLDER}"
 
@@ -36,17 +47,30 @@ ckan config-tool ${CKAN_INI} "solr_url = ${SOLR_URL}"
 ckan config-tool ${CKAN_INI} "ckan.redis.url = ${CKAN_REDIS_URL}"
 
 # Example: postgresql://<user>:<pass>@<name>.postgres.database.azure.com/datastore_default?sslmode=require
-# ckan config-tool ${CKAN_INI} "ckan.datastore.write_url = ${DATASTORE_WRITE_URL}"
-# ckan config-tool ${CKAN_INI} "ckan.datastore.read_url = ${DATASTORE_READ_URL}"
+ckan config-tool ${CKAN_INI} "ckan.datastore.write_url = ${DATASTORE_WRITE_URL}"
+ckan config-tool ${CKAN_INI} "ckan.datastore.read_url = ${DATASTORE_READ_URL}"
 
 # It look like the local auth app is different from the dev env app
 if [ "$IS_DEV_ENV" = "true" ] ; then
     # Increase vervosity for local environment
+    ckan config-tool ckan.ini "ckanext.datapusher_plus.ssl_verify = false"
     ckan config-tool ${CKAN_INI} -s logger_ckan "level = INFO"
     ckan config-tool ${CKAN_INI} -s logger_ckanext "level = DEBUG"
 else
     ckan config-tool ${CKAN_INI} -s logger_ckan "level = INFO"
     ckan config-tool ${CKAN_INI} -s logger_ckanext "level = INFO"
 fi
+
+# Superset settings
+ckan config-tool ${CKAN_INI} "ckanext.superset.instance.url = ${SUPERSER_URL}"
+ckan config-tool ${CKAN_INI} "ckanext.superset.instance.user = ${SUPERSER_USER}"
+ckan config-tool ${CKAN_INI} "ckanext.superset.instance.pass = ${SUPERSER_PASS}"
+ckan config-tool ${CKAN_INI} "ckanext.superset.instance.provider = ${SUPERSER_PROVIDER}"
+ckan config-tool ${CKAN_INI} "ckanext.superset.instance.refresh = ${SUPERSER_REFRESH}"
+ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.url = ${SUPERSER_PROXY_URL}"
+ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.port = ${SUPERSER_PROXY_PORT}"
+ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.user = ${SUPERSER_PROXY_USER}"
+ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.pass = ${SUPERSER_PROXY_PASS}"
+
 
 echo "Configuration file setup complete"

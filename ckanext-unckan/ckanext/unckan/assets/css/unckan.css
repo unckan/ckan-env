@@ -1,0 +1,28 @@
+/* Define font for all site */
+body {
+    font-family: 'Reforma1918', sans-serif;
+    height: 100%;
+}
+
+.main {
+    min-height: 100vh;
+}
+
+.masthead {
+    background: var(--seagull);
+}
+
+.account-masthead {
+    min-height: 30px;
+    color: var(--westar);
+    background: var(--primary-color);
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: var(--primary-color);
+}
+
+.site-footer {
+    background: var(--primary-color);
+}
