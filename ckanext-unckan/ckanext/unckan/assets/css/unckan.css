@@ -1,6 +1,11 @@
 /* Define font for all site */
 body {
     font-family: 'Reforma1918', sans-serif;
+    height: 100%;
+}
+
+.main {
+    min-height: 100vh;
 }
 
 .masthead {
