@@ -31,3 +31,13 @@ docker-compose up
 ## Imagen pública
 
 La compilación de esta imagen esta [disponible en DockerHub](https://hub.docker.com/r/avdata99/unckan/tags?page=1&ordering=last_updated).  
+
+## Crear nuevas extensiones
+
+Se puede crear una nueva extension entrando al contenedor, activando el entorno virtual y corriendo el comando de generación de extensiones.
+
+```bash
+make bash
+source venv/bin/activate
+ckan -c /app/unckan/ckan.ini generate extension -o /app/unckan/src_extensions/
+```

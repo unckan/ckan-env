@@ -4,7 +4,7 @@ echo "Installing OS dependencies"
 
 # =====================================================
 # Install more dependencies
-apt install -y gettext-base file git libmagic1 libpq-dev libuchardet-dev postgresql-client supervisor uchardet unzip wget
+apt install -y gettext-base file git libmagic1 libpq-dev libuchardet-dev postgresql-client supervisor uchardet unzip vim wget
 
 # file: for QSV
 # git: to pull the CKAN source code from GitHub
