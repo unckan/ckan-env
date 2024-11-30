@@ -72,5 +72,15 @@ ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.port = ${SUPERSER_PROXY_POR
 ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.user = ${SUPERSER_PROXY_USER}"
 ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.pass = ${SUPERSER_PROXY_PASS}"
 
+# push-errors-settings
+if [ -z "${SLACK_WEBHOOK_URL}" ]; then
+  echo "SLACK_WEBHOOK_URL is not set. push-errors will not be configured."
+else
+  echo "Configuring push-errors with SLACK_WEBHOOK_URL"
+  ckan config-tool ${CKAN_INI} "ckanext.push_errors.url = ${SLACK_WEBHOOK_URL}"
+  ckan config-tool ${CKAN_INI} "ckanext.push_errors.method = POST"
+  ckan config-tool ${CKAN_INI} "ckanext.push_errors.headers={}"
+  ckan config-tool ${CKAN_INI} "ckanext.push_errors.data={\"text\": \"{message}\", \"username\": \"UNCKAN PUSH ERRORS\", \"icon_url\": \"https://github.com/unckan/ckanext-push-errors/raw/main/icons/server-error.png\"}"
+fi
 
 echo "Configuration file setup complete"
