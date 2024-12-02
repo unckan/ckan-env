@@ -4,6 +4,7 @@ echo "Installing OS dependencies"
 
 # =====================================================
 # Install more dependencies
+apt update
 apt install -y gettext-base file git libmagic1 libpq-dev libuchardet-dev postgresql-client supervisor uchardet unzip vim wget
 
 # file: for QSV
