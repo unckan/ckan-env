@@ -12,6 +12,7 @@ jobs:
         with:
           ref: ${{ github.ref }}
           tags: true
+          fetch-depth: 0
 
       - name: Read CKAN_UNI_VERSION from docker/ckan/files/env/base.env
         id: read_version
