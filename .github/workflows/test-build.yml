@@ -17,15 +17,11 @@ jobs:
           echo "CKAN_UNI_VERSION found $UNI_VERSION"
           echo "CKAN_UNI_VERSION=$UNI_VERSION" >> $GITHUB_ENV
 
-      - name: Test the tag {{ env.CKAN_UNI_VERSION }} exists in repo
+      - name: Test the tag exists in repo
         run: |
-          if git rev-parse ${{ env.CKAN_UNI_VERSION }} >/dev/null 2>&1
-          then
-            echo "Tag ${{ env.CKAN_UNI_VERSION }} exists"
-          else
-            echo "Tag ${{ env.CKAN_UNI_VERSION }} does not exist. Tag it!"
-            exit 1
-          fi
+          echo "CKAN_UNI_VERSION=${{ env.CKAN_UNI_VERSION }}"
+          git rev-parse "${{ env.CKAN_UNI_VERSION }}"
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
