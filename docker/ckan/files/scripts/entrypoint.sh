@@ -50,14 +50,14 @@ ckan config-tool ckan.ini "ckanext.unckan.version=${CKAN_UNI_VERSION}"
 # for local env, create a sysadmin user
 if [ "$IS_DEV_ENV" = "true" ] ; then
     # check if user exists
-    echo "Checking if sysadmin user exists"
-    OUT=$(ckan user show ckan_admin)
+    echo "Checking if prod sysadmin '$CKAN_SYSADMIN_USER' user exists"
+    OUT=$(ckan user show $CKAN_SYSADMIN_USER)
     # if the output says "User: None" then the user does not exist
     # We are not going to get an error
     if [[ $OUT == *"User: None"* ]]; then
         echo "Creating sysadmin user"
-        ckan user add ckan_admin password=testpass email=ckan_admin@localhost
-        ckan sysadmin add ckan_admin
+        ckan user add $CKAN_SYSADMIN_USER password=$CKAN_SYSADMIN_PASS email=$CKAN_SYSADMIN_MAIL
+        ckan sysadmin add $CKAN_SYSADMIN_USER
     else
         echo "Sysadmin user already exists"
     fi
