@@ -9,6 +9,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
 
       - name: Read CKAN_UNI_VERSION from docker/ckan/files/env/base.env
         id: read_version
@@ -19,8 +21,6 @@ jobs:
 
       - name: Test the tag exists in repo
         run: |
-          git status
-          git tag
           echo "CKAN_UNI_VERSION=${{ env.CKAN_UNI_VERSION }}.Check if tag exists in repo"
           git rev-parse "${{ env.CKAN_UNI_VERSION }}"
 
