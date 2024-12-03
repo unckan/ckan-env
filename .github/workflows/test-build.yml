@@ -19,7 +19,9 @@ jobs:
 
       - name: Test the tag exists in repo
         run: |
-          echo "CKAN_UNI_VERSION=${{ env.CKAN_UNI_VERSION }}"
+          git status
+          git tag
+          echo "CKAN_UNI_VERSION=${{ env.CKAN_UNI_VERSION }}.Check if tag exists in repo"
           git rev-parse "${{ env.CKAN_UNI_VERSION }}"
 
       - name: Set up Docker Buildx
