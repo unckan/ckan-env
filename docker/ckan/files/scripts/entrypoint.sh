@@ -47,35 +47,17 @@ ckan config-tool ckan.ini "ckanext.datapusher_plus.api_token=${DATAPUSHER_TOKEN}
 
 ckan config-tool ckan.ini "ckanext.unckan.version=${CKAN_UNI_VERSION}"
 
-# for local env, create a sysadmin user
-if [ "$IS_DEV_ENV" = "true" ] ; then
-    # check if user exists
-    echo "Checking if prod sysadmin '$CKAN_SYSADMIN_USER' user exists"
-    OUT=$(ckan user show $CKAN_SYSADMIN_USER)
-    # if the output says "User: None" then the user does not exist
-    # We are not going to get an error
-    if [[ $OUT == *"User: None"* ]]; then
-        echo "Creating sysadmin user"
-        ckan user add $CKAN_SYSADMIN_USER password=$CKAN_SYSADMIN_PASS email=$CKAN_SYSADMIN_MAIL
-        ckan sysadmin add $CKAN_SYSADMIN_USER
-    else
-        echo "Sysadmin user already exists"
-    fi
+# Check if sysadmin user exists and create if necessary
+echo "Checking if sysadmin user '$CKAN_SYSADMIN_USER' exists"
+OUT=$(ckan user show $CKAN_SYSADMIN_USER)
+if [[ $OUT == *"User: None"* ]]; then
+    echo "Creating sysadmin user"
+    ckan user add $CKAN_SYSADMIN_USER password=$CKAN_SYSADMIN_PASS email=$CKAN_SYSADMIN_MAIL
+    ckan sysadmin add $CKAN_SYSADMIN_USER
 else
-    # Get a user from settings
-    # If CKAN_SYSADMIN_USER is defined, check if the user exists and create it
-    echo "Checking if prod sysadmin '$CKAN_SYSADMIN_USER' user exists"
-    OUT=$(ckan user show $CKAN_SYSADMIN_USER)
-    # if the output says "User: None" then the user does not exist
-    # We are not going to get an error
-    if [[ $OUT == *"User: None"* ]]; then
-        echo "Creating sysadmin user"
-        ckan user add $CKAN_SYSADMIN_USER password=$CKAN_SYSADMIN_PASS email=$CKAN_SYSADMIN_MAIL
-        ckan sysadmin add $CKAN_SYSADMIN_USER
-    else
-        echo "Sysadmin user already exists"
-    fi
+    echo "Sysadmin user already exists"
 fi
+
 # Rebuild webassets in can they were patched
 ckan asset build
 
