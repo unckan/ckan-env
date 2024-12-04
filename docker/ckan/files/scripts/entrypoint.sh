@@ -85,10 +85,17 @@ service supervisor start
 
 echo "Finished entrypoint.sh"
 sleep 3
-
+echo "************************************************"
+echo "************************************************"
+echo "************************************************"
 echo "************************************************"
 echo "*********** CKAN is ready to use ***************"
 echo "************ at $CKAN_SITE_URL *****************"
 echo "************************************************"
+echo "************************************************"
+echo "************************************************"
+echo "************************************************"
+ckan push-errors push-message --message "CKAN started successfully" || echo "Push errors failed"
+
 # Any other command to continue running and allow to stop CKAN
 tail -f /var/log/supervisor/*.log
