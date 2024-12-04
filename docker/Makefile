@@ -36,3 +36,6 @@ ckan-worker:
 
 bash:
 	docker compose exec ckan_uni bash
+
+search-index:
+	docker compose exec ckan_uni ckan search-index rebuild

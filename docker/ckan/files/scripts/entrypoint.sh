@@ -61,6 +61,20 @@ if [ "$IS_DEV_ENV" = "true" ] ; then
     else
         echo "Sysadmin user already exists"
     fi
+else
+    # Get a user from settings
+    # If CKAN_SYSADMIN_USER is defined, check if the user exists and create it
+    echo "Checking if prod sysadmin '$CKAN_SYSADMIN_USER' user exists"
+    OUT=$(ckan user show $CKAN_SYSADMIN_USER)
+    # if the output says "User: None" then the user does not exist
+    # We are not going to get an error
+    if [[ $OUT == *"User: None"* ]]; then
+        echo "Creating sysadmin user"
+        ckan user add $CKAN_SYSADMIN_USER password=$CKAN_SYSADMIN_PASS email=$CKAN_SYSADMIN_MAIL
+        ckan sysadmin add $CKAN_SYSADMIN_USER
+    else
+        echo "Sysadmin user already exists"
+    fi
 fi
 # Rebuild webassets in can they were patched
 ckan asset build
@@ -71,10 +85,17 @@ service supervisor start
 
 echo "Finished entrypoint.sh"
 sleep 3
-
+echo "************************************************"
+echo "************************************************"
+echo "************************************************"
 echo "************************************************"
 echo "*********** CKAN is ready to use ***************"
 echo "************ at $CKAN_SITE_URL *****************"
 echo "************************************************"
+echo "************************************************"
+echo "************************************************"
+echo "************************************************"
+ckan push-errors push-message --message "CKAN started successfully" || echo "Push errors failed"
+
 # Any other command to continue running and allow to stop CKAN
 tail -f /var/log/supervisor/*.log
