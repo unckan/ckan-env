@@ -30,7 +30,7 @@ fi
 pip install git+https://github.com/ckan/ckanext-pdfview.git#egg=ckanext-pdfview
 
 echo "Installing Datapusher+extension"
-pip install git+https://github.com/okfn/datapusher-plus.git@okfn_tmp#egg=datapusher_plus
+pip install -e git+https://github.com/okfn/datapusher-plus.git@okfn_tmp#egg=datapusher_plus
 pip install -r https://raw.githubusercontent.com/okfn/datapusher-plus/okfn_tmp/requirements.txt
 
 echo "Installing API-tracking extension"
