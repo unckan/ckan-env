@@ -77,6 +77,7 @@ else
     fi
 fi
 # Rebuild webassets in can they were patched
+echo "Rebuilding CkAN webassets"
 ckan asset build
 
 # Start supervidor
@@ -91,11 +92,11 @@ echo "************************************************"
 echo "************************************************"
 echo "*********** CKAN is ready to use ***************"
 echo "************ at $CKAN_SITE_URL *****************"
+echo "***************UNCKAN $CKAN_UNI_VERSION ********"
 echo "************************************************"
 echo "************************************************"
 echo "************************************************"
-echo "************************************************"
-ckan push-errors push-message --message "CKAN started successfully" || echo "Push errors failed"
+ckan push-errors push-message --message "UNCKAN $CKAN_UNI_VERSION started successfully" || echo "Push errors failed"
 
 # Any other command to continue running and allow to stop CKAN
 tail -f /var/log/supervisor/*.log
