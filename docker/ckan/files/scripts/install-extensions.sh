@@ -34,8 +34,8 @@ pip install -e git+https://github.com/okfn/datapusher-plus.git@okfn_tmp#egg=data
 pip install -r https://raw.githubusercontent.com/okfn/datapusher-plus/okfn_tmp/requirements.txt
 
 echo "Installing API-tracking extension"
-pip install git+https://github.com/NorwegianRefugeeCouncil/ckanext-api-tracking.git@0.4.1#egg=ckanext-api-tracking
-pip install -r https://raw.githubusercontent.com/NorwegianRefugeeCouncil/ckanext-api-tracking/refs/tags/0.4.1/requirements.txt
+pip install git+https://github.com/NorwegianRefugeeCouncil/ckanext-api-tracking.git@0.4.3#egg=ckanext-api-tracking
+pip install -r https://raw.githubusercontent.com/NorwegianRefugeeCouncil/ckanext-api-tracking/refs/tags/0.4.3/requirements.txt
 
 echo "Installing Apache Superset extension"
 pip install git+https://github.com/unckan/ckanext-superset.git@0.1.9#egg=ckanext-superset
