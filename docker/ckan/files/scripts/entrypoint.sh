@@ -39,6 +39,10 @@ ckan db upgrade -p announcements
 # Rebuild search index
 ckan search-index rebuild
 
+# Update tracking
+LAST_MONTH=$(date -d '60 days ago' +'%Y-%m-%d')
+ckan tracking update $LAST_MONTH
+
 # Datapusher+ requires a valid API token to operate
 echo "Creating a valid API token for Datapusher+"
 DATAPUSHER_TOKEN=$(ckan user token add default datapusher_multi expires_in=365 unit=86400 | tail -n 1 | tr -d '\t')
