@@ -47,43 +47,26 @@ ckan config-tool ckan.ini "ckanext.datapusher_plus.api_token=${DATAPUSHER_TOKEN}
 
 ckan config-tool ckan.ini "ckanext.unckan.version=${CKAN_UNI_VERSION}"
 
-# for local env, create a sysadmin user
-if [ "$IS_DEV_ENV" = "true" ] ; then
-    # check if user exists
-    echo "Checking if prod sysadmin '$CKAN_SYSADMIN_USER' user exists"
-    OUT=$(ckan user show $CKAN_SYSADMIN_USER)
-    # if the output says "User: None" then the user does not exist
-    # We are not going to get an error
-    if [[ $OUT == *"User: None"* ]]; then
-        echo "Creating sysadmin user"
-        ckan user add $CKAN_SYSADMIN_USER password=$CKAN_SYSADMIN_PASS email=$CKAN_SYSADMIN_MAIL
-        ckan sysadmin add $CKAN_SYSADMIN_USER
-    else
-        echo "Sysadmin user already exists"
-    fi
+# For all environments, check if the sysadmin user exists and create it if not
+echo "Checking if sysadmin user '$CKAN_SYSADMIN_USER' exists"
+OUT=$(ckan user show $CKAN_SYSADMIN_USER)
+
+if [[ $OUT == *"User: None"* ]]; then
+    echo "Creating sysadmin user"
+    ckan user add $CKAN_SYSADMIN_USER password=$CKAN_SYSADMIN_PASS email=$CKAN_SYSADMIN_MAIL
+    ckan sysadmin add $CKAN_SYSADMIN_USER
 else
-    # Get a user from settings
-    # If CKAN_SYSADMIN_USER is defined, check if the user exists and create it
-    echo "Checking if prod sysadmin '$CKAN_SYSADMIN_USER' user exists"
-    OUT=$(ckan user show $CKAN_SYSADMIN_USER)
-    # if the output says "User: None" then the user does not exist
-    # We are not going to get an error
-    if [[ $OUT == *"User: None"* ]]; then
-        echo "Creating sysadmin user"
-        ckan user add $CKAN_SYSADMIN_USER password=$CKAN_SYSADMIN_PASS email=$CKAN_SYSADMIN_MAIL
-        ckan sysadmin add $CKAN_SYSADMIN_USER
-    else
-        echo "Sysadmin user already exists"
-    fi
+    echo "Sysadmin user already exists"
 fi
-# Rebuild webassets in can they were patched
-echo "Rebuilding CkAN webassets"
+
+# Rebuild webassets in case they were patched
+echo "Rebuilding CKAN webassets"
 ckan asset build
 
 echo "Setting permissions for datastore"
 ckan datastore set-permissions | psql $(grep ckan.datastore.write_url ckan.ini | awk -F= '{print $2}')
 
-# Start supervidor
+# Start supervisor
 echo "Supervisor start"
 service supervisor start
 
