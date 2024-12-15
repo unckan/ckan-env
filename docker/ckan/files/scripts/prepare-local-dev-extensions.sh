@@ -51,15 +51,12 @@ do
         then
             echo "Updating 'test.ini' reference to 'test-core.ini' for plugin $i"
             ckan config-tool $i/test.ini "use = config:../../ckan/test-core.ini"
-            if [ "$i" == "$SRC_EXTENSIONS_DIR/ckanext-uni" ];
-            then
-                echo "Updating 'test.ini' to allow testing the extension"
-                ckan config-tool $i/test.ini "sqlalchemy.url = ${SQLALCHEMY_URL}"
-                ckan config-tool $i/test.ini "ckan.redis.url = ${CKAN_REDIS_URL}"
-                ckan config-tool $i/test.ini "solr_url = ${SOLR_URL}"
-                ckan config-tool $i/test.ini "ckan.datastore.write_url = ${DATASTORE_WRITE_URL}"
-                ckan config-tool $i/test.ini "ckan.datastore.read_url = ${DATASTORE_READ_URL}"
-            fi
+            echo "Updating 'test.ini' to allow testing the extension"
+            ckan config-tool $i/test.ini "sqlalchemy.url = ${SQLALCHEMY_URL}"
+            ckan config-tool $i/test.ini "ckan.redis.url = ${CKAN_REDIS_URL}"
+            ckan config-tool $i/test.ini "solr_url = ${SOLR_URL}"
+            ckan config-tool $i/test.ini "ckan.datastore.write_url = ${DATASTORE_WRITE_URL}"
+            ckan config-tool $i/test.ini "ckan.datastore.read_url = ${DATASTORE_READ_URL}"
         fi
     fi
 done
