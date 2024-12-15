@@ -41,3 +41,23 @@ make bash
 source venv/bin/activate
 ckan -c /app/unckan/ckan.ini generate extension -o /app/unckan/src_extensions/
 ```
+
+## Testear extensiones
+
+Cualquier extension montada localmente en `src_extensions` sera adaptada para que sea posible ser testeada.  
+Esto se hace en el script `prepare-local-dev-extensions.sh` con la modificacion de su archivo `test.ini`.  
+
+Para testear `ckanext-unckan` (o cualquier otra extension) se puede correr el siguiente comando:
+
+```bash
+# Entrar al contenedor
+make bash
+# Activar el entorno virtual
+source venv/bin/activate
+# Pararse en la carpeta de la extension
+cd src_extensions/ckanext-unckan
+# o cd src_extensions/ckanext-superset
+# Correr los tests
+pytest --ckan-ini=test.ini -vv --disable-warnings ckanext/unckan
+# o pytest --ckan-ini=test.ini -vv --disable-warnings ckanext/superset
+```
