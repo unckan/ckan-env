@@ -13,7 +13,7 @@ jobs:
     services:
 
       solr:
-        image: ckan/ckan-solr:2.10-solr9
+        image: ckan/ckan-solr:2.10-solr9.5
 
       postgres:
         image: ckan/ckan-postgres-dev:2.10
