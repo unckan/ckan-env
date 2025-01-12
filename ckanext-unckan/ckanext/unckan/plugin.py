@@ -1,7 +1,7 @@
 import logging
 from ckan import plugins
 from ckan.plugins import toolkit
-from ckanext.unckan.helpers import base
+from ckanext.unckan.helpers import base, datastore
 
 
 log = logging.getLogger(__name__)
@@ -23,4 +23,5 @@ class UnCKANPlugin(plugins.SingletonPlugin):
     def get_helpers(self):
         return {
             'get_unckan_version': base.get_unckan_version,
+            'sanitize_id': datastore.sanitize_id,
         }
