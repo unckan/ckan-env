@@ -23,7 +23,7 @@ services:
   postgresql_uni:
     container_name: postgresql_uni
     # https://github.com/ckan/ckan-postgres-dev
-    image: ckan/ckan-postgres-dev:2.10
+    image: ckan/ckan-postgres-dev:2.11
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -50,7 +50,7 @@ services:
 
   solr_uni:
     container_name: solr_uni
-    image: ckan/ckan-solr:2.10
+    image: ckan/ckan-solr:2.10-solr9
     ports:
       - "8014:8983"
     volumes:
