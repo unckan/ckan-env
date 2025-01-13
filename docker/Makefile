@@ -19,6 +19,7 @@ down:
 
 clean:
 	docker compose down -v --remove-orphans
+	docker compose build --no-cache
 
 debug:
 	docker compose build
