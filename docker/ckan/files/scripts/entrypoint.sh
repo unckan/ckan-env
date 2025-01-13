@@ -27,19 +27,14 @@ source ${APP_DIR}/venv/bin/activate
 echo "CKAN DB init"
 ckan db init
 
-echo "Datapusher+ DB upgrade"
-ckan db upgrade -p datapusher_plus
-echo "Applying migrations for tracking"
-ckan db upgrade -p api_tracking
-# echo "Applying migrations for superset"
-# ckan db upgrade -p superset
-echo "Applying migrations for announcements"
-ckan db upgrade -p announcements
+echo "CKAN db upgrade"
+ckan db upgrade
 
 # Rebuild search index
 ckan search-index rebuild
 
 # Update tracking
+echo "\n\n\nUpdating tracking\n\n\n"
 LAST_MONTH=$(date -d '60 days ago' +'%Y-%m-%d')
 ckan tracking update $LAST_MONTH
 
