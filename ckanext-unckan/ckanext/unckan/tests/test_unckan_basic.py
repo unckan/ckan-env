@@ -44,7 +44,7 @@ class TestUnCKANPluginUsageBasic:
         auth = {"Authorization": user_with_token['token']}
         response = app.get(url, headers=auth)
         assert response.status_code == 200
-        assert dataset["id"] in response.body.decode("utf-8")
+        assert dataset["id"] in response
 
     def test_ui_get_resource_show(self, app):
         """ Test user for dataset/NAME/resource/ID """
@@ -55,7 +55,7 @@ class TestUnCKANPluginUsageBasic:
         auth = {"Authorization": user_with_token['token']}
         response = app.get(url, headers=auth)
         assert response.status_code == 200
-        assert resource["id"] in response.body.decode("utf-8")
+        assert resource["id"] in response
 
     def test_ui_get_dataset_home(self, app):
         """ Test user for dataset/NAME """
@@ -64,7 +64,7 @@ class TestUnCKANPluginUsageBasic:
         auth = {"Authorization": user_with_token['token']}
         response = app.get(url, headers=auth)
         assert response.status_code == 200
-        assert "Datasets" in response.body.decode("utf-8")
+        assert "Datasets" in response
 
     def test_ui_get_organization_show(self, app):
         """ Test user for organization/NAME """
@@ -74,7 +74,7 @@ class TestUnCKANPluginUsageBasic:
         auth = {"Authorization": user_with_token['token']}
         response = app.get(url, headers=auth)
         assert response.status_code == 200
-        assert org["id"] in response.body.decode("utf-8")
+        assert org["id"] in response
 
     def test_ui_get_organization_home(self, app):
         """ Test user for organization/NAME """
@@ -83,4 +83,4 @@ class TestUnCKANPluginUsageBasic:
         auth = {"Authorization": user_with_token['token']}
         response = app.get(url, headers=auth)
         assert response.status_code == 200
-        assert "Organizations" in response.body.decode("utf-8")
+        assert "Organizations" in response
