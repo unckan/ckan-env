@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - develop
+  # Allow manual runs
+  workflow_dispatch:
 
 jobs:
   build:
