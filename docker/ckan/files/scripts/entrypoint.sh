@@ -34,7 +34,7 @@ ckan db upgrade
 ckan search-index rebuild
 
 # Update tracking
-echo "\n\n\nUpdating tracking\n\n\n"
+echo "Updating CKAN core tracking"
 LAST_MONTH=$(date -d '60 days ago' +'%Y-%m-%d')
 ckan tracking update $LAST_MONTH
 
