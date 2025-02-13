@@ -26,6 +26,10 @@ if [ "$IS_DEV_ENV" != "true" ] ; then
     cd ../..
 fi
 
+echo "Installing DB Query extension"
+pip install -e ${APP_DIR}/src/dbquery
+pip install -r ${APP_DIR}/src/dbquery/requirements.txt || echo "No requirements file found for DB Query extension"
+
 # PDF view https://github.com/ckan/ckanext-pdfview
 pip install git+https://github.com/ckan/ckanext-pdfview.git#egg=ckanext-pdfview
 

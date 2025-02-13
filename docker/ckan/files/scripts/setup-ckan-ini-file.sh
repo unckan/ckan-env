@@ -83,4 +83,8 @@ else
   ckan config-tool ${CKAN_INI} "ckanext.push_errors.data={\"text\": \"{message}\", \"username\": \"UNCKAN PUSH ERRORS\", \"icon_url\": \"https://github.com/unckan/ckanext-push-errors/raw/main/icons/server-error.png\"}"
 fi
 
+# dbquery-settings
+ckan config-tool ${CKAN_INI} "ckan.plugins = ${CKAN_PLUGINS} dbquery"
+ckan config-tool ${CKAN_INI} "ckanext.dbquery.sqlalchemy.url = ${SQLALCHEMY_URL}"
+
 echo "Configuration file setup complete"

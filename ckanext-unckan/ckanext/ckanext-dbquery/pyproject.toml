@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ckanext-dbquery"
+version = "0.1"
+description = "CKAN Extension for executing SQL queries"
+readme = "README.md"
+requires-python = ">=3.10"
+
+authors = [
+    { name = "Universidad", email = "unckan@data99.com.ar" }
+]
+
+dependencies = [
+    "ckan",
+    "sqlalchemy",
+    "psycopg2"
+]
+
+[project.entry-points."ckan.plugins"]
+dbquery = "ckanext.dbquery.plugin:DBQueryPlugin"
+
