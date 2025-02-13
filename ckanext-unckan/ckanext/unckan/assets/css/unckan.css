@@ -21,4 +21,30 @@ body {
 
 .site-footer {
     background: var(--primary-color);
+    color: var(--westar);
+    margin-top: auto;
+}
+
+.social-icons {
+    display: flex;
+    gap: 10px; /* Espacio entre los íconos */
+    padding: 0; /* Quita el padding predeterminado del <ul> */
+    margin: 0; /* Quita el margen predeterminado del <ul> */
+    list-style: none; /* Quita las viñetas de la lista */
+}
+
+.social-icons li a {
+    text-decoration: none; /* Sin subrayado */
+    color: var(--white); /* Ajusta el color de los íconos */
+    font-size: 24px; /* Ajusta el tamaño del ícono */
+    transition: color 0.3s; /* Efecto suave al pasar el mouse */
+}
+
+.social-icons li a:hover {
+    color: var(--unc-dark-seagull); /* Cambia de color al pasar el mouse */
+}
+
+.logo_footer img {
+    width: 80px;
+    height: 40px;
 }
