@@ -1,0 +1,14 @@
+# dbquery-js:
+#   filter: rjsmin
+#   output: ckanext-dbquery/%(version)s-dbquery.js
+#   contents:
+#     - js/dbquery.js
+#   extra:
+#     preload:
+#       - base/main
+
+# dbquery-css:
+#   filter: cssrewrite
+#   output: ckanext-dbquery/%(version)s-dbquery.css
+#   contents:
+#     - css/dbquery.css
