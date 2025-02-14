@@ -49,4 +49,8 @@ echo "Installing Push Errors extension"
 pip install git+https://github.com/unckan/ckanext-push-errors.git@0.1.4#egg=ckanext-push-errors
 pip install -r https://raw.githubusercontent.com/unckan/ckanext-push-errors/refs/tags/0.1.4/requirements.txt
 
+echo "Installing DBQuery extension"
+pip install git+git@github.com:unckan/ckanext-dbquery.git
+pip install -r https://raw.githubusercontent.com/unckan/ckanext-dbquery/main/requirements.txt
+
 echo "CKAN extensions installed"
