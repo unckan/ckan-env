@@ -27,10 +27,6 @@ debug:
 up:
 	docker compose up
 
-build-up:
-	docker compose build
-	docker compose up
-
 ckan-worker:
 	docker compose exec ckan_uni ckan jobs worker
 

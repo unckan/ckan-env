@@ -51,6 +51,6 @@ pip install -r https://raw.githubusercontent.com/unckan/ckanext-push-errors/refs
 
 echo "Installing DBQuery extension"
 pip install -e git+https://github.com/unckan/ckanext-dbquery.git@0.1.0#egg=ckanext-dbquery
-pip install -r https://raw.githubusercontent.com/unckan/ckanext-dbquery/0.1.0/requirements.txt
+pip install -r https://raw.githubusercontent.com/unckan/ckanext-dbquery/refs/tags/0.1.0/requirements.txt
 
 echo "CKAN extensions installed"
