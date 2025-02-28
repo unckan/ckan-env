@@ -6,19 +6,41 @@
       <div class="row">
         <!-- Nueva columna agregada -->
         <div class="col-md-3 extra-footer-column">
-            <a class="logo_footer" href="{{ h.url_for('home.index') }}">
-              <img class="img-fluid" src="{{ h.url_for_static('/logo_footer_unc.png') }}" alt="{{ _("UNCKAN") }}" title="{{ _("UNCKAN") }}" />
-            </a>
+          <a class="logo_footer" href="{{ h.url_for('home.index') }}">
+              {% set logo_url = config.get('ckan.footer.logo', '/logo_footer_unc.png') %}
+              <img class="img-fluid" src="{{ logo_url }}" alt="{{ _("UNCKAN") }}" title="{{ _("UNCKAN") }}" />
+          </a>
             <p class="mt-1">
-              Nuestro objetivo es.
+              {{ config.get('ckan.footer.objetivo', 'Our goal is.') }}
             </p>
             <h4>Síguenos en redes sociales</h4>
             <ul class="social-icons list-unstyled">
-              <li><a href="https://www.facebook.com/universidad.nacional.de.cordoba.oficial/" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a></li>
-              <li><a href="https://www.instagram.com/uncoficial/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a></li>
-              <li><a href="https://www.linkedin.com/groups/1799627/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a></li>
-              <li><a href="https://www.youtube.com/channel/UCWQHNoiTQHSwbx9nWu5u8-A" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a></li>
-            </ul>    
+              {% set facebook = config.get('ckan.footer.facebook', '').strip('"') %}
+              {% if facebook %}
+                  <li><a href="{{ facebook | trim }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a></li>
+              {% endif %}
+          
+              {% set instagram = config.get('ckan.footer.instagram', '').strip('"') %}
+              {% if instagram %}
+                  <li><a href="{{ instagram | trim }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a></li>
+              {% endif %}
+
+              {% set linkedin = config.get('ckan.footer.linkedin', '').strip('"') %}
+              {% if linkedin %}
+                  <li><a href="{{ linkedin | trim }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a></li>
+              {% endif %}
+
+              {% set youtube = config.get('ckan.footer.youtube', '').strip('"') %}
+              {% if youtube %}
+                  <li><a href="{{ youtube | trim }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a></li>
+              {% endif %}
+
+              {% set twitter = config.get('ckan.footer.twitter', '').strip('"') %}
+              {% if twitter %}
+                  <li><a href="{{ twitter | trim }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a></li>
+              {% endif %}
+
+          </ul>          
         </div>
 
         <div class="col-md-3 footer-links">
@@ -42,18 +64,22 @@
         <div class="col-md-3 extra-footer-column">
           <h4>Contáctanos</h4>
           <ul class="list-unstyled">
-            <li>Correo electrónico: 
-              <a href="#">falta definir</a>
+            <li>
+              <b>Correo electrónico:</b> <a href="mailto:{{ config.get('ckan.footer.email') }}">{{ config.get('ckan.footer.email') }}</a>
             </li>
-            <li>Contacto telefónico: <b>0351-5353755</b>  
+            <li>        
+              <b>Contacto telefónico:</b> {{ config.get('ckan.footer.telefono') }}
             </li>
-            <li>Dirección: <b>Av. Juan Filloy, Ciudad Universitaria.</b></li>
-            <li>Pagina Oficial: <a href="https://www.unc.edu.ar/node/1543" target="_blank" rel="noopener noreferrer">https://www.unc.edu.ar/contactenos</a></li>
-
+            <li>
+              <b>Dirección:</b> {{ config.get('ckan.footer.direccion', 'No disponible') }}
+            </li>
+            <li>
+              <b>Página Oficial:</b> <a href="{{ config.get('ckan.footer.pagina_oficial', '#') }}" target="_blank">{{ config.get('ckan.footer.pagina_oficial', 'No definida') }}</a>
+            </li>
           </ul>
         </div>
 
-        <div class="col-md-3 attribution">
+        <div class="col-md-2 attribution">
           {% block footer_attribution %}
             <p>{% trans %}<strong>Powered by</strong> <a class="hide-text ckan-footer-logo" href="http://ckan.org">CKAN</a>{% endtrans %}</p>
           {% endblock %}
