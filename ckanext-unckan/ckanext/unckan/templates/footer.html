@@ -6,41 +6,36 @@
       <div class="row">
         <!-- Nueva columna agregada -->
         <div class="col-md-3 extra-footer-column">
-          <a class="logo_footer" href="{{ h.url_for('home.index') }}">
-              {% set logo_url = config.get('ckan.footer.logo', '/logo_footer_unc.png') %}
-              <img class="img-fluid" src="{{ logo_url }}" alt="{{ _("UNCKAN") }}" title="{{ _("UNCKAN") }}" />
-          </a>
+            <a class="logo_footer" href="{{ h.url_for('home.index') }}">
+                <img class="img-fluid" src="{{ h.get_footer_config().get('ckan.footer.logo', '/logo_footer.png') }}" alt="Logo" title="Logo" />
+            </a>
             <p class="mt-1">
-              {{ config.get('ckan.footer.objetivo', 'Our goal is.') }}
+              {{ h.get_footer_config().get('ckan.footer.objetivo', 'Nuestro objetivo es.') }}
             </p>
             <h4>Síguenos en redes sociales</h4>
             <ul class="social-icons list-unstyled">
-              {% set facebook = config.get('ckan.footer.facebook', '').strip('"') %}
-              {% if facebook %}
-                  <li><a href="{{ facebook | trim }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a></li>
-              {% endif %}
-          
-              {% set instagram = config.get('ckan.footer.instagram', '').strip('"') %}
-              {% if instagram %}
-                  <li><a href="{{ instagram | trim }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a></li>
+              {% set footer_config = h.get_footer_config() %}
+
+              {% if footer_config.get('ckan.footer.facebook') %}
+                  <li><a href="{{ footer_config.get('ckan.footer.facebook') }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a></li>
               {% endif %}
 
-              {% set linkedin = config.get('ckan.footer.linkedin', '').strip('"') %}
-              {% if linkedin %}
-                  <li><a href="{{ linkedin | trim }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a></li>
+              {% if footer_config.get('ckan.footer.instagram') %}
+                  <li><a href="{{ footer_config.get('ckan.footer.instagram') }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a></li>
               {% endif %}
 
-              {% set youtube = config.get('ckan.footer.youtube', '').strip('"') %}
-              {% if youtube %}
-                  <li><a href="{{ youtube | trim }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a></li>
+              {% if footer_config.get('ckan.footer.linkedin') %}
+                  <li><a href="{{ footer_config.get('ckan.footer.linkedin') }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a></li>
               {% endif %}
 
-              {% set twitter = config.get('ckan.footer.twitter', '').strip('"') %}
-              {% if twitter %}
-                  <li><a href="{{ twitter | trim }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a></li>
+              {% if footer_config.get('ckan.footer.youtube') %}
+                  <li><a href="{{ footer_config.get('ckan.footer.youtube') }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube"></i></a></li>
               {% endif %}
 
-          </ul>          
+              {% if footer_config.get('ckan.footer.twitter') %}
+                  <li><a href="{{ footer_config.get('ckan.footer.twitter') }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a></li>
+              {% endif %}
+            </ul>
         </div>
 
         <div class="col-md-3 footer-links">
