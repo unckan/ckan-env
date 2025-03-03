@@ -5,11 +5,10 @@
   {{ super() }}
 
   <h2>Configuración del Footer</h2>
-
-  <form method="POST" class="form-horizontal">
+  <form method='post' action="" id="admin-config-form" enctype="multipart/form-data" class="form-horizontal">
     <div class="row">
       <div class="col-md-6">
-        <h3>Información General</h3>
+        <h3 class="mt-1">Información General</h3>
         <div class="form-group">
           <label for="email">Correo Electrónico</label>
           <input type="text" class="form-control" name="ckan.footer.email" value="{{ config.get('ckan.footer.email', '') }}">
@@ -42,7 +41,7 @@
       </div>
 
       <div class="col-md-6">
-        <h3>Redes Sociales</h3>
+        <h3 class="mt-1">Redes Sociales</h3>
         <div class="form-group">
           <label for="facebook">Facebook</label>
           <input type="text" class="form-control" name="ckan.footer.facebook" value="{{ config.get('ckan.footer.facebook', '') }}">
@@ -69,7 +68,7 @@
         </div>
       </div>
     </div>
-</form> 
+</form>
 
 
 {% endblock %}

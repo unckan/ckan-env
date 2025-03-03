@@ -2,7 +2,7 @@ import logging
 from ckan import plugins
 from ckan.plugins import toolkit
 from ckanext.unckan.helpers import base, datastore
-from flask import Blueprint, request, redirect
+from flask import Blueprint, request, redirect, flash
 
 
 log = logging.getLogger(__name__)
@@ -32,7 +32,7 @@ class UnCKANPlugin(plugins.SingletonPlugin):
 
     # IConfigurable
     def configure(self, config):
-        """Carga la configuración del footer desde ckan.ini"""
+        """Carga la configuración del footer desde CKAN"""
         self.footer_config = {
             'ckan.footer.email': config.get('ckan.footer.email', 'email@ejemplo.com'),
             'ckan.footer.telefono': config.get('ckan.footer.telefono', '000-000-0000'),
@@ -52,7 +52,18 @@ class UnCKANPlugin(plugins.SingletonPlugin):
 
     def get_footer_config(self):
         """Devuelve los valores del footer para usarlos en las plantillas"""
-        return self.footer_config
+        footer_config = {}
+        keys = self.footer_config.keys()  # Usa las mismas claves definidas en `self.footer_config`
+
+        for key in keys:
+            try:
+                result = toolkit.get_action('config_option_show')({}, {'key': key})
+                footer_config[key] = result['value']
+            except Exception as e:
+                log.error(f'Error al obtener {key}: {str(e)}')
+                footer_config[key] = self.footer_config[key]  # Usa valor predeterminado si no existe en la BD
+
+        return footer_config
 
     def get_blueprint(self):
         """Agrega una ruta para manejar la configuración desde Flask"""
@@ -62,16 +73,19 @@ class UnCKANPlugin(plugins.SingletonPlugin):
         def footer_config():
             """Maneja la configuración del footer en el admin"""
             if request.method == 'POST':
-                # Guardar los valores enviados
                 new_config = request.form.to_dict()
 
-                # Actualizar ckan.ini en memoria
+                # Guardar cambios en CKAN usando `config_option_update`
                 for key, value in new_config.items():
-                    toolkit.config[key] = value
-                    log.info(f'Actualizado: {key} = {value}')
+                    try:
+                        toolkit.get_action('config_option_update')({}, {'key': key, 'value': value})
+                        log.info(f'Configuración guardada: {key} = {value}')
+                    except Exception as e:
+                        log.error(f'Error al guardar {key}: {str(e)}')
 
+                flash('Configuración actualizada con éxito', 'success')
                 return redirect('/ckan-admin/config')
 
-            return toolkit.render('admin/config.html', config=toolkit.config)
+            return toolkit.render('admin/config.html', config=self.get_footer_config())
 
         return blueprint
