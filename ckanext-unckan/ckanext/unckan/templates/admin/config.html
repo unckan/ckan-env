@@ -1,74 +1,72 @@
 {% ckan_extends %}
 {% import 'macros/form.html' as form %}
 
-{% block admin_form %}
-  {{ super() }}
+{% block primary_content_inner %}
+  {{ form.errors(error_summary) }}
 
-  <h2>Configuración del Footer</h2>
-  <form method='post' action="" id="admin-config-form" enctype="multipart/form-data" class="form-horizontal">
-    <div class="row">
-      <div class="col-md-6">
-        <h3 class="mt-1">Información General</h3>
-        <div class="form-group">
-          <label for="email">Correo Electrónico</label>
-          <input type="text" class="form-control" name="ckan.footer.email" value="{{ config.get('ckan.footer.email', '') }}">
+  <form method='post' action="" id="admin-config-form" enctype="multipart/form-data">
+    {% block admin_form %}
+      {{ super() }}
+
+      <h2>Configuración del Footer</h2>
+      <p>Configura la información que se mostrará en el footer de la página.</p>
+      <div class="row">
+        <div class="col-md-6">
+          <h3 class="mt-1">Información General</h3>
+          <div class="form-group">
+            <label for="email">Correo Electrónico</label>
+            <input type="text" class="form-control" name="ckan.footer.email" value="{{ config.get('ckan.footer.email', '') }}">
+          </div>
+          <div class="form-group">
+            <label for="telefono">Teléfono</label>
+            <input type="text" class="form-control" name="ckan.footer.telefono" value="{{ config.get('ckan.footer.telefono', '') }}">
+          </div>
+          <div class="form-group">
+            <label for="direccion">Dirección</label>
+            <input type="text" class="form-control" name="ckan.footer.direccion" value="{{ config.get('ckan.footer.direccion', '') }}">
+          </div>
+          <div class="form-group">
+            <label for="pagina_oficial">Página Oficial</label>
+            <input type="text" class="form-control" name="ckan.footer.pagina_oficial" value="{{ config.get('ckan.footer.pagina_oficial', '') }}">
+          </div>
+          <div class="form-group">
+            <label for="objetivo">Objetivo</label>
+            <textarea class="form-control" name="ckan.footer.objetivo" rows="4">{{ config.get('ckan.footer.objetivo', '') }}</textarea>
+          </div>
+          <div class="form-group">
+            <label for="logo">Logo (PNG, JPG, etc.)</label>
+            <input type="file" class="form-control" name="ckan.footer.logo" accept="image/png, image/jpeg, image/jpg">
+          </div>
         </div>
-
-        <div class="form-group">
-          <label for="telefono">Teléfono</label>
-          <input type="text" class="form-control" name="ckan.footer.telefono" value="{{ config.get('ckan.footer.telefono', '') }}">
-        </div>
-
-        <div class="form-group">
-          <label for="direccion">Dirección</label>
-          <input type="text" class="form-control" name="ckan.footer.direccion" value="{{ config.get('ckan.footer.direccion', '') }}">
-        </div>
-
-        <div class="form-group">
-          <label for="pagina_oficial">Página Oficial</label>
-          <input type="text" class="form-control" name="ckan.footer.pagina_oficial" value="{{ config.get('ckan.footer.pagina_oficial', '') }}">
-        </div>
-
-        <div class="form-group">
-          <label for="objetivo">Objetivo</label>
-          <input type="text" class="form-control" name="ckan.footer.objetivo" value="{{ config.get('ckan.footer.objetivo', '') }}">
-        </div>
-
-        <div class="form-group">
-          <label for="logo">Logo (URL o Ruta)</label>
-          <input type="text" class="form-control" name="ckan.footer.logo" value="{{ config.get('ckan.footer.logo', '') }}">
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <h3 class="mt-1">Redes Sociales</h3>
-        <div class="form-group">
-          <label for="facebook">Facebook</label>
-          <input type="text" class="form-control" name="ckan.footer.facebook" value="{{ config.get('ckan.footer.facebook', '') }}">
-        </div>
-
-        <div class="form-group">
-          <label for="twitter">Twitter</label>
-          <input type="text" class="form-control" name="ckan.footer.twitter" value="{{ config.get('ckan.footer.twitter', '') }}">
-        </div>
-
-        <div class="form-group">
-          <label for="instagram">Instagram</label>
-          <input type="text" class="form-control" name="ckan.footer.instagram" value="{{ config.get('ckan.footer.instagram', '') }}">
-        </div>
-
-        <div class="form-group">
-          <label for="youtube">YouTube</label>
-          <input type="text" class="form-control" name="ckan.footer.youtube" value="{{ config.get('ckan.footer.youtube', '') }}">
-        </div>
-
-        <div class="form-group">
-          <label for="linkedin">LinkedIn</label>
-          <input type="text" class="form-control" name="ckan.footer.linkedin" value="{{ config.get('ckan.footer.linkedin', '') }}">
+        <div class="col-md-6">
+          <h3 class="mt-1">Redes Sociales</h3>
+          <div class="form-group">
+            <label for="facebook">Facebook</label>
+            <input type="text" class="form-control" name="ckan.footer.facebook" value="{{ config.get('ckan.footer.facebook', '') }}">
+          </div>
+          <div class="form-group">
+            <label for="twitter">Twitter</label>
+            <input type="text" class="form-control" name="ckan.footer.twitter" value="{{ config.get('ckan.footer.twitter', '') }}">
+          </div>
+          <div class="form-group">
+            <label for="instagram">Instagram</label>
+            <input type="text" class="form-control" name="ckan.footer.instagram" value="{{ config.get('ckan.footer.instagram', '') }}">
+          </div>
+          <div class="form-group">
+            <label for="youtube">YouTube</label>
+            <input type="text" class="form-control" name="ckan.footer.youtube" value="{{ config.get('ckan.footer.youtube', '') }}">
+          </div>
+          <div class="form-group">
+            <label for="linkedin">LinkedIn</label>
+            <input type="text" class="form-control" name="ckan.footer.linkedin" value="{{ config.get('ckan.footer.linkedin', '') }}">
+          </div>
         </div>
       </div>
+    {% endblock %}
+    <div class="form-actions">
+      <a href="{% url_for 'admin.reset_config' %}" class="btn btn-danger pull-left" data-module="confirm-action" data-module-content="{{ _('Are you sure you want to reset the config?') }}">{{ _('Reset') }}</a>
+      <button type="submit" class="btn btn-primary" name="save">{{ _('Update Config') }}</button>
     </div>
-</form>
-
-
+  </form>
 {% endblock %}
+
