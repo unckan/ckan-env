@@ -2,7 +2,7 @@ import logging
 from ckan import plugins
 from ckan.plugins import toolkit
 from ckanext.unckan.helpers import base, datastore
-from flask import Blueprint, redirect, flash
+from ckanext.unckan.blueprints.footer_config import blueprint as footer_blueprint
 
 
 log = logging.getLogger(__name__)
@@ -67,25 +67,4 @@ class UnCKANPlugin(plugins.SingletonPlugin):
 
     def get_blueprint(self):
         """Agrega una ruta para manejar la configuración desde Flask"""
-        blueprint = Blueprint('footer_config', __name__, url_prefix='/ckan-admin')
-
-        @blueprint.route('/footer-config', methods=['GET', 'POST'])
-        def footer_config():
-            """Maneja la configuración del footer en el admin"""
-            if toolkit.request.method == 'POST':
-                new_config = toolkit.request.form.to_dict()
-
-                # Guardar cambios en CKAN usando `config_option_update`
-                for key, value in new_config.items():
-                    try:
-                        toolkit.get_action('config_option_update')({}, {'key': key, 'value': value})
-                        log.info(f'Configuración guardada: {key} = {value}')
-                    except Exception as e:
-                        log.error(f'Error al guardar {key}: {str(e)}')
-
-                flash('Configuración actualizada con éxito', 'success')
-                return redirect('/ckan-admin/config')
-
-            return toolkit.render('admin/config.html', config=self.get_footer_config())
-
-        return blueprint
+        return footer_blueprint
