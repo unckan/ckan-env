@@ -21,6 +21,26 @@ class UnCKANPlugin(plugins.SingletonPlugin):
         toolkit.add_public_directory(config_, "public")
         toolkit.add_resource("assets", "unckan")
 
+    # Permitir que estos valores se actualicen desde la interfaz web
+    def update_config_schema(self, schema):
+        ignore_missing = toolkit.get_validator('ignore_missing')
+        unicode_safe = toolkit.get_validator('unicode_safe')
+        schema.update({
+            'ckan.footer.email': [ignore_missing, unicode_safe],
+            'ckan.footer.telefono': [ignore_missing, unicode_safe],
+            'ckan.footer.direccion': [ignore_missing, unicode_safe],
+            'ckan.footer.pagina_oficial': [ignore_missing, unicode_safe],
+            'ckan.footer.idioma': [ignore_missing, unicode_safe],
+            'ckan.footer.objetivo': [ignore_missing, unicode_safe],
+            'ckan.footer.logo': [ignore_missing, unicode_safe],
+            'ckan.footer.facebook': [ignore_missing, unicode_safe],
+            'ckan.footer.twitter': [ignore_missing, unicode_safe],
+            'ckan.footer.instagram': [ignore_missing, unicode_safe],
+            'ckan.footer.youtube': [ignore_missing, unicode_safe],
+            'ckan.footer.linkedin': [ignore_missing, unicode_safe],
+        })
+        return schema
+
     # ITemplateHelpers
 
     def get_helpers(self):
@@ -48,21 +68,18 @@ class UnCKANPlugin(plugins.SingletonPlugin):
             'ckan.footer.linkedin': config.get('ckan.footer.linkedin', 'https://linkedin.com')
         }
 
-    # ITemplateHelpers
-
     def get_footer_config(self):
         """Devuelve los valores del footer para usarlos en las plantillas"""
         footer_config = {}
-        keys = self.footer_config.keys()  # Usa las mismas claves definidas en `self.footer_config`
 
-        for key in keys:
-            try:
-                result = toolkit.get_action('config_option_show')({}, {'key': key})
-                footer_config[key] = result['value']
-            except Exception as e:
-                log.error(f'Error al obtener {key}: {str(e)}')
-                footer_config[key] = self.footer_config[key]  # Usa valor predeterminado si no existe en la BD
+        for key in self.footer_config.keys():
+            # Obtiene el valor directamente de la configuración de CKAN
+            value = toolkit.config.get(key, self.footer_config[key])
 
+            # Limpiar el valor del logo si tiene comillas
+            if key == 'ckan.footer.logo' and value:
+                value = value.strip('"').strip("'")
+            footer_config[key] = value    
         return footer_config
 
     def get_blueprint(self):
