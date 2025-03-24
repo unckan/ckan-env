@@ -2,7 +2,7 @@ import logging
 from ckan import plugins
 from ckan.plugins import toolkit
 from ckanext.unckan.helpers import base, datastore
-from ckanext.unckan.blueprints.footer_config import blueprint as footer_blueprint
+from ckanext.unckan.blueprints.footer_config import footer_blueprint
 
 
 log = logging.getLogger(__name__)
@@ -79,7 +79,7 @@ class UnCKANPlugin(plugins.SingletonPlugin):
             # Limpiar el valor del logo si tiene comillas
             if key == 'ckan.footer.logo' and value:
                 value = value.strip('"').strip("'")
-            footer_config[key] = value    
+            footer_config[key] = value
         return footer_config
 
     def get_blueprint(self):

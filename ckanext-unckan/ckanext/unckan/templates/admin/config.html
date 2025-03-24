@@ -35,7 +35,8 @@
           </div>
           <div class="form-group">
             <label for="logo">Logo (PNG, JPG, etc.)</label>
-            <input type="file" class="form-control" name="ckan.footer.logo" accept="image/png, image/jpeg, image/jpg">
+            <input type="file" class="form-control" name="ckan.footer.logo" 
+            value="{{ config.get('ckan.footer.logo', '')}}" accept="image/png, image/jpeg, image/jpg">
           </div>
         </div>
         <div class="col-md-6">
@@ -64,7 +65,12 @@
       </div>
     {% endblock %}
     <div class="form-actions">
-      <a href="{% url_for 'admin.reset_config' %}" class="btn btn-danger pull-left" data-module="confirm-action" data-module-content="{{ _('Are you sure you want to reset the config?') }}">{{ _('Reset') }}</a>
+      <a href="/ckan-admin/reset-footer-config"
+        class="btn btn-danger pull-left"
+        data-module="confirm-action"
+        data-module-content="{{ _('Are you sure you want to reset the config?') }}">
+        {{ _('Reset') }}
+      </a>
       <button type="submit" class="btn btn-primary" name="save">{{ _('Update Config') }}</button>
     </div>
   </form>
