@@ -67,15 +67,4 @@ echo "Installing citeproc extension"
 pip install -e git+https://github.com/unckan/ckanext-citeproc.git@v1.0.1#egg=ckanext-citeproc
 pip install -r https://raw.githubusercontent.com/unckan/ckanext-citeproc/refs/tags/v1.0.1/requirements.txt
 
-# Verificar submódulo csl_styles
-CITEPROC_PATH="${APP_DIR}/src_extensions/ckanext-citeproc"
-CSL_DIR="${CITEPROC_PATH}/ckanext/citeproc/csl_styles"
-if [ ! -d "$CSL_DIR" ]; then
-    echo "Downloading csl_styles into $CSL_DIR..."
-    mkdir -p "$CSL_DIR"
-    git clone --depth=1 https://github.com/citation-style-language/styles.git "$CSL_DIR"
-else 
-    echo "csl_styles already present at $CSL_DIR"
-fi
-
 echo "CKAN extensions installed"
