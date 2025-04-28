@@ -9,8 +9,9 @@ log = logging.getLogger(__name__)
 footer_blueprint = Blueprint('footer_config', __name__, url_prefix='/ckan-admin')
 
 # Carpeta donde se guardarán los logos subidos (ajústala según tu configuración)
-UPLOAD_FOLDER = '/app/unckan/public/'
-DEFAULT_LOGO = '/ckanext/unckan/public/logo_footer_unc.png'
+BASE_DIR     = os.path.dirname(os.path.dirname(__file__))
+UPLOAD_FOLDER = os.path.join(BASE_DIR, 'public')
+DEFAULT_LOGO = '/base/images/logo_footer_unc.png'
 
 
 @footer_blueprint.route('/reset-footer-config', methods=['GET', 'POST'])
@@ -68,7 +69,7 @@ def footer_config():
         if 'ckan.footer.logo' in request.files:
             file = request.files['ckan.footer.logo']
             if file.filename:
-                file_path = os.path.join(UPLOAD_FOLDER, "logo_footer_unc.png")
+                file_path = os.path.join(UPLOAD_FOLDER, 'logo_footer_unc.png')
 
                 try:
                     file.save(file_path)
