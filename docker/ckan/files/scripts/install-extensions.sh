@@ -53,4 +53,7 @@ echo "Installing DBQuery extension"
 pip install -e git+https://github.com/unckan/ckanext-dbquery.git@0.2.0#egg=ckanext-dbquery
 pip install -r https://raw.githubusercontent.com/unckan/ckanext-dbquery/refs/tags/0.2.0/requirements.txt
 
+echo "Installing Ckanext Selfinfo extension"
+pip install -e git+https://github.com/germankay/ckanext-selfinfo.git@master#egg=ckanext-selfinfo
+
 echo "CKAN extensions installed"
