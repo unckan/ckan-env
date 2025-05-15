@@ -2,6 +2,6 @@ import pytest
 
 
 @pytest.fixture
-def clean_db(reset_db, migrate_db_for):
+def clean_db(reset_db):
     reset_db()
-    migrate_db_for('ckanext-unckan')
+
