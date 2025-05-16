@@ -60,7 +60,7 @@ class UnCKANPlugin(plugins.SingletonPlugin):
             'ckan.footer.pagina_oficial': config.get('ckan.footer.pagina_oficial', 'https://ejemplo.com'),
             'ckan.footer.idioma': config.get('ckan.footer.idioma', 'Español'),
             'ckan.footer.objetivo': config.get('ckan.footer.objetivo', 'Nuestro objetivo es.'),
-            'ckan.footer.logo': config.get('ckan.footer.logo', '/logo_footer.png'),
+            'ckan.footer.logo': config.get('ckan.footer.logo', '/logo_footer_unc.png'),
             'ckan.footer.facebook': config.get('ckan.footer.facebook', 'https://facebook.com'),
             'ckan.footer.twitter': config.get('ckan.footer.twitter', 'https://twitter.com'),
             'ckan.footer.instagram': config.get('ckan.footer.instagram', 'https://instagram.com'),
