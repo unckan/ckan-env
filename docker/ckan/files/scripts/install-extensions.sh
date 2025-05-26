@@ -53,4 +53,11 @@ echo "Installing DBQuery extension"
 pip install -e git+https://github.com/unckan/ckanext-dbquery.git@0.2.1#egg=ckanext-dbquery
 pip install -r https://raw.githubusercontent.com/unckan/ckanext-dbquery/refs/tags/0.2.1/requirements.txt
 
+echo "Installing Ckanext Selfinfo extension"
+pip install -e git+https://github.com/DataShades/ckanext-selfinfo.git@v1.2.0#egg=ckanext-selfinfo
+
+echo "Installing citeproc extension"
+pip install -e git+https://github.com/germankay/ckanext-citeproc.git@main#egg=ckanext-citeproc
+pip install -r https://raw.githubusercontent.com/germankay/ckanext-citeproc/main/requirements.txt
+
 echo "CKAN extensions installed"
