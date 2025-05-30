@@ -60,4 +60,7 @@ echo "Installing citeproc extension"
 pip install -e git+https://github.com/germankay/ckanext-citeproc.git@main#egg=ckanext-citeproc
 pip install -r https://raw.githubusercontent.com/germankay/ckanext-citeproc/main/requirements.txt
 
+echo "Installing Ckanext Selfinfo extension"
+pip install -e git+https://github.com/DataShades/ckanext-selfinfo.git@v1.2.0#egg=ckanext-selfinfo
+
 echo "CKAN extensions installed"
