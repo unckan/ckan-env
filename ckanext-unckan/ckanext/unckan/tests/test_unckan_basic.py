@@ -3,7 +3,7 @@ from ckan.lib.helpers import url_for
 from ckan.tests import factories
 
 
-@pytest.mark.usefixtures("with_plugins")
+@pytest.mark.usefixtures('clean_db')
 class TestUnCKANPluginUsageBasic:
     """ Test basic unckan from requests
     """
