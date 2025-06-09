@@ -8,6 +8,7 @@ cd $APP_DIR
 
 SRC_EXTENSIONS_DIR=$APP_DIR/src_extensions
 mkdir -p $SRC_EXTENSIONS_DIR
+chown -R ckan:ckan $SRC_EXTENSIONS_DIR
 
 # Install any local extensions in the src_extensions volume
 echo "Looking for local extensions to install..."

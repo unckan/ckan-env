@@ -62,5 +62,6 @@ pip install -r https://raw.githubusercontent.com/germankay/ckanext-citeproc/main
 
 echo "Installing Ckanext Selfinfo extension"
 pip install -e git+https://github.com/DataShades/ckanext-selfinfo.git@v1.2.0#egg=ckanext-selfinfo
+pip install pip
 
 echo "CKAN extensions installed"
