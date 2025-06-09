@@ -24,9 +24,6 @@ done
 
 source ${APP_DIR}/venv/bin/activate
 
-echo "CKAN DB init"
-ckan db init
-
 echo "CKAN db upgrade"
 ckan db upgrade
 

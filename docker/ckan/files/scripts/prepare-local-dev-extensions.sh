@@ -58,6 +58,8 @@ do
             ckan config-tool $i/test.ini "solr_url = ${SOLR_URL}"
             ckan config-tool $i/test.ini "ckan.datastore.write_url = ${DATASTORE_WRITE_URL}"
             ckan config-tool $i/test.ini "ckan.datastore.read_url = ${DATASTORE_READ_URL}"
+            DATAPUSHER_TOKEN=$(ckan -c $i/test.ini user token add default datapusher_multi expires_in=365 unit=86400 | tail -n 1 | tr -d '\t')
+            ckan config-tool $i/test.ini "ckanext.datapusher_plus.api_token=${DATAPUSHER_TOKEN}"
         fi
     fi
 done

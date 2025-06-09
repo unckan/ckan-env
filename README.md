@@ -10,7 +10,7 @@ Al estar desarrollado sobre CKAN este proyecto permite además subir datos manua
 ## Entorno
 
 El portal completo está compuesto por:
- - CKAN 2.11.1 (python 3)
+ - CKAN 2.11.3 (python 3)
    + Portal de datos base
  - Extensiones:
    + UNCKAN: Extension interna para la personaización de este portal.
