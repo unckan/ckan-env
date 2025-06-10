@@ -34,20 +34,20 @@ pip install -e git+https://github.com/okfn/datapusher-plus.git@okfn_tmp#egg=data
 pip install -r https://raw.githubusercontent.com/okfn/datapusher-plus/okfn_tmp/requirements.txt
 
 echo "Installing API-tracking extension"
-pip install -e git+https://github.com/NorwegianRefugeeCouncil/ckanext-api-tracking.git@0.5.1#egg=ckanext-api-tracking
-pip install -r https://raw.githubusercontent.com/NorwegianRefugeeCouncil/ckanext-api-tracking/refs/tags/0.5.1/requirements.txt
+pip install -e git+https://github.com/NorwegianRefugeeCouncil/ckanext-api-tracking.git@0.5.2#egg=ckanext-api-tracking
+pip install -r https://raw.githubusercontent.com/NorwegianRefugeeCouncil/ckanext-api-tracking/refs/tags/0.5.2/requirements.txt
 
 echo "Installing Apache Superset extension"
-pip install git+https://github.com/unckan/ckanext-superset.git@0.1.9#egg=ckanext-superset
-pip install -r https://raw.githubusercontent.com/unckan/ckanext-superset/refs/tags/0.1.9/requirements.txt
+pip install git+https://github.com/unckan/ckanext-superset.git@0.2.0#egg=ckanext-superset
+pip install -r https://raw.githubusercontent.com/unckan/ckanext-superset/refs/tags/0.2.0/requirements.txt
 
 echo "Installing Announcements extension"
-pip install git+https://github.com/okfn/ckanext-announcements.git@0.1.4#egg=ckanext-announcements
-pip install -r https://raw.githubusercontent.com/okfn/ckanext-announcements/0.1.4/requirements.txt
+pip install git+https://github.com/okfn/ckanext-announcements.git@0.1.6#egg=ckanext-announcements
+pip install -r https://raw.githubusercontent.com/okfn/ckanext-announcements/0.1.6/requirements.txt
 
 echo "Installing Push Errors extension"
-pip install git+https://github.com/unckan/ckanext-push-errors.git@0.1.5#egg=ckanext-push-errors
-pip install -r https://raw.githubusercontent.com/unckan/ckanext-push-errors/refs/tags/0.1.5/requirements.txt
+pip install git+https://github.com/unckan/ckanext-push-errors.git@0.1.6#egg=ckanext-push-errors
+pip install -r https://raw.githubusercontent.com/unckan/ckanext-push-errors/refs/tags/0.1.6/requirements.txt
 
 echo "Installing DBQuery extension"
 pip install -e git+https://github.com/unckan/ckanext-dbquery.git@0.2.2#egg=ckanext-dbquery
