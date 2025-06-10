@@ -56,10 +56,6 @@ pip install -r https://raw.githubusercontent.com/unckan/ckanext-dbquery/refs/tag
 echo "Installing Ckanext Selfinfo extension"
 pip install -e git+https://github.com/DataShades/ckanext-selfinfo.git@v1.2.0#egg=ckanext-selfinfo
 
-echo "Installing Ckanext Selfinfo extension"
-pip install -e git+https://github.com/DataShades/ckanext-selfinfo.git@v1.2.0#egg=ckanext-selfinfo
-pip install pip
-
 echo "Installing citeproc extension"
 pip install -e git+https://github.com/unckan/ckanext-citeproc.git@v1.0.1#egg=ckanext-citeproc
 pip install -r https://raw.githubusercontent.com/unckan/ckanext-citeproc/refs/tags/v1.0.1/requirements.txt
