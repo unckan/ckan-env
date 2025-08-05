@@ -62,6 +62,6 @@ install_extension "https://github.com/unckan/ckanext-citeproc.git" "v1.0.1" "cka
 rm -rf "$TEMP_DIR"
 
 echo "Installing ckanext-charts extension"
-pip install -q git+https://github.com/DataShades/ckanext-charts.git@v1.9.1#egg=ckanext-charts
+pip install -e git+https://github.com/DataShades/ckanext-charts.git@v1.9.1#egg=ckanext-charts
 
 echo "CKAN extensions installed"
