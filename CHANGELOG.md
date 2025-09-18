@@ -27,7 +27,7 @@ Monitoreo del estado del servidor a nivel de RAM, CPU, disco y errores internos
  - De 0.1.9 a 0.2.1: Bug reparado para la actualizacion desde superset (se rompian los nombres de los recursos).
 
 ### DBQuery
- - De 0.2.0 a 0.2.3: Capturar errores de consulta (si la consulta es incorrecta ).
+ - De 0.2.0 a 0.2.3: Capturar errores de consulta (si la consulta es incorrecta).
 
 ### API Tracking
  - De 0.5.1 a 0.5.2: 
