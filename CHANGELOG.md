@@ -1,0 +1,38 @@
+# Release 0.5.2
+2025-09-17
+
+## CKAN
+
+Actualizamos CKAN a la ultima version 2.11.3 desde 2.11.1
+Hay cambios en la gestion interna de sesiones de usuarios (por eso algunos cambios en la config)
+Se activo el plugin `activity`: comenzamos a registrar las acciones de los usuarios del portal
+
+## Extension interna
+
+Actualizancion en la extension interna
+ - Se quito la imagen en la seccion promoted que no esta en uso
+
+## Extensiones
+
+### Citeproc (nueva)
+
+Ahora podemos citar en documentos académicos datasets y recursos segun todas las normas de citacion existentes.
+
+### Selfinfo (Nueva)
+
+Monitoreo del estado del servidor a nivel de RAM, CPU, disco y errores internos
+
+### Superset
+ - De 0.1.9 a 0.2.1: Bug reparado para la actualizacion desde superset (se rompian los nombres de los recursos).
+
+### DBQuery
+ - De 0.2.0 a 0.2.3:
+
+### API Tracking
+ - De 0.5.1 a 0.5.2: 
+
+### Push Errors
+ - De 0.1.5 a 0.1.6:
+
+### Announcements
+ - De 0.1.4 a 0.1.6: 
