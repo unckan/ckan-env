@@ -35,3 +35,11 @@ bash:
 
 search-index:
 	docker compose exec ckan_uni ckan search-index rebuild
+
+test:
+	docker compose exec ckan_uni bash -c "\
+		source /app/unckan/venv/bin/activate && \
+		pytest \
+			--ckan-ini=/app/unckan/src_extensions/ckanext-unckan/test.ini \
+			--disable-warnings \
+			/app/unckan/src_extensions/ckanext-unckan/ckanext/unckan/tests ${ARGS}"
