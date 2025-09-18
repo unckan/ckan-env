@@ -7,7 +7,6 @@ set +o allexport
 
 echo "Installing Extensions"
 
-python -m venv ${APP_DIR}/venv
 source ${APP_DIR}/venv/bin/activate
 
 # Si estamos en el entorno de desarrollo ya esta montada la carpeta de la extension unckan
@@ -38,8 +37,8 @@ pip install -e git+https://github.com/NorwegianRefugeeCouncil/ckanext-api-tracki
 pip install -r https://raw.githubusercontent.com/NorwegianRefugeeCouncil/ckanext-api-tracking/refs/tags/0.5.2/requirements.txt
 
 echo "Installing Apache Superset extension"
-pip install git+https://github.com/unckan/ckanext-superset.git@0.2.0#egg=ckanext-superset
-pip install -r https://raw.githubusercontent.com/unckan/ckanext-superset/refs/tags/0.2.0/requirements.txt
+pip install git+https://github.com/unckan/ckanext-superset.git@0.2.1#egg=ckanext-superset
+pip install -r https://raw.githubusercontent.com/unckan/ckanext-superset/refs/tags/0.2.1/requirements.txt
 
 echo "Installing Announcements extension"
 pip install git+https://github.com/okfn/ckanext-announcements.git@0.1.6#egg=ckanext-announcements
