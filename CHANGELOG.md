@@ -44,7 +44,7 @@ Monitoreo del estado del servidor a nivel de RAM, CPU, disco y errores internos
      - `ckanext.push_errors.max_messages_hour` (default 10)
    - Refactor en el manejo de errores: se capturan todas las excepciones de la aplicación y se ignoran automáticamente ciertos errores esperables para usuarios anónimos (401, 403, 404)
    - Compatibilidad asegurada con CKAN 2.10 y 2.11 mediante nuevos workflows de CI, 
-  además se añadieron tests específicos para las funciones internas de `push_errors`
+   además se añadieron tests específicos para las funciones internas de `push_errors`
 
 ### Announcements
  - De 0.1.4 a 0.1.6: 
