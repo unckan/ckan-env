@@ -11,6 +11,7 @@ Se activo el plugin `activity`: comenzamos a registrar las acciones de los usuar
 
 Actualizancion en la extension interna
  - Se quito la imagen en la seccion promoted que no esta en uso
+ - Se cambio la version debian de debian:stable-slim a debian:12-slim
 
 ## Extensiones
 
