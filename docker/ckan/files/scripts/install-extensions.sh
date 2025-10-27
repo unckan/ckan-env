@@ -9,6 +9,27 @@ echo "Installing Extensions"
 
 source ${APP_DIR}/venv/bin/activate
 
+# Create temp directory
+TEMP_DIR="${APP_DIR}/tmp"
+mkdir -p "$TEMP_DIR"
+
+# Helper function to install extension from git
+install_extension() {
+    local repo_url=$1
+    local branch=$2
+    local ext_name=$3
+    
+    echo "Installing $ext_name extension"
+    local ext_dir="$TEMP_DIR/$ext_name"
+    git clone --depth 1 --branch "$branch" "$repo_url" "$ext_dir"
+    cd "$ext_dir"
+    pip install .
+    if [ -f "requirements.txt" ]; then
+        pip install -r requirements.txt
+    fi
+    cd -
+}
+
 # Si estamos en el entorno de desarrollo ya esta montada la carpeta de la extension unckan
 # Para produccion hay que instalarlo desde el repositorio principal
 if [ "$IS_DEV_ENV" != "true" ] ; then
@@ -28,36 +49,16 @@ fi
 # PDF view https://github.com/ckan/ckanext-pdfview
 pip install git+https://github.com/ckan/ckanext-pdfview.git#egg=ckanext-pdfview
 
-echo "Installing Datapusher+extension"
-pip install -e git+https://github.com/okfn/datapusher-plus.git@okfn_tmp#egg=datapusher_plus
-pip install -r https://raw.githubusercontent.com/okfn/datapusher-plus/okfn_tmp/requirements.txt
+install_extension "https://github.com/okfn/datapusher-plus.git" "okfn_tmp" "datapusher-plus"
+install_extension "https://github.com/NorwegianRefugeeCouncil/ckanext-api-tracking.git" "0.5.2" "ckanext-api-tracking"
+install_extension "https://github.com/unckan/ckanext-superset.git" "0.2.1" "ckanext-superset"
+install_extension "https://github.com/okfn/ckanext-announcements.git" "0.1.6" "ckanext-announcements"
+install_extension "https://github.com/unckan/ckanext-push-errors.git" "0.1.6" "ckanext-push-errors"
+install_extension "https://github.com/unckan/ckanext-dbquery.git" "0.2.3" "ckanext-dbquery"
+install_extension "https://github.com/DataShades/ckanext-selfinfo.git" "v1.2.0" "ckanext-selfinfo"
+install_extension "https://github.com/unckan/ckanext-citeproc.git" "v1.0.1" "ckanext-citeproc"
 
-echo "Installing API-tracking extension"
-pip install -e git+https://github.com/NorwegianRefugeeCouncil/ckanext-api-tracking.git@0.5.2#egg=ckanext-api-tracking
-pip install -r https://raw.githubusercontent.com/NorwegianRefugeeCouncil/ckanext-api-tracking/refs/tags/0.5.2/requirements.txt
-
-echo "Installing Apache Superset extension"
-pip install git+https://github.com/unckan/ckanext-superset.git@0.2.1#egg=ckanext-superset
-pip install -r https://raw.githubusercontent.com/unckan/ckanext-superset/refs/tags/0.2.1/requirements.txt
-
-echo "Installing Announcements extension"
-pip install git+https://github.com/okfn/ckanext-announcements.git@0.1.6#egg=ckanext-announcements
-pip install -r https://raw.githubusercontent.com/okfn/ckanext-announcements/0.1.6/requirements.txt
-
-echo "Installing Push Errors extension"
-pip install git+https://github.com/unckan/ckanext-push-errors.git@0.1.6#egg=ckanext-push-errors
-pip install -r https://raw.githubusercontent.com/unckan/ckanext-push-errors/refs/tags/0.1.6/requirements.txt
-
-echo "Installing DBQuery extension"
-pip install -e git+https://github.com/unckan/ckanext-dbquery.git@0.2.3#egg=ckanext-dbquery
-pip install -r https://raw.githubusercontent.com/unckan/ckanext-dbquery/refs/tags/0.2.3/requirements.txt
-
-echo "Installing Ckanext Selfinfo extension"
-pip install -e git+https://github.com/DataShades/ckanext-selfinfo.git@v1.2.0#egg=ckanext-selfinfo
-pip install pip
-
-echo "Installing citeproc extension"
-pip install -e git+https://github.com/unckan/ckanext-citeproc.git@v1.0.1#egg=ckanext-citeproc
-pip install -r https://raw.githubusercontent.com/unckan/ckanext-citeproc/refs/tags/v1.0.1/requirements.txt
+# Clean up temp directory
+rm -rf "$TEMP_DIR"
 
 echo "CKAN extensions installed"
