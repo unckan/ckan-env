@@ -57,11 +57,9 @@ install_extension "https://github.com/unckan/ckanext-push-errors.git" "0.1.6" "c
 install_extension "https://github.com/unckan/ckanext-dbquery.git" "0.2.3" "ckanext-dbquery"
 install_extension "https://github.com/DataShades/ckanext-selfinfo.git" "v1.2.0" "ckanext-selfinfo"
 install_extension "https://github.com/unckan/ckanext-citeproc.git" "v1.0.1" "ckanext-citeproc"
+install_extension "https://github.com/DataShades/ckanext-charts.git" "v1.9.1" "ckanext-charts"
 
 # Clean up temp directory
 rm -rf "$TEMP_DIR"
-
-echo "Installing ckanext-charts extension"
-pip install -e git+https://github.com/DataShades/ckanext-charts.git@v1.9.1#egg=ckanext-charts
 
 echo "CKAN extensions installed"
