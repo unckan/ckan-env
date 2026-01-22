@@ -10,6 +10,11 @@ echo "Installing CKAN $CKAN_GIT_BRANCH :: $CKAN_GIT_URL :: $(python --version)"
 python -m venv ${APP_DIR}/venv
 source ${APP_DIR}/venv/bin/activate
 pip install gunicorn yacron
+# NOTE:
+# The venv is created in the Dockerfile using uv with Python 3.11 pinned.
+# PATH is already set to use ${APP_DIR}/venv/bin
+
+uv pip install --upgrade pip setuptools wheel
 
 echo "Creating CKAN storage directory: $CKAN_STORAGE_FOLDER"
 mkdir -p ${APP_DIR}/${CKAN_STORAGE_FOLDER}
@@ -20,17 +25,17 @@ git clone -b "$CKAN_GIT_BRANCH" $CKAN_GIT_URL ckan
 cd ckan
 
 echo "Installing requirements"
-pip install -r requirements.txt
+uv pip install -r requirements.txt
 
 # The boolean IS_DEV_ENV define if we need to install dev requirements
 if [ "$IS_DEV_ENV" = "true" ] ; then
   echo "Installing dev requirements"
-  pip install -r dev-requirements.txt
-  pip install flask-debugtoolbar
+  uv pip install -r dev-requirements.txt
+  uv pip install flask-debugtoolbar
 fi
 
 echo "Installing CKAN package"
-pip install .
+uv pip install .
 
 echo "Patch CKAN if required"
 cd ${APP_DIR}
