@@ -22,7 +22,15 @@ until psql -d $SQLALCHEMY_URL -c '\q'; do
   sleep 3
 done
 
-source ${APP_DIR}/venv/bin/activate
+# venv is already on PATH (set in Dockerfile)
+
+echo "Checking if CKAN DB is initialized"
+if ! psql -d "$SQLALCHEMY_URL" -tAc "SELECT 1 FROM information_schema.tables WHERE table_name='package'" | grep -q 1; then
+  echo "CKAN DB init"
+  ckan db init
+else
+  echo "CKAN DB already initialized, skipping db init"
+fi
 
 echo "CKAN db upgrade"
 ckan db upgrade
