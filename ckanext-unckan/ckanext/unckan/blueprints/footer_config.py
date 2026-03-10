@@ -25,18 +25,18 @@ def reset_footer_config():
 
     try:
         default_config = {
-            'ckan.footer.email': 'email@gmail.com',
-            'ckan.footer.telefono': '0555-9999999',
-            'ckan.footer.direccion': 'Av. Nombre Calle, Ciudad.',
-            'ckan.footer.pagina_oficial': 'https://www.institución.edu.ar/contactenos',
-            'ckan.footer.idioma': 'español',
-            'ckan.footer.objetivo': 'Nuestro objetivo es.',
+            'ckan.footer.email': '',
+            'ckan.footer.telefono': '',
+            'ckan.footer.direccion': '',
+            'ckan.footer.pagina_oficial': '',
+            'ckan.footer.idioma': '',
+            'ckan.footer.objetivo': '',
             'ckan.footer.logo': DEFAULT_LOGO,
-            'ckan.footer.facebook': 'https://www.facebook.com/',
-            'ckan.footer.twitter': 'https://twitter.com/',
-            'ckan.footer.instagram': 'https://www.instagram.com/',
-            'ckan.footer.youtube': 'https://www.youtube.com/',
-            'ckan.footer.linkedin': 'https://www.linkedin.com/'
+            'ckan.footer.facebook': '',
+            'ckan.footer.twitter': '',
+            'ckan.footer.instagram': '',
+            'ckan.footer.youtube': '',
+            'ckan.footer.linkedin': ''
         }
 
         for key, value in default_config.items():
