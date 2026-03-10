@@ -6,15 +6,15 @@
       <div class="row">
         <!-- Nueva columna agregada -->
         <div class="col-md-3 extra-footer-column">
+          {% set footer_config = h.get_footer_config() %}
             <a class="logo_footer" href="{{ h.url_for('home.index') }}">
-                <img class="img-fluid" src="{{ h.get_footer_config().get('ckan.footer.logo', '/logo_footer_unc.png') }}" alt="Logo" title="Logo" />
+                <img class="img-fluid" src="{{ footer_config.get('ckan.footer.logo', '/logo_footer_unc.png') }}" alt="Logo" title="Logo" />
             </a>
             <p class="mt-1">
-              {{ h.get_footer_config().get('ckan.footer.objetivo', 'Nuestro objetivo es.') }}
+              {{ footer_config.get('ckan.footer.objetivo', 'Nuestro objetivo es.') }}
             </p>
             <h4>Síguenos en redes sociales</h4>
             <ul class="social-icons list-unstyled">
-              {% set footer_config = h.get_footer_config() %}
 
               {% if footer_config.get('ckan.footer.facebook') %}
                   <li><a href="{{ footer_config.get('ckan.footer.facebook') }}" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook"></i></a></li>
@@ -59,18 +59,29 @@
         <div class="col-md-3 extra-footer-column">
           <h4>Contáctanos</h4>
           <ul class="list-unstyled">
-            <li>
-              <b>Correo electrónico:</b> <a href="mailto:{{ config.get('ckan.footer.email') }}">{{ config.get('ckan.footer.email') }}</a>
-            </li>
-            <li>        
-              <b>Contacto telefónico:</b> {{ config.get('ckan.footer.telefono') }}
-            </li>
-            <li>
-              <b>Dirección:</b> {{ config.get('ckan.footer.direccion', 'No disponible') }}
-            </li>
-            <li>
-              <b>Página Oficial:</b> <a href="{{ config.get('ckan.footer.pagina_oficial', '#') }}" target="_blank">{{ config.get('ckan.footer.pagina_oficial', 'No definida') }}</a>
-            </li>
+            {% if config.get('ckan.footer.email') %}
+              <li>
+          <b>Correo electrónico:</b> <a href="mailto:{{ config.get('ckan.footer.email') }}">{{ config.get('ckan.footer.email') }}</a>
+              </li>
+            {% endif %}
+
+            {% if config.get('ckan.footer.telefono') %}
+              <li>        
+          <b>Contacto telefónico:</b> {{ config.get('ckan.footer.telefono') }}
+              </li>
+            {% endif %}
+
+            {% if config.get('ckan.footer.direccion') %}
+              <li>
+          <b>Dirección:</b> {{ config.get('ckan.footer.direccion') }}
+              </li>
+            {% endif %}
+
+            {% if config.get('ckan.footer.pagina_oficial') %}
+              <li>
+          <b>Página Oficial:</b> <a href="{{ config.get('ckan.footer.pagina_oficial') }}" target="_blank" rel="noopener noreferrer">{{ config.get('ckan.footer.pagina_oficial') }}</a>
+              </li>
+            {% endif %}
           </ul>
         </div>
 
