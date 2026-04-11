@@ -27,7 +27,7 @@ ssh -i ~/.ssh/hetzner_unckan_dev root@aaa.bbb.ccc.ddd
 
 # Docker + compose plugin
 apt update && apt upgrade -y
-apt install -y docker.io docker-compose-v2 git caddy
+apt install -y docker.io docker-compose-v2 git caddy make
 
 # Usuario no-root opcional (recomendado)
 adduser --disabled-password --gecos "" ckan
@@ -38,7 +38,7 @@ usermod -aG docker ckan
 
 ```bash
 su - ckan
-git clone <url-del-repo> /home/ckan/ckan-env
+git clone https://github.com/unckan/ckan-env.git /home/ckan/ckan-env
 cd /home/ckan/ckan-env
 cp deploy/hetzner/.env.example deploy/hetzner/.env
 # editar deploy/hetzner/.env y poner una password real para Postgres
@@ -46,11 +46,13 @@ cp deploy/hetzner/.env.example deploy/hetzner/.env
 
 ## 5. Build de la imagen CKAN
 
-La imagen `unckan:local` se construye con el Dockerfile del repo:
+La imagen `unckan:local` se construye con el Makefile existente del repo,
+que ya gestiona el contexto de build correcto (`docker/ckan`) y crea los
+archivos auxiliares que hacen falta (`local.env`, etc.):
 
 ```bash
 cd /home/ckan/ckan-env/docker
-docker build -t unckan:local -f ckan/Dockerfile .
+make build
 ```
 
 ## 6. Levantar el stack
@@ -85,7 +87,7 @@ Caddy gestiona Let's Encrypt automáticamente en el primer request a `https://`.
 ```bash
 cd /home/ckan/ckan-env
 git pull
-cd docker && docker build -t unckan:local -f ckan/Dockerfile .
+cd docker && make build
 cd ../deploy/hetzner
 docker compose -f ../../docker/docker-compose.yml -f docker-compose.prod.yml up -d
 ```
