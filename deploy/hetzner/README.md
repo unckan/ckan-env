@@ -8,6 +8,11 @@ Despliegue simple de CKAN + Postgres + Redis + Solr en un VPS de Hetzner usando
 En la consola de Hetzner Cloud:
 
 - Imagen: **Ubuntu 24.04**
+- Tipo de instancia: **x86 (AMD/Intel)** — usar **CPX41** o **CX42**
+  (8 vCPU, 16 GB RAM). **NO** usar instancias ARM (`CAX...`): las imágenes
+  oficiales de CKAN (`ckan/ckan-postgres-dev`, `ckan/ckan-solr`) se publican
+  solo para `linux/amd64`, y correrlas bajo emulación QEMU en ARM es lento e
+  inestable. La diferencia de precio con ARM es pequeña y no vale el dolor.
 - SSH key: la pública generada localmente (`ssh-keygen -t ed25519 -C "hetzner-unckan-dev" -f ~/.ssh/hetzner_unckan_dev`)
 - Firewall: abrir `22`, `80`, `443` (todo lo demás cerrado)
 
@@ -60,9 +65,15 @@ make build
 El compose de prod hereda del de dev y sobrescribe lo necesario (quita bind
 mounts de dev, publica puertos solo en `127.0.0.1`, agrega `restart`).
 
+El flag `--project-directory .` es importante: sin él, `docker compose` deriva
+el project directory del primer `-f` (es decir `docker/`) y busca el `.env`
+ahí. Con `--project-directory .` lo fuerza a `deploy/hetzner/`, donde vive
+nuestro `.env`.
+
 ```bash
 cd /home/ckan/ckan-env/deploy/hetzner
 docker compose \
+  --project-directory . \
   -f ../../docker/docker-compose.yml \
   -f docker-compose.prod.yml \
   up -d
@@ -106,13 +117,13 @@ cd /home/ckan/ckan-env
 git pull
 cd docker && make build
 cd ../deploy/hetzner
-docker compose -f ../../docker/docker-compose.yml -f docker-compose.prod.yml up -d
+docker compose --project-directory . -f ../../docker/docker-compose.yml -f docker-compose.prod.yml up -d
 ```
 
 **Logs**
 
 ```bash
-docker compose -f ../../docker/docker-compose.yml -f docker-compose.prod.yml logs -f ckan_uni
+docker compose --project-directory . -f ../../docker/docker-compose.yml -f docker-compose.prod.yml logs -f ckan_uni
 ```
 
 **Backup de Postgres**
