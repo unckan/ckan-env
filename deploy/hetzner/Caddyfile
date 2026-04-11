@@ -1,0 +1,7 @@
+ckan.example.org {
+	reverse_proxy 127.0.0.1:5000
+	encode gzip
+	request_body {
+		max_size 100MB
+	}
+}

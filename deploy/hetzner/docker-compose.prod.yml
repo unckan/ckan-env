@@ -1,0 +1,50 @@
+services:
+  ckan_uni:
+    image: unckan:local
+    restart: unless-stopped
+    depends_on:
+      postgresql_uni:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:5000:5000"
+    volumes:
+      - ckan_storage:/app/unckan/storage
+      - ../../ckanext-unckan:/app/unckan/src_extensions/ckanext-unckan
+
+  postgresql_uni:
+    image: ckan/ckan-postgres-dev:2.10
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "127.0.0.1:8012:5432"
+
+  redis_uni:
+    image: public.ecr.aws/ubuntu/redis:latest
+    restart: unless-stopped
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_ALLOW_REMOTE_CONNECTIONS=yes
+      - REDIS_AOF_ENABLED=no
+    ports:
+      - "127.0.0.1:8013:6379"
+
+  solr_uni:
+    image: ckan/ckan-solr:2.10
+    restart: unless-stopped
+    volumes:
+      - solr_data:/var/solr
+    ports:
+      - "127.0.0.1:8014:8983"
+
+volumes:
+  ckan_storage:
+  pg_data:
+  solr_data:

@@ -5,6 +5,9 @@ docker-compose-prod.yml
 docker/src/*
 docker/ckan/files/env/local.env
 
+# Secretos de deploy — nunca commitear
+deploy/hetzner/.env
+
 *.pyc
 *.pyo
 
