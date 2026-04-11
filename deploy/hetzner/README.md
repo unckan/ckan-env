@@ -70,15 +70,32 @@ docker compose \
 
 ## 7. Caddy (TLS automático)
 
+El `Caddyfile` del repo usa `{$CKAN_DOMAIN}` como placeholder, así el dominio
+real nunca queda versionado. Enlazamos el archivo del repo a `/etc/caddy` (así
+un `git pull` actualiza la config) e inyectamos el dominio como variable de
+entorno del servicio systemd.
+
 Como `root`:
 
 ```bash
-cp /home/ckan/ckan-env/deploy/hetzner/Caddyfile /etc/caddy/Caddyfile
-# editar /etc/caddy/Caddyfile y reemplazar ckan.example.org por el dominio real
-systemctl reload caddy
+# Symlink al Caddyfile del repo (no hace falta copiar ni editar nada)
+ln -sf /home/ckan/ckan-env/deploy/hetzner/Caddyfile /etc/caddy/Caddyfile
+
+# Inyectar el dominio como variable de entorno del servicio caddy
+mkdir -p /etc/systemd/system/caddy.service.d
+cat > /etc/systemd/system/caddy.service.d/env.conf <<'EOF'
+[Service]
+Environment=CKAN_DOMAIN=ckan.tu-dominio.org
+EOF
+
+systemctl daemon-reload
+systemctl restart caddy
+systemctl status caddy
 ```
 
 Caddy gestiona Let's Encrypt automáticamente en el primer request a `https://`.
+Para cambiar el dominio en el futuro, solo se edita
+`/etc/systemd/system/caddy.service.d/env.conf` y `systemctl restart caddy`.
 
 ## Operación
 
