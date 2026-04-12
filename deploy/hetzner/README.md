@@ -141,6 +141,57 @@ docker exec postgresql_uni pg_dumpall -U postgres | gzip > ~/backup-$(date +%F).
 Los volúmenes `pg_data`, `solr_data` y `ckan_storage` están en
 `/var/lib/docker/volumes/` — incluirlos en el backup del servidor.
 
+## Sincronizar datos desde producción
+
+El script `scripts/sync-from-prod.sh` trae todos los datos (organizaciones,
+grupos, usuarios, datasets con extras y archivos de recursos) desde una
+instancia CKAN de producción hacia este server, de forma idempotente.
+
+**Requisitos en el server**:
+
+```bash
+# Instalar ckanapi (una sola vez)
+uv venv
+uv pip install ckanapi
+```
+
+**Necesitás dos API keys de sysadmin**: una en prod (para leer) y una en
+local (para escribir). Para generar la local:
+
+```bash
+docker exec -it ckan_uni ckan user token add <usuario-admin> sync-from-prod
+```
+
+**Uso**:
+
+```bash
+cd /home/ckan/ckan-env/deploy/hetzner/scripts
+
+PROD_URL=https://ckan-prod.example.org \
+PROD_KEY=<token-prod> \
+LOCAL_KEY=<token-local> \
+./sync-from-prod.sh
+```
+
+**Qué hace**:
+
+1. `ckanapi dump` de organizaciones, grupos, usuarios y datasets desde prod.
+2. `ckanapi load` (upsert) en el CKAN local — preserva IDs y `extras` (que es
+   donde `ckanext-superset` guarda su info).
+3. Descarga los archivos binarios de los resources con la API key de prod y
+   los copia con `docker cp` al storage del container (`/app/unckan/storage`).
+
+**Idempotencia**: correrlo dos veces no duplica. `ckanapi load` hace upsert,
+y los archivos ya existentes en storage se saltean.
+
+**Limitaciones conocidas** (inherentes al API de CKAN, no del script):
+
+- **Passwords de usuarios** no se exportan. Los usuarios deben resetear al
+  primer login, o setear manualmente con
+  `docker exec -it ckan_uni ckan user setpass <user>`.
+- **API tokens** de usuarios deben regenerarse.
+- **Activity stream / tracking / revisions** no viajan.
+
 ## Ajustes de memoria para servers chicos (8 GB)
 
 Con el stack completo (CKAN + 4 workers gunicorn + Solr + Postgres + Redis)
