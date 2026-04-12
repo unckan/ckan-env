@@ -98,6 +98,25 @@ dump_entity groups
 dump_entity users
 dump_entity datasets
 
+# Stripear campos sensibles de users.jsonl antes del load:
+#   - password: el hash viene en el dump y re-hashearlo rompe el login.
+#   - reset_key: token de reset de password — no tiene sentido copiarlo.
+#   - apikey: legacy field, tokens locales no deben ser reemplazados.
+# Dejar estos campos fuera preserva los passwords locales seteados al build.
+echo ">> sanitizando users.jsonl (quitando password/reset_key/apikey)"
+python3 - <<'PY'
+import json
+with open("users.jsonl") as f:
+    users = [json.loads(line) for line in f if line.strip()]
+for u in users:
+    for field in ("password", "reset_key", "apikey"):
+        u.pop(field, None)
+with open("users.jsonl", "w") as f:
+    for u in users:
+        f.write(json.dumps(u) + "\n")
+print(f"   {len(users)} users sanitizados")
+PY
+
 # --- 2. Load en local --------------------------------------------------------
 # Orden importante por FK: orgs -> groups -> users -> datasets
 

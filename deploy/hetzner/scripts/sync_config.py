@@ -26,6 +26,31 @@ import urllib.error
 import urllib.request
 
 
+# Keys que NO se copian de prod porque son específicas del deployment local.
+# Copiarlas rompe auth, redirects, cookies, notificaciones o integraciones.
+EXCLUDED_KEYS = frozenset(
+    {
+        # Dominio — rompe login, redirects y cookies si se copia
+        "ckan.site_url",
+        "ckan.site_id",
+        # Reglas de creación de usuarios: suelen ser distintas en dev
+        "ckan.auth.create_user_via_api",
+        "ckan.auth.create_user_via_web",
+        "ckan.auth.user_create_organizations",
+        "ckan.auth.user_create_groups",
+        # SMTP es propio del server, no del contenido
+        "smtp.server",
+        "smtp.starttls",
+        "smtp.user",
+        "smtp.password",
+        "smtp.mail_from",
+        # Tokens específicos del server (ej. Datapusher+)
+        "ckan.datapusher.api_token",
+        "ckanext.datapusher_plus.api_token",
+    }
+)
+
+
 def log(msg: str) -> None:
     print(msg, flush=True)
 
@@ -80,9 +105,11 @@ def download_logo(prod_url: str, api_key: str, filename: str) -> pathlib.Path | 
 
 def main(prod_url: str, prod_key: str, local_url: str, local_key: str) -> int:
     log(">> leyendo config del portal desde prod")
-    keys = call_action(prod_url, prod_key, "config_option_list")
+    all_keys = call_action(prod_url, prod_key, "config_option_list")
+    keys = [k for k in all_keys if k not in EXCLUDED_KEYS]
     total = len(keys)
-    log(f"   {total} opciones editables encontradas")
+    excluded_count = len(all_keys) - total
+    log(f"   {total} opciones a copiar ({excluded_count} excluidas por blacklist)")
 
     config: dict[str, object] = {}
     for idx, key in enumerate(keys, start=1):
