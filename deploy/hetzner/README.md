@@ -141,10 +141,37 @@ docker exec postgresql_uni pg_dumpall -U postgres | gzip > ~/backup-$(date +%F).
 Los volúmenes `pg_data`, `solr_data` y `ckan_storage` están en
 `/var/lib/docker/volumes/` — incluirlos en el backup del servidor.
 
+## Ajustes de memoria para servers chicos (8 GB)
+
+Con el stack completo (CKAN + 4 workers gunicorn + Solr + Postgres + Redis)
+un server de 8 GB queda muy al límite y el OOM killer mata workers. Para
+evitarlo, aplicamos dos ajustes **solo en Hetzner**, sin afectar dev:
+
+1. **Reducir gunicorn a 2 workers**. Se controla con la env var
+   `GUNICORN_WORKERS`, que `prepare-supervisor.sh` respeta (default `4` para
+   dev, backwards-compatible). En el `local.env` del server (gitignored):
+
+   ```bash
+   GUNICORN_WORKERS=2
+   ```
+
+   Como los env vars son build-time, después de tocar `local.env` hay que
+   `make build` en `docker/` y `up -d` en `deploy/hetzner/`.
+
+2. **Limitar el heap de Solr a 512m**. Ya está aplicado en el
+   `docker-compose.prod.yml` (env var `SOLR_HEAP=512m` en el servicio
+   `solr_uni`). Sin modificaciones adicionales, se aplica automáticamente
+   en el próximo `up -d`.
+
+Con estos dos ajustes el consumo baja ~2 GB y el stack aguanta en 8 GB.
+Si en algún momento querés mejor concurrencia, la forma correcta es
+resize del server a 16 GB y subir `GUNICORN_WORKERS` a 4 en `local.env`.
+
 ## Notas
 
 - Kamal no se usa a propósito: para un único host con un stack estable,
   `docker compose` directo es más simple y suficiente.
-- El compose de dev monta extensiones locales (`ckanext-dbquery`, etc.) que en
-  prod no existen; por eso el override de prod redefine `volumes` en
-  `ckan_uni` dejando solo lo necesario.
+- El `docker-compose.prod.yml` es autosuficiente y no hereda del compose
+  de dev: Compose mergea listas de `ports` concatenando en vez de
+  reemplazar, lo que provoca colisiones. Mantenerlo separado es más
+  predecible.

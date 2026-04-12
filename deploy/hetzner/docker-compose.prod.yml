@@ -39,6 +39,10 @@ services:
     container_name: solr_uni
     image: ckan/ckan-solr:2.10
     restart: unless-stopped
+    environment:
+      # Limita el heap de la JVM de Solr. Default ~1-2 GB. En Hetzner 8GB
+      # bajamos a 512m para dejar RAM libre para CKAN/Postgres.
+      - SOLR_HEAP=512m
     volumes:
       - solr_data:/var/solr
 
