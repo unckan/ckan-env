@@ -51,6 +51,7 @@ STORAGE_PATH="${STORAGE_PATH:-/app/unckan/storage}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOWNLOAD_PY="${SCRIPT_DIR}/download_resources.py"
 DOWNLOAD_IMAGES_PY="${SCRIPT_DIR}/download_images.py"
+SYNC_CONFIG_PY="${SCRIPT_DIR}/sync_config.py"
 
 # --- Sanity checks -----------------------------------------------------------
 
@@ -174,6 +175,30 @@ if [ "$COPY_FILES" = "1" ]; then
 
     docker exec "$CONTAINER" chown -R ckan:ckan "$image_dir" 2>/dev/null || true
     echo "   imágenes copiadas"
+fi
+
+# --- 5. config del portal (/ckan-admin/config) + logo -----------------------
+# Copia título, descripción, about, intro text, logo, etc. vía la API
+# (config_option_list/show/update). El logo, si es un upload, se baja y
+# copia al storage del container igual que las imágenes de grupo.
+echo ">> sincronizando config del portal"
+python3 "$SYNC_CONFIG_PY" "$PROD_URL" "$PROD_KEY" "$LOCAL_URL" "$LOCAL_KEY"
+
+if [ -s admin-manifest.txt ]; then
+    logo=$(cat admin-manifest.txt)
+    src="admin-tmp/${logo}"
+    if [ -f "$src" ]; then
+        admin_dir="${STORAGE_PATH}/storage/uploads/admin"
+        internal_path="${admin_dir}/${logo}"
+        if ! docker exec "$CONTAINER" test -f "$internal_path" 2>/dev/null; then
+            docker exec "$CONTAINER" mkdir -p "$admin_dir"
+            docker cp "$src" "${CONTAINER}:${internal_path}"
+            docker exec "$CONTAINER" chown -R ckan:ckan "$admin_dir" 2>/dev/null || true
+            echo "   logo copiado al storage"
+        else
+            echo "   logo ya presente en storage"
+        fi
+    fi
 fi
 
 echo "=============================================================="
