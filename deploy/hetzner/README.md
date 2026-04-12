@@ -62,21 +62,20 @@ make build
 
 ## 6. Levantar el stack
 
-El compose de prod hereda del de dev y sobrescribe lo necesario (quita bind
-mounts de dev, publica puertos solo en `127.0.0.1`, agrega `restart`).
+El `docker-compose.prod.yml` es **autosuficiente** — no hereda del compose de
+dev. Es intencional: al mergear múltiples `-f`, Docker Compose **concatena**
+las listas de `ports`, así que quedan activos los bindings de ambos archivos
+y colisionan entre sí. Un compose de prod self-contained evita ese problema
+y es más predecible.
 
-El flag `--project-directory .` es importante: sin él, `docker compose` deriva
-el project directory del primer `-f` (es decir `docker/`) y busca el `.env`
-ahí. Con `--project-directory .` lo fuerza a `deploy/hetzner/`, donde vive
-nuestro `.env`.
+Solo publica el puerto `5000` del contenedor `ckan_uni` (atado a `127.0.0.1`
+para que lo consuma Caddy). Postgres, Redis y Solr no exponen puertos al
+host: se comunican entre sí por la red interna del compose usando los
+hostnames `postgresql_uni`, `redis_uni` y `solr_uni`.
 
 ```bash
 cd /home/ckan/ckan-env/deploy/hetzner
-docker compose \
-  --project-directory . \
-  -f ../../docker/docker-compose.yml \
-  -f docker-compose.prod.yml \
-  up -d
+docker compose -f docker-compose.prod.yml up -d
 ```
 
 ## 7. Caddy (TLS automático)
@@ -91,6 +90,13 @@ Como `root`:
 ```bash
 # Symlink al Caddyfile del repo (no hace falta copiar ni editar nada)
 ln -sf /home/ckan/ckan-env/deploy/hetzner/Caddyfile /etc/caddy/Caddyfile
+
+# Permitir que el usuario `caddy` atraviese /home/ckan/... hasta el symlink.
+# Por default /home/ckan es 750 y el servicio caddy (que corre como usuario
+# `caddy`) no puede leer el archivo. `o+x` en los directorios permite solo
+# traversal (no listado) y `o+r` en el Caddyfile permite la lectura.
+chmod o+x /home/ckan /home/ckan/ckan-env /home/ckan/ckan-env/deploy /home/ckan/ckan-env/deploy/hetzner
+chmod o+r /home/ckan/ckan-env/deploy/hetzner/Caddyfile
 
 # Inyectar el dominio como variable de entorno del servicio caddy
 mkdir -p /etc/systemd/system/caddy.service.d
@@ -117,13 +123,13 @@ cd /home/ckan/ckan-env
 git pull
 cd docker && make build
 cd ../deploy/hetzner
-docker compose --project-directory . -f ../../docker/docker-compose.yml -f docker-compose.prod.yml up -d
+docker compose -f docker-compose.prod.yml up -d
 ```
 
 **Logs**
 
 ```bash
-docker compose --project-directory . -f ../../docker/docker-compose.yml -f docker-compose.prod.yml logs -f ckan_uni
+docker compose -f docker-compose.prod.yml logs -f ckan_uni
 ```
 
 **Backup de Postgres**

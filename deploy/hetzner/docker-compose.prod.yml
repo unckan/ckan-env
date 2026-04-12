@@ -1,5 +1,6 @@
 services:
   ckan_uni:
+    container_name: ckan_uni
     image: unckan:local
     restart: unless-stopped
     depends_on:
@@ -12,6 +13,7 @@ services:
       - ../../ckanext-unckan:/app/unckan/src_extensions/ckanext-unckan
 
   postgresql_uni:
+    container_name: postgresql_uni
     image: ckan/ckan-postgres-dev:2.10
     restart: unless-stopped
     env_file:
@@ -23,26 +25,22 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    ports:
-      - "127.0.0.1:8012:5432"
 
   redis_uni:
+    container_name: redis_uni
     image: public.ecr.aws/ubuntu/redis:latest
     restart: unless-stopped
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
       - REDIS_ALLOW_REMOTE_CONNECTIONS=yes
       - REDIS_AOF_ENABLED=no
-    ports:
-      - "127.0.0.1:8013:6379"
 
   solr_uni:
+    container_name: solr_uni
     image: ckan/ckan-solr:2.10
     restart: unless-stopped
     volumes:
       - solr_data:/var/solr
-    ports:
-      - "127.0.0.1:8014:8983"
 
 volumes:
   ckan_storage:
