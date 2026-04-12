@@ -1,3 +1,5 @@
+name: hetzner
+
 services:
   ckan_uni:
     container_name: ckan_uni
