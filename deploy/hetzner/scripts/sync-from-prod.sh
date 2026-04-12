@@ -50,6 +50,7 @@ STORAGE_PATH="${STORAGE_PATH:-/app/unckan/storage}"
 # script (no desde el cwd, que después cambiamos a DUMP_DIR).
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOWNLOAD_PY="${SCRIPT_DIR}/download_resources.py"
+DOWNLOAD_IMAGES_PY="${SCRIPT_DIR}/download_images.py"
 
 # --- Sanity checks -----------------------------------------------------------
 
@@ -149,6 +150,30 @@ if [ "$COPY_FILES" = "1" ]; then
     # permisos dentro del container: CKAN corre como `ckan`
     docker exec "$CONTAINER" chown -R ckan:ckan "${STORAGE_PATH}/resources" 2>/dev/null || true
     echo "   files copiados"
+
+    # --- 4. imágenes de grupos y organizaciones ----------------------------
+    # CKAN las guarda en ${STORAGE_PATH}/storage/group/<filename> y las sirve
+    # como ${SITE_URL}/uploads/group/<filename>. El campo image_url de cada
+    # entidad contiene el filename (upload) o una URL externa completa.
+    echo ">> bajando imágenes de grupos y organizaciones"
+    python3 "$DOWNLOAD_IMAGES_PY" "$PROD_URL" "$PROD_KEY"
+
+    echo ">> copiando imágenes al storage del container ${CONTAINER}"
+    image_dir="${STORAGE_PATH}/storage/group"
+    docker exec "$CONTAINER" mkdir -p "$image_dir"
+    while read -r img; do
+        [ -z "$img" ] && continue
+        src="images-tmp/${img}"
+        [ -f "$src" ] || continue
+        internal_path="${image_dir}/${img}"
+        if docker exec "$CONTAINER" test -f "$internal_path" 2>/dev/null; then
+            continue
+        fi
+        docker cp "$src" "${CONTAINER}:${internal_path}"
+    done < images-manifest.txt
+
+    docker exec "$CONTAINER" chown -R ckan:ckan "$image_dir" 2>/dev/null || true
+    echo "   imágenes copiadas"
 fi
 
 echo "=============================================================="
