@@ -1,4 +1,17 @@
 {$CKAN_DOMAIN} {
+	# --- Bloquear indexación por buscadores ---
+	header * X-Robots-Tag "noindex, nofollow, noarchive"
+	respond /robots.txt 200 {
+		body "User-agent: *
+Disallow: /"
+	}
+
+	# --- Acceso restringido via basic auth ---
+	# Importa /etc/caddy/basicauth que contiene el bloque `basicauth`
+	# con user/hash. Se mantiene fuera del repo (credenciales privadas).
+	# Para desactivar: vaciar el archivo o borrar el import.
+	import /etc/caddy/basicauth
+
 	reverse_proxy 127.0.0.1:5000
 	encode gzip
 	request_body {
