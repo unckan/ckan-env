@@ -153,14 +153,14 @@ if [ "$COPY_FILES" = "1" ]; then
     echo "   files copiados"
 
     # --- 4. imágenes de grupos y organizaciones ----------------------------
-    # CKAN las guarda en ${STORAGE_PATH}/storage/group/<filename> y las sirve
+    # CKAN las guarda en ${STORAGE_PATH}/storage/uploads/group/<filename> y las sirve
     # como ${SITE_URL}/uploads/group/<filename>. El campo image_url de cada
     # entidad contiene el filename (upload) o una URL externa completa.
     echo ">> bajando imágenes de grupos y organizaciones"
     python3 "$DOWNLOAD_IMAGES_PY" "$PROD_URL" "$PROD_KEY"
 
     echo ">> copiando imágenes al storage del container ${CONTAINER}"
-    image_dir="${STORAGE_PATH}/storage/group"
+    image_dir="${STORAGE_PATH}/storage/uploads/group"
     docker exec "$CONTAINER" mkdir -p "$image_dir"
     while read -r img; do
         [ -z "$img" ] && continue
