@@ -59,7 +59,7 @@ USER ckan
 RUN uv python install 3.11
 RUN uv venv ${APP_DIR}/venv --python 3.11
 ENV PATH="${APP_DIR}/venv/bin:$PATH"
-RUN uv pip install wheel gunicorn psycopg2-binary
+RUN uv pip install "setuptools>=61,<81" wheel gunicorn psycopg2-binary
 
 # Install CKAN
 RUN ${APP_DIR}/files/scripts/install-ckan.sh
