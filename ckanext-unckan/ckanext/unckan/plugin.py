@@ -23,5 +23,6 @@ class UnCKANPlugin(plugins.SingletonPlugin):
     def get_helpers(self):
         return {
             'get_unckan_version': base.get_unckan_version,
+            'get_unckan_latest_datasets': base.get_unckan_latest_datasets,
             'sanitize_id': datastore.sanitize_id,
         }
