@@ -76,7 +76,7 @@ jobs:
         ckan -c test.ini db init
         # No tenemos tablas propias por ahora
         # ckan -c test.ini db upgrade -p unckan
-        ckan -c test.ini db upgrade -p xloader
+        # xloader does not use CKAN's Alembic migration system (uses its own jobs DB)
         echo "Applying migrations for tracking"
         ckan -c test.ini db upgrade -p api_tracking
         # echo "Applying migrations for superset"
