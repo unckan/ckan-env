@@ -60,6 +60,7 @@ jobs:
         source /app/unckan/venv/bin/activate
         cd ckanext-unckan
         pip install -r requirements.txt
+        pip install -r https://raw.githubusercontent.com/ckan/ckanext-xloader/master/requirements.txt
         pip install -r dev-requirements.txt
         pip install -e .
 
