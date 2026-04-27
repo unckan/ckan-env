@@ -49,7 +49,7 @@ fi
 # PDF view https://github.com/ckan/ckanext-pdfview
 pip install git+https://github.com/ckan/ckanext-pdfview.git#egg=ckanext-pdfview
 
-install_extension "https://github.com/okfn/datapusher-plus.git" "okfn_tmp" "datapusher-plus"
+install_extension "https://github.com/ckan/ckanext-xloader.git" "2.3.0" "ckanext-xloader"
 install_extension "https://github.com/NorwegianRefugeeCouncil/ckanext-api-tracking.git" "0.5.2" "ckanext-api-tracking"
 install_extension "https://github.com/unckan/ckanext-superset.git" "0.2.1" "ckanext-superset"
 install_extension "https://github.com/okfn/ckanext-announcements.git" "0.1.6" "ckanext-announcements"
