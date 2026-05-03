@@ -15,12 +15,13 @@ El portal completo está compuesto por:
  - Extensiones:
    + UNCKAN: Extension interna para la personaización de este portal.
    + [Superset](https://github.com/unckan/ckanext-superset): Extension de CKAN para conectar con [Apache Superset](https://superset.apache.org/).
- - Extensiones (en progreso):
-   + [SIU Harvester](https://github.com/unckan/ckanext-siu-harvester): Extensión para cosechar datos desde sistemas [SIU](https://www.siu.edu.ar/) usando la librería [pySIUData](https://github.com/unckan/pySIUdata) (creada especialmente como parte de este proceso).
-   + [Dataset previews](https://github.com/unckan/ckanext-datasetpreview): Extensión CKAN para agregar gráficos a los datasets de manera simple.
-   + (TODO deprecated) El template CKAN usado está en el repositorio [UI Universidad](https://github.com/unckan/ckanext-ui-universidad).
-   + Incluye además otras extensiones desarrolladas por la comunidad CKAN.
-   + [En desarrollo](https://github.com/unckan/pysigeva): Integración con el [SIGEva (Sistema Integral de Gestión y Evaluación)](https://sigeva.conicet.gov.ar/) de CONICET.
+   + [API TRacking](https://github.com/NorwegianRefugeeCouncil/ckanext-api-tracking)
+   + [Announcements](https://github.com/okfn/ckanext-announcements)
+   + [Push Errors](https://github.com/unckan/ckanext-push-errors)
+   + [DBQuery](https://github.com/unckan/ckanext-dbquery)
+   + Citations with [CiteProc](https://github.com/unckan/ckanext-citeproc)
+   + [Charts](https://github.com/DataShades/ckanext-charts)
+
 
 ## Correr localmente
 
