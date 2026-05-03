@@ -18,7 +18,7 @@ install_extension() {
     local repo_url=$1
     local branch=$2
     local ext_name=$3
-    
+
     echo "Installing $ext_name extension"
     local ext_dir="$TEMP_DIR/$ext_name"
     git clone --depth 1 --branch "$branch" "$repo_url" "$ext_dir"
