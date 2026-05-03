@@ -1,0 +1,12 @@
+defaults:
+  shell: /bin/bash
+  captureStderr: true
+  captureStdout: true
+  utc: true
+  failsWhen:
+    nonzeroReturn: true
+
+jobs:
+  - name: superset-run-due-syncs
+    command: source ${APP_DIR}/venv/bin/activate && ckan -c ${CKAN_INI} superset run-due-syncs
+    schedule: "30 4 * * *"
