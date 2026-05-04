@@ -29,6 +29,15 @@ El portal completo está compuesto por:
 docker-compose up
 ```
 
+### Acceder al contenedor principal
+
+```
+# Como usuario ckan (regular)
+make up
+# Como root
+docker exec -u root -it ckan_uni bash
+```
+
 ## Imagen pública
 
 La compilación de esta imagen esta [disponible en DockerHub](https://hub.docker.com/r/avdata99/unckan/tags?page=1&ordering=last_updated).  
