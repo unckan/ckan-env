@@ -14,7 +14,7 @@ pip install gunicorn yacron
 # The venv is created in the Dockerfile using uv with Python 3.11 pinned.
 # PATH is already set to use ${APP_DIR}/venv/bin
 
-uv pip install --upgrade pip setuptools wheel
+uv pip install "setuptools>=61,<81" wheel
 
 echo "Creating CKAN storage directory: $CKAN_STORAGE_FOLDER"
 mkdir -p ${APP_DIR}/${CKAN_STORAGE_FOLDER}
