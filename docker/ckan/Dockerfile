@@ -30,6 +30,7 @@ RUN ${APP_DIR}/files/scripts/install-os-deps.sh
 
 COPY files/etc/supervisord.base ${APP_DIR}/files/etc/supervisord.conf
 COPY files/etc/ckan*.conf ${APP_DIR}/files/etc/
+COPY files/etc/yacron.yml ${APP_DIR}/files/etc/yacron.yml
 COPY files/scripts/prepare-supervisor.sh ${APP_DIR}/files/scripts/prepare-supervisor.sh
 RUN ${APP_DIR}/files/scripts/prepare-supervisor.sh
 

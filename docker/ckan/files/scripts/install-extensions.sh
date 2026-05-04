@@ -18,7 +18,7 @@ install_extension() {
     local repo_url=$1
     local branch=$2
     local ext_name=$3
-    
+
     echo "Installing $ext_name extension"
     local ext_dir="$TEMP_DIR/$ext_name"
     git clone --depth 1 --branch "$branch" "$repo_url" "$ext_dir"
@@ -51,7 +51,7 @@ pip install git+https://github.com/ckan/ckanext-pdfview.git#egg=ckanext-pdfview
 
 install_extension "https://github.com/okfn/datapusher-plus.git" "okfn_tmp" "datapusher-plus"
 install_extension "https://github.com/NorwegianRefugeeCouncil/ckanext-api-tracking.git" "0.5.2" "ckanext-api-tracking"
-install_extension "https://github.com/unckan/ckanext-superset.git" "0.2.1" "ckanext-superset"
+install_extension "https://github.com/unckan/ckanext-superset.git" "0.3.0" "ckanext-superset"
 install_extension "https://github.com/okfn/ckanext-announcements.git" "0.1.6" "ckanext-announcements"
 install_extension "https://github.com/unckan/ckanext-push-errors.git" "0.1.6" "ckanext-push-errors"
 install_extension "https://github.com/unckan/ckanext-dbquery.git" "0.2.3" "ckanext-dbquery"
