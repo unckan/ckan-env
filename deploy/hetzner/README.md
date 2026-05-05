@@ -218,6 +218,55 @@ Con estos dos ajustes el consumo baja ~2 GB y el stack aguanta en 8 GB.
 Si en algún momento querés mejor concurrencia, la forma correcta es
 resize del server a 16 GB y subir `GUNICORN_WORKERS` a 4 en `local.env`.
 
+## Upgrade de la imagen de Solr
+
+La versión de Solr está pineada en `docker-compose.prod.yml` (servicio
+`solr_uni`, image `ckan/ckan-solr:<tag>`). Las imágenes oficiales de
+CKAN traen el schema correspondiente a esa versión de CKAN, así que el
+tag típico tiene la forma `<ckan-version>-solr<solr-version>`
+(p. ej. `2.11-solr9`).
+
+**Importante**: un bump de Solr casi siempre requiere reindexar. Solr
+serializa el índice en un formato específico de Lucene y los upgrades
+mayores no leen formatos viejos; además el schema viaja en la imagen,
+así que aunque el formato fuera compatible querés que el índice refleje
+el schema nuevo.
+
+Pasos en el server:
+
+```bash
+cd /home/ckan/ckan-env/deploy/hetzner
+
+# 1. Editar el tag de la imagen para cambiar a la nueva
+
+# 2. Bajar solo el container de solr y borrar el volumen viejo.
+#    El volumen `solr_data` queda atado al servicio; al recrear el
+#    container con la nueva imagen, Solr inicializa un index vacío.
+docker compose -f docker-compose.prod.yml stop solr_uni
+docker compose -f docker-compose.prod.yml rm -f solr_uni
+docker volume rm hetzner_solr_data
+
+# 3. Levantar el solr nuevo (CKAN puede seguir corriendo, pero las
+#    búsquedas devuelven cero hasta que termine el rebuild)
+docker compose -f docker-compose.prod.yml up -d solr_uni
+
+# 4. Reindexar desde CKAN
+docker exec -it ckan_uni bash -lc \
+  "source /app/unckan/venv/bin/activate && ckan -c \$CKAN_INI search-index rebuild"
+```
+
+Si el bump de Solr viene acompañado de un bump de CKAN, hacer el
+`make build` + `up -d` del stack **antes** del rebuild para que el
+container de CKAN sea el que pushea documentos al schema nuevo.
+
+Verificar después:
+
+```bash
+curl -s http://localhost:5000/api/3/action/package_search?rows=0 | jq .result.count
+```
+
+debe coincidir con el número de datasets esperado.
+
 ## Notas
 
 - Kamal no se usa a propósito: para un único host con un stack estable,
