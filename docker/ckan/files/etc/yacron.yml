@@ -8,3 +8,10 @@ jobs:
   - name: superset-run-due-syncs
     command: source ${APP_DIR}/venv/bin/activate && ckan -c ${CKAN_INI} superset run-due-syncs
     schedule: "30 4 * * *"
+
+  - name: ckan-tracking-update
+    command: |
+      source ${APP_DIR}/venv/bin/activate
+      LAST_MONTH=$(date -d '2 days ago' +'%Y-%m-%d')
+      ckan -c ${CKAN_INI} tracking update $LAST_MONTH
+    schedule: "0 3 * * *"
