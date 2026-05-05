@@ -22,8 +22,6 @@ until psql -d $SQLALCHEMY_URL -c '\q'; do
   sleep 3
 done
 
-source ${APP_DIR}/venv/bin/activate
-
 echo "CKAN db upgrade"
 ckan db upgrade
 

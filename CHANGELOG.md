@@ -9,6 +9,7 @@
  - Remove SelfInfo extension [#83](https://github.com/unckan/ckan-env/pull/83)
  - Move from Datapusher+ to XLoader
  - Dev env notes using Hetzer added
+ - Moving from Debian 12 to Debian 13
 
 # Release 0.5.2
 2025-09-17

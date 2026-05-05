@@ -5,7 +5,9 @@ echo "Installing OS dependencies"
 # =====================================================
 # Install more dependencies
 apt update
-apt install -y gettext-base file git libmagic1 libpq-dev postgresql-client supervisor uchardet unzip vim wget
+apt install -y gettext-base file git libmagic1 libpq-dev libuchardet-dev postgresql-client \
+    supervisor uchardet unzip vim wget xmlsec1 \
+    texlive-latex-extra latexmk curl
 
 # git: to pull the CKAN source code from GitHub
 # libmagic1: for the file upload functionality in CKAN
