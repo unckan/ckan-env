@@ -6,12 +6,16 @@
  - Add trabslations (ES) [#53](https://github.com/unckan/ckanext-superset/pull/53)
  - Allow automatic sync resources [#52](https://github.com/unckan/ckanext-superset/pull/52)
  - Add filters to the charts list [#50](https://github.com/unckan/ckanext-superset/pull/50)
+
+ ## More
+ 
  - Remove SelfInfo extension [#83](https://github.com/unckan/ckan-env/pull/83)
  - Move from Datapusher+ to XLoader
  - Dev env notes using Hetzer added
  - Moving from Debian 12 to Debian 13
  - Add latest datasets in the home page [#81](https://github.com/unckan/ckan-env/pull/81)
  - Most visited home page block added [#82](https://github.com/unckan/ckan-env/pull/82/)
+ - `yacron` installed to run periodic tasks (Superset sync and popular dataset tracking)
 
 # Release 0.5.2
 2025-09-17
