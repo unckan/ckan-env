@@ -1,4 +1,4 @@
-FROM debian:12-slim
+FROM debian:13-slim
 
 # Args
 ARG TZ
@@ -10,6 +10,9 @@ ENV CKAN_INI=${APP_DIR}/ckan.ini
 
 WORKDIR ${APP_DIR}
 RUN apt update
+
+# Bring uv binary for Python and venv management
+COPY --from=ghcr.io/astral-sh/uv:0.6.14 /uv /uvx /bin/
 
 # Copy files one by one to ensure Dockerfile is caching layers
 # and the change in one file does not invalidate the cache of the others
@@ -30,6 +33,7 @@ RUN ${APP_DIR}/files/scripts/install-os-deps.sh
 
 COPY files/etc/supervisord.base ${APP_DIR}/files/etc/supervisord.conf
 COPY files/etc/ckan*.conf ${APP_DIR}/files/etc/
+COPY files/etc/yacron.yml ${APP_DIR}/files/etc/yacron.yml
 COPY files/scripts/prepare-supervisor.sh ${APP_DIR}/files/scripts/prepare-supervisor.sh
 RUN ${APP_DIR}/files/scripts/prepare-supervisor.sh
 
@@ -49,6 +53,13 @@ RUN useradd -m -s /bin/bash ckan
 RUN chown ckan -R ${APP_DIR}
 RUN chown ckan -R /var/log/supervisor
 USER ckan
+
+# Create venv with a pinned Python (avoid Debian default Python drift)
+# uv will download/manage Python 3.11 if not present
+RUN uv python install 3.11
+RUN uv venv ${APP_DIR}/venv --python 3.11
+ENV PATH="${APP_DIR}/venv/bin:$PATH"
+RUN uv pip install "setuptools>=61,<81" wheel gunicorn psycopg2-binary
 
 # Install CKAN
 RUN ${APP_DIR}/files/scripts/install-ckan.sh

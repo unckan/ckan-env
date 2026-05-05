@@ -50,7 +50,7 @@ services:
 
   solr_uni:
     container_name: solr_uni
-    image: ckan/ckan-solr:2.10-solr9
+    image: ckan/ckan-solr:2.11-solr9
     ports:
       - "8014:8983"
     volumes:

@@ -12,6 +12,14 @@ envsubst < $APP_DIR/files/etc/ckan-worker.conf > /etc/supervisor/conf.d/ckan-wor
 echo "CKAN worker configuration"
 cat /etc/supervisor/conf.d/ckan-worker.conf
 
+# Yacron: substitute env vars into the schedule YAML and register the supervisor program
+envsubst < $APP_DIR/files/etc/yacron.yml > /etc/yacron.yml
+echo "Yacron configuration"
+cat /etc/yacron.yml
+envsubst < $APP_DIR/files/etc/ckan-yacron.conf > /etc/supervisor/conf.d/ckan-yacron.conf
+echo "Yacron supervisor configuration"
+cat /etc/supervisor/conf.d/ckan-yacron.conf
+
 # Prepaer the ckan supervisor command
 if [ "$IS_DEV_ENV" = "true" ] ; then
     if [ "$USE_LOCAL_HTTPS" = "true" ]; then

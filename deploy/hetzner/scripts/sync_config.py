@@ -44,9 +44,9 @@ EXCLUDED_KEYS = frozenset(
         "smtp.user",
         "smtp.password",
         "smtp.mail_from",
-        # Tokens específicos del server (ej. Datapusher+)
-        "ckan.datapusher.api_token",
-        "ckanext.datapusher_plus.api_token",
+        # Tokens específicos del server (ej. XLoader)
+        "ckan.xloader.api_token",
+        "ckanext.xloader.api_token",
     }
 )
 
