@@ -22,3 +22,61 @@ body {
 .site-footer {
     background: var(--primary-color);
 }
+
+/* === Últimos datasets modificados (home) === */
+.unc-latest-datasets {
+    padding: 2rem 0 3rem;
+    background: #f8f9fa;
+}
+
+.unc-latest-datasets .section-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--seagull);
+    padding-left: 0.75rem;
+}
+
+.unc-dataset-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 1rem 1.25rem;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.unc-dataset-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-color: var(--seagull);
+    color: inherit;
+    text-decoration: none;
+}
+
+.unc-dataset-card .card-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 0.4rem;
+}
+
+.unc-dataset-card .card-desc {
+    font-size: 0.82rem;
+    color: #555;
+    flex-grow: 1;
+    margin-bottom: 0.6rem;
+}
+
+.unc-dataset-card .card-meta {
+    font-size: 0.78rem;
+    color: #777;
+}
+
+.unc-dataset-card .card-meta span {
+    margin-right: 0.8rem;
+}

@@ -1,0 +1,41 @@
+{% ckan_extends %}
+
+{% block primary_content %}
+  {{ super() }}
+
+  {# ===== ÚLTIMOS CONJUNTOS DE DATOS ===== #}
+  {% set latest = h.get_unckan_latest_datasets(limit=5) %}
+  {% if latest %}
+  <section class="unc-latest-datasets">
+    <div class="container">
+      <h2 class="section-title">{{ _("Últimos conjuntos de datos añadidos") }}</h2>
+      <div class="row g-3">
+        {% for dataset in latest %}
+        <div class="col-12 col-md-6 col-lg-4">
+          <a href="{{ dataset.url }}" class="unc-dataset-card">
+            <div class="card-title">{{ dataset.title }}</div>
+            {% if dataset.description %}
+              <div class="card-desc">{{ dataset.description }}</div>
+            {% endif %}
+            <div class="card-meta">
+              {% if dataset.organization %}
+                <span><i class="fa fa-building-o"></i> {{ dataset.organization }}</span>
+              {% endif %}
+              <span><i class="fa fa-file-o"></i> {{ dataset.num_resources }} {{ _("recursos") }}</span>
+              {% if dataset.metadata_modified %}
+                <span><i class="fa fa-clock-o"></i> {{ h.render_datetime(dataset.metadata_modified) }}</span>
+              {% endif %}
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="text-center mt-4">
+        <a href="{{ h.url_for('dataset.search', sort='metadata_modified desc') }}" class="btn btn-primary">
+          {{ _("Ver todos los conjuntos de datos") }}
+        </a>
+      </div>
+    </div>
+  </section>
+  {% endif %}
+{% endblock %}
