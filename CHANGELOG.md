@@ -10,6 +10,8 @@
  - Move from Datapusher+ to XLoader
  - Dev env notes using Hetzer added
  - Moving from Debian 12 to Debian 13
+ - Add latest datasets in the home page [#81](https://github.com/unckan/ckan-env/pull/81)
+ - Most visited home page block added [#82](https://github.com/unckan/ckan-env/pull/82/)
 
 # Release 0.5.2
 2025-09-17
