@@ -38,4 +38,37 @@
     </div>
   </section>
   {% endif %}
+  {# ===== MÁS VISITADOS ===== #}
+  {% set popular = h.get_unckan_most_visited_datasets(limit=5) %}
+  {% if popular %}
+  <section class="unc-latest-datasets">
+    <div class="container">
+      <h2 class="section-title">{{ _("Más visitados") }}</h2>
+      <div class="row g-3">
+        {% for dataset in popular %}
+        <div class="col-12 col-md-6 col-lg-4">
+          <a href="{{ dataset.url }}" class="unc-dataset-card">
+            <div class="card-title">{{ dataset.title }}</div>
+            {% if dataset.description %}
+              <div class="card-desc">{{ dataset.description }}</div>
+            {% endif %}
+            <div class="card-meta">
+              {% if dataset.organization %}
+                <span><i class="fa fa-building-o"></i> {{ dataset.organization }}</span>
+              {% endif %}
+              <span><i class="fa fa-file-o"></i> {{ dataset.num_resources }} {{ _("recursos") }}</span>
+              <span><i class="fa fa-eye"></i> {{ dataset.views_total }} {{ _("visitas") }}</span>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="text-center mt-4">
+        <a href="{{ h.url_for('dataset.search', sort='views_total desc') }}" class="btn btn-primary">
+          {{ _("Ver todos los conjuntos de datos") }}
+        </a>
+      </div>
+    </div>
+  </section>
+  {% endif %}
 {% endblock %}

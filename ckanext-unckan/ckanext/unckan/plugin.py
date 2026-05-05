@@ -24,5 +24,6 @@ class UnCKANPlugin(plugins.SingletonPlugin):
         return {
             'get_unckan_version': base.get_unckan_version,
             'get_unckan_latest_datasets': base.get_unckan_latest_datasets,
+            'get_unckan_most_visited_datasets': base.get_unckan_most_visited_datasets,
             'sanitize_id': datastore.sanitize_id,
         }
