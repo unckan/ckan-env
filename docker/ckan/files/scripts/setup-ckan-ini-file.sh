@@ -25,7 +25,7 @@ ckan config-tool ${CKAN_INI} "beaker.session.validate_key = ${BEAKER_SESSION_VAL
 # debug
 ckan config-tool ${CKAN_INI} "debug = ${CKAN_DEBUG}"
 
-# Ensure USE_LOCAL_HTTPS and CKAN_SITE_URL are in sync 
+# Ensure USE_LOCAL_HTTPS and CKAN_SITE_URL are in sync
 if [ "$USE_LOCAL_HTTPS" = "false" ]; then
   if [ "$IS_DEV_ENV" = "true" ] ; then
     # if CKAN_SITE_URL starts with https replace it with http
@@ -50,6 +50,16 @@ ckan config-tool ${CKAN_INI} "ckan.redis.url = ${CKAN_REDIS_URL}"
 ckan config-tool ${CKAN_INI} "ckan.datastore.write_url = ${DATASTORE_WRITE_URL}"
 ckan config-tool ${CKAN_INI} "ckan.datastore.read_url = ${DATASTORE_READ_URL}"
 ckan config-tool ${CKAN_INI} "ckanext.xloader.jobs_db.uri = ${SQLALCHEMY_URL}"
+
+# Optional: override the site_url xloader uses to fetch resources.
+# Useful when the public site is behind a reverse proxy (e.g. basic auth on dev),
+# so the worker can pull resources from an internal URL instead.
+if [ -z "${XLOADER_SITE_URL}" ]; then
+  echo "XLOADER_SITE_URL is not set. xloader will use ckan.site_url to fetch resources."
+else
+  echo "Configuring ckanext.xloader.site_url = ${XLOADER_SITE_URL}"
+  ckan config-tool ${CKAN_INI} "ckanext.xloader.site_url = ${XLOADER_SITE_URL}"
+fi
 
 # It look like the local auth app is different from the dev env app
 if [ "$IS_DEV_ENV" = "true" ] ; then
