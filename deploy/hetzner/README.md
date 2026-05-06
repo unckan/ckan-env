@@ -3,7 +3,27 @@
 Despliegue simple de CKAN + Postgres + Redis + Solr en un VPS de Hetzner usando
 `docker compose` y Caddy como reverse proxy con TLS automático.
 
-## 1. Crear el servidor
+## 1. Generar SSH key pair (local)
+
+Antes de crear el servidor, generá un par de claves SSH dedicado para este
+deploy. Usar una clave dedicada (no la `~/.ssh/id_*` de uso general) facilita
+rotarla o compartirla con el equipo sin tocar otras credenciales.
+
+```bash
+ssh-keygen -t ed25519 -C "hetzner-unckan-dev" -f ~/.ssh/hetzner_unckan_dev
+```
+
+- Dejar passphrase vacía solo si el archivo va a vivir en una máquina con disco
+  cifrado; si no, ponerle una passphrase y cargarla con `ssh-add`.
+- Esto crea dos archivos: la privada (`~/.ssh/hetzner_unckan_dev`) y la
+  pública (`~/.ssh/hetzner_unckan_dev.pub`). En el siguiente paso vamos a
+  pegar el contenido de la `.pub` en la consola de Hetzner.
+
+```bash
+cat ~/.ssh/hetzner_unckan_dev.pub
+```
+
+## 2. Crear el servidor
 
 En la consola de Hetzner Cloud:
 
@@ -13,19 +33,42 @@ En la consola de Hetzner Cloud:
   oficiales de CKAN (`ckan/ckan-postgres-dev`, `ckan/ckan-solr`) se publican
   solo para `linux/amd64`, y correrlas bajo emulación QEMU en ARM es lento e
   inestable. La diferencia de precio con ARM es pequeña y no vale el dolor.
-- SSH key: la pública generada localmente (`ssh-keygen -t ed25519 -C "hetzner-unckan-dev" -f ~/.ssh/hetzner_unckan_dev`)
+- SSH key: pegar el contenido de `~/.ssh/hetzner_unckan_dev.pub` (paso 1).
+  Hetzner usa cloud-init para depositarla en `/root/.ssh/authorized_keys` al
+  primer boot.
 - Firewall: abrir `22`, `80`, `443` (todo lo demás cerrado)
+
+### Alternativa: agregar la clave a mano
+
+Si el server ya existe (o querés sumar una clave adicional del equipo sin
+recrearlo), se puede appendear la `.pub` directamente a `authorized_keys`.
+Desde la máquina local:
+
+```bash
+ssh-copy-id -i ~/.ssh/hetzner_unckan_dev.pub root@aaa.bbb.ccc.ddd
+```
+
+O manualmente, ya logueado en el server como `root`:
+
+```bash
+mkdir -p /root/.ssh
+chmod 700 /root/.ssh
+cat >> /root/.ssh/authorized_keys <<'EOF'
+ssh-ed25519 AAAA...contenido completo del .pub... hetzner-unckan-dev
+EOF
+chmod 600 /root/.ssh/authorized_keys
+```
 
 ### IP
 
 Nos dieron la IP aaa.bbb.ccc.ddd
 ssh -i ~/.ssh/hetzner_unckan_dev root@aaa.bbb.ccc.ddd
 
-## 2. Apuntar DNS
+## 3. Apuntar DNS
 
 Crear un registro `A` del dominio (ej. `ckan.example.org`) a la IP del servidor.
 
-## 3. Provisión inicial del servidor
+## 4. Provisión inicial del servidor
 
 ```bash
 ssh -i ~/.ssh/hetzner_unckan_dev root@aaa.bbb.ccc.ddd
@@ -39,7 +82,7 @@ adduser --disabled-password --gecos "" ckan
 usermod -aG docker ckan
 ```
 
-## 4. Clonar el repo y preparar env
+## 5. Clonar el repo y preparar env
 
 ```bash
 su - ckan
@@ -49,7 +92,7 @@ cp deploy/hetzner/.env.example deploy/hetzner/.env
 # editar deploy/hetzner/.env y poner una password real para Postgres
 ```
 
-## 5. Build de la imagen CKAN
+## 6. Build de la imagen CKAN
 
 La imagen `unckan:local` se construye con el Makefile existente del repo,
 que ya gestiona el contexto de build correcto (`docker/ckan`) y crea los
@@ -60,7 +103,7 @@ cd /home/ckan/ckan-env/docker
 make build
 ```
 
-## 6. Levantar el stack
+## 7. Levantar el stack
 
 El `docker-compose.prod.yml` es **autosuficiente** — no hereda del compose de
 dev. Es intencional: al mergear múltiples `-f`, Docker Compose **concatena**
@@ -78,7 +121,7 @@ cd /home/ckan/ckan-env/deploy/hetzner
 docker compose -f docker-compose.prod.yml up -d
 ```
 
-## 7. Caddy (TLS automático)
+## 8. Caddy (TLS automático)
 
 El `Caddyfile` del repo usa `{$CKAN_DOMAIN}` como placeholder, así el dominio
 real nunca queda versionado. Enlazamos el archivo del repo a `/etc/caddy` (así
