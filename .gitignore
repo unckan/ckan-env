@@ -4,6 +4,7 @@ docker-compose-prod.yml
 
 docker/src/*
 docker/ckan/files/env/local.env
+docker/ckan/files/env/hetzner.env
 
 # Secretos de deploy — nunca commitear
 deploy/hetzner/.env
@@ -21,3 +22,4 @@ __pycache__
 .Trashes
 
 .vscode/
+CLAUDE.md

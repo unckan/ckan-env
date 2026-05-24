@@ -1,9 +1,14 @@
 # Next Release
 
+ - 
+
+# Release 0.6.1
+2026-05-24
+
  - Limitar las normas de citacion a solo las más usadas en Argentina [#87](https://github.com/unckan/ckan-env/pull/87)
 
 # Release 0.6.0
-2025-09-17
+2026-05-03
 
 ## Superset
 
