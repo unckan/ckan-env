@@ -4,6 +4,10 @@ docker-compose-prod.yml
 
 docker/src/*
 docker/ckan/files/env/local.env
+docker/ckan/files/env/hetzner.env
+
+deploy/hetzner/scripts/sync-dump/
+deploy/hetzner/.env
 
 *.pyc
 *.pyo
@@ -17,3 +21,4 @@ __pycache__
 .Trashes
 
 .vscode/
+CLAUDE.md
