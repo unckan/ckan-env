@@ -43,6 +43,7 @@ COPY files/cert/localhost.cert ${APP_DIR}/files/cert/localhost.cert
 COPY files/cert/localhost.key ${APP_DIR}/files/cert/localhost.key
 
 COPY files/patches ${APP_DIR}/files/patches
+COPY files/csl_styles ${APP_DIR}/csl_styles
 COPY files/ckan.ini ${CKAN_INI}
 COPY files/scripts/install-ckan.sh ${APP_DIR}/files/scripts/install-ckan.sh
 COPY files/scripts/install-extensions.sh ${APP_DIR}/files/scripts/install-extensions.sh
