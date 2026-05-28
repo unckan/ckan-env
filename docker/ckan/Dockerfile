@@ -72,5 +72,5 @@ RUN ${APP_DIR}/files/scripts/setup-ckan-ini-file.sh
 HEALTHCHECK --interval=60s --timeout=5s --retries=5 CMD curl --fail http://localhost:5000/api/3/action/status_show || exit 1
 EXPOSE 5000
 
-COPY files/scripts/entrypoint.sh ${APP_DIR}/entrypoint.sh 
+COPY files/scripts/entrypoint.sh ${APP_DIR}/entrypoint.sh
 ENTRYPOINT [ "./entrypoint.sh" ]
