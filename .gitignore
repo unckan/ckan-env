@@ -5,6 +5,7 @@ docker-compose-prod.yml
 docker/src/*
 docker/ckan/files/env/local.env
 docker/ckan/files/env/hetzner.env
+docker/ckan/files/env/uni-dev.env
 
 # Secretos de deploy — nunca commitear
 deploy/hetzner/.env
