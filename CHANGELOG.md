@@ -12,7 +12,7 @@
 
 ## Superset
 
- - Add trabslations (ES) [#53](https://github.com/unckan/ckanext-superset/pull/53)
+ - Add traslations (ES) [#53](https://github.com/unckan/ckanext-superset/pull/53)
  - Allow automatic sync resources [#52](https://github.com/unckan/ckanext-superset/pull/52)
  - Add filters to the charts list [#50](https://github.com/unckan/ckanext-superset/pull/50)
 
