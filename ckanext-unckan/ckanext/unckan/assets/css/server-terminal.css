@@ -1,0 +1,31 @@
+.server-terminal__header,
+.server-terminal__controls,
+.server-terminal__stats {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.server-terminal__header { justify-content: space-between; }
+.server-terminal__stats { flex-wrap: wrap; margin: 1rem 0; }
+.server-terminal__stats > div { background: #f4f4f4; border-radius: 4px; padding: .6rem 1rem; }
+.server-terminal__stats dt { color: #666; font-size: .8rem; }
+.server-terminal__stats dd { margin: 0; font-weight: 700; }
+.server-terminal__controls { margin: 1rem 0; }
+.server-terminal__controls select:first-of-type { flex: 1; }
+.server-terminal__controls select:last-of-type { width: 7rem; }
+.server-terminal__follow { white-space: nowrap; }
+.server-terminal__screen {
+  background: #0b1020;
+  border: 1px solid #29324d;
+  border-radius: 6px;
+  color: #d7e1ff;
+  height: 58vh;
+  overflow: auto;
+  padding: 1rem;
+}
+.server-terminal__screen pre { background: transparent; border: 0; color: inherit; margin: 0; white-space: pre-wrap; word-break: break-word; }
+.server-terminal__status { color: #666; font-size: .85rem; margin-top: .5rem; }
+@media (max-width: 767px) {
+  .server-terminal__controls { align-items: stretch; flex-direction: column; }
+  .server-terminal__controls select:last-of-type { width: 100%; }
+}

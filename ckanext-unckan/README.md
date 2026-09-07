@@ -14,9 +14,15 @@ Compatibility with core CKAN versions:
 | 2.11            | Yes           |
 
 
-## Config settings
+## Server terminal (read-only log viewer)
 
-None at present
+Sysadmins can open `/admin/server-terminal` to inspect configured server logs.
+The page never executes shell commands. Log files must be explicitly allowlisted
+with a comma-separated list of paths or glob patterns:
+
+```ini
+ckanext.unckan.server_terminal.log_paths = /var/log/supervisor/*.log, /var/log/ckan/*.log
+```
 
 ## License
 

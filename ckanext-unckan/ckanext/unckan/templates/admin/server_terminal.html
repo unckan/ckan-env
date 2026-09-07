@@ -1,0 +1,46 @@
+{% extends "admin/base.html" %}
+
+{% block primary_content_inner %}
+  <section class="server-terminal" data-module="server-terminal" data-module-endpoint="{{ h.url_for('server_terminal.logs') }}">
+    <div class="server-terminal__header">
+      <div>
+        <h1>{{ _('Terminal del servidor') }}</h1>
+        <p>{{ _('Visor de logs de solo lectura. Se actualiza automáticamente.') }}</p>
+      </div>
+      <button type="button" class="btn btn-default" data-terminal-action="refresh">
+        <i class="fa fa-refresh"></i> {{ _('Actualizar') }}
+      </button>
+    </div>
+
+    <dl class="server-terminal__stats">
+      <div><dt>{{ _('Servidor') }}</dt><dd>{{ system_info.hostname }}</dd></div>
+      <div><dt>PID</dt><dd>{{ system_info.pid }}</dd></div>
+      <div><dt>Python</dt><dd>{{ system_info.python }}</dd></div>
+      <div><dt>{{ _('Disco libre') }}</dt><dd>{{ (system_info.disk_free / 1073741824)|round(1) }} GB</dd></div>
+    </dl>
+
+    {% if sources %}
+      <div class="server-terminal__controls">
+        <label for="terminal-source">{{ _('Fuente') }}</label>
+        <select id="terminal-source" class="form-control" data-terminal-source>
+          {% for source in sources %}
+            <option value="{{ source.id }}">{{ source.name }} — {{ source.id }}</option>
+          {% endfor %}
+        </select>
+        <label for="terminal-lines">{{ _('Líneas') }}</label>
+        <select id="terminal-lines" class="form-control" data-terminal-lines>
+          <option>100</option><option selected>500</option><option>1000</option><option>2000</option>
+        </select>
+        <label class="server-terminal__follow"><input type="checkbox" checked data-terminal-follow> {{ _('Seguir') }}</label>
+      </div>
+      <div class="server-terminal__screen" role="log" aria-live="polite" aria-label="{{ _('Logs del servidor') }}">
+        <pre data-terminal-output>{{ _('Cargando logs…') }}</pre>
+      </div>
+      <p class="server-terminal__status" data-terminal-status></p>
+    {% else %}
+      <div class="alert alert-warning">
+        {{ _('No se encontraron logs. Configure ckanext.unckan.server_terminal.log_paths.') }}
+      </div>
+    {% endif %}
+  </section>
+{% endblock %}
