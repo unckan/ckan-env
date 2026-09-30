@@ -23,7 +23,11 @@ services:
   postgresql_uni:
     container_name: postgresql_uni
     # https://github.com/ckan/ckan-postgres-dev
-    image: ckan/ckan-postgres-dev:2.11
+    build:
+      context: ./psql
+      args:
+        CKAN_VERSION: "2.12"
+    image: unckan-postgresql:2.12
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -50,7 +54,7 @@ services:
 
   solr_uni:
     container_name: solr_uni
-    image: ckan/ckan-solr:2.11-solr9
+    image: ckan/ckan-solr:2.12-solr9
     ports:
       - "8014:8983"
     volumes:
