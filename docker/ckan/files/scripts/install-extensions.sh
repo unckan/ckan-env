@@ -55,7 +55,7 @@ install_extension "https://github.com/unckan/ckanext-superset.git" "0.3.0" "ckan
 install_extension "https://github.com/okfn/ckanext-announcements.git" "0.1.8" "ckanext-announcements"
 install_extension "https://github.com/unckan/ckanext-push-errors.git" "0.1.7" "ckanext-push-errors"
 install_extension "https://github.com/unckan/ckanext-dbquery.git" "0.2.3" "ckanext-dbquery"
-install_extension "https://github.com/unckan/ckanext-citeproc.git" "v1.0.3" "ckanext-citeproc"
+install_extension "https://github.com/unckan/ckanext-citeproc.git" "v1.1.0" "ckanext-citeproc"
 install_extension "https://github.com/DataShades/ckanext-charts.git" "v1.13.6" "ckanext-charts"
 
 # Clean up temp directory
