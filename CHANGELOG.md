@@ -1,6 +1,18 @@
 # Next Release
 
- - Add server terminal extension (ckanext-serverterminal 0.1.0) [#91](https://github.com/unckan/ckan-env/pull/91)
+## Terminal del servidor (nueva)
+
+Nueva pantalla para administradores del sistema en *Administración > Terminal del servidor* (`/admin/server-terminal`), con la extensión [ckanext-serverterminal](https://github.com/unckan/ckanext-serverterminal) 0.2.0 [#91](https://github.com/unckan/ckan-env/pull/91) [#94](https://github.com/unckan/ckan-env/pull/94). Permite revisar y mantener el portal sin necesidad de acceder al servidor:
+
+ - **Ver logs**: consultar en vivo los logs del servidor web de CKAN, del worker de tareas en segundo plano, de las tareas programadas y de supervisor.
+ - **Comandos de CKAN**: ejecutar tareas de mantenimiento desde la web, por ejemplo reconstruir el índice de búsqueda, revisar las tareas en segundo plano o reenviar recursos a XLoader. Solo se permiten comandos de una lista acotada; no se pueden ejecutar comandos del sistema operativo.
+ - **Servicios**: ver el estado y reiniciar el servidor web de CKAN, el worker de tareas y las tareas programadas.
+ - **Historial**: registro de cada comando y reinicio, con el usuario que lo ejecutó, su resultado y su salida.
+ - Disponible solo para administradores del sistema.
+
+## Más
+
+ - Corrección en las pruebas automáticas (CI): XLoader dejó de publicar `requirements.txt` en su rama principal; ahora se usa la versión 2.3.0, la misma de la imagen [#91](https://github.com/unckan/ckan-env/pull/91)
 
 # Release 0.6.1
 2026-05-24

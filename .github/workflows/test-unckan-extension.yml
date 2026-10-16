@@ -64,7 +64,7 @@ jobs:
         pip install -r dev-requirements.txt
         pip install -e .
         # Stopgap until avdata99/unckan:dev image is rebuilt with this extension baked in
-        pip install git+https://github.com/unckan/ckanext-serverterminal.git@main
+        pip install git+https://github.com/unckan/ckanext-serverterminal.git@0.2.0
 
     - name: Setup extension
       shell: bash
