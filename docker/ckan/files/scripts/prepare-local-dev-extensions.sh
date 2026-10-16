@@ -51,7 +51,7 @@ do
         if [ -f $i/test.ini ];
         then
             echo "Updating 'test.ini' reference to 'test-core.ini' for plugin $i"
-            ckan config-tool $i/test.ini "use = config:../../ckan/test-core.ini"
+            ckan config-tool $i/test.ini "use = config:/app/unckan/ckan/test-core.ini"
             echo "Updating 'test.ini' to allow testing the extension"
             ckan config-tool $i/test.ini "sqlalchemy.url = ${SQLALCHEMY_URL}"
             ckan config-tool $i/test.ini "ckan.redis.url = ${CKAN_REDIS_URL}"

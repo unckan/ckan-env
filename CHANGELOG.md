@@ -1,6 +1,6 @@
 # Next Release
 
- - 
+ - Add server terminal extension (ckanext-serverterminal 0.1.0) [#91](https://github.com/unckan/ckan-env/pull/91)
 
 # Release 0.6.1
 2026-05-24

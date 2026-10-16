@@ -60,9 +60,11 @@ jobs:
         source /app/unckan/venv/bin/activate
         cd ckanext-unckan
         pip install -r requirements.txt
-        pip install -r https://raw.githubusercontent.com/ckan/ckanext-xloader/master/requirements.txt
+        pip install -r https://raw.githubusercontent.com/ckan/ckanext-xloader/2.3.0/requirements.txt
         pip install -r dev-requirements.txt
         pip install -e .
+        # Stopgap until avdata99/unckan:dev image is rebuilt with this extension baked in
+        pip install git+https://github.com/unckan/ckanext-serverterminal.git@main
 
     - name: Setup extension
       shell: bash
