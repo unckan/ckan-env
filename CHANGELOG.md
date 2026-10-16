@@ -2,7 +2,7 @@
 
 ## Terminal del servidor (nueva)
 
-Nueva pantalla para administradores del sistema en *Administración > Terminal del servidor* (`/admin/server-terminal`), con la extensión [ckanext-serverterminal](https://github.com/unckan/ckanext-serverterminal) 0.2.0 [#91](https://github.com/unckan/ckan-env/pull/91) [#PR](https://github.com/unckan/ckan-env/pull/PR). Permite revisar y mantener el portal sin necesidad de acceder al servidor:
+Nueva pantalla para administradores del sistema en *Administración > Terminal del servidor* (`/admin/server-terminal`), con la extensión [ckanext-serverterminal](https://github.com/unckan/ckanext-serverterminal) 0.2.0 [#91](https://github.com/unckan/ckan-env/pull/91) [#94](https://github.com/unckan/ckan-env/pull/94). Permite revisar y mantener el portal sin necesidad de acceder al servidor:
 
  - **Ver logs**: consultar en vivo los logs del servidor web de CKAN, del worker de tareas en segundo plano, de las tareas programadas y de supervisor.
  - **Comandos de CKAN**: ejecutar tareas de mantenimiento desde la web, por ejemplo reconstruir el índice de búsqueda, revisar las tareas en segundo plano o reenviar recursos a XLoader. Solo se permiten comandos de una lista acotada; no se pueden ejecutar comandos del sistema operativo.
