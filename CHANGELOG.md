@@ -1,5 +1,16 @@
 # Next Release
 
+# Release 0.6.3
+2026-10-26
+
+ - Actualización de extensiones: 
+   - [API Tracking](https://github.com/NorwegianRefugeeCouncil/ckanext-api-tracking/blob/0.6.0/CHANGELOG.md) 0.5.2 a 0.6.0,
+   - [XLoader](https://github.com/ckan/ckanext-xloader/releases) 2.3.0 a 2.6.0
+   - [Charts](https://github.com/DataShades/ckanext-charts/blob/v1.13.9/CHANGELOG.md) v1.9.1 a v1.13.9
+   - [Citeproc](https://github.com/unckan/ckanext-citeproc/compare/v1.0.3...v1.1.0) v1.0.3 a v1.1.0
+   - [Push Errors](https://github.com/unckan/ckanext-push-errors/compare/0.1.6...0.1.7) 0.1.6 a 0.1.7 
+   - [Announcements](https://github.com/okfn/ckanext-announcements/compare/0.1.6...0.1.8) 0.1.6 a 0.1.8
+
 # Release 0.6.2
 2026-10-26
 
