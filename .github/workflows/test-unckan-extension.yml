@@ -60,7 +60,8 @@ jobs:
         source /app/unckan/venv/bin/activate
         cd ckanext-unckan
         pip install -r requirements.txt
-        pip install -r https://raw.githubusercontent.com/ckan/ckanext-xloader/2.3.0/requirements.txt
+        # xloader >= 2.4 has no requirements.txt: install the package (deps come from pyproject.toml)
+        pip install git+https://github.com/ckan/ckanext-xloader.git@2.6.0
         pip install -r dev-requirements.txt
         pip install -e .
         # Stopgap until avdata99/unckan:dev image is rebuilt with this extension baked in

@@ -1,5 +1,19 @@
 # Next Release
 
+# Release 0.6.3
+2026-10-26
+
+ - Actualización de extensiones: 
+   - [API Tracking](https://github.com/NorwegianRefugeeCouncil/ckanext-api-tracking/blob/0.6.0/CHANGELOG.md) 0.5.2 a 0.6.0,
+   - [XLoader](https://github.com/ckan/ckanext-xloader/releases) 2.3.0 a 2.6.0
+   - [Charts](https://github.com/DataShades/ckanext-charts/blob/v1.13.9/CHANGELOG.md) v1.9.1 a v1.13.9
+   - [Citeproc](https://github.com/unckan/ckanext-citeproc/compare/v1.0.3...v1.1.0) v1.0.3 a v1.1.0
+   - [Push Errors](https://github.com/unckan/ckanext-push-errors/compare/0.1.6...0.1.7) 0.1.6 a 0.1.7 
+   - [Announcements](https://github.com/okfn/ckanext-announcements/compare/0.1.6...0.1.8) 0.1.6 a 0.1.8
+
+# Release 0.6.2
+2026-10-26
+
 ## Terminal del servidor (nueva)
 
 Nueva pantalla para administradores del sistema en *Administración > Terminal del servidor* (`/admin/server-terminal`), con la extensión [ckanext-serverterminal](https://github.com/unckan/ckanext-serverterminal) 0.2.0 [#91](https://github.com/unckan/ckan-env/pull/91) [#94](https://github.com/unckan/ckan-env/pull/94). Permite revisar y mantener el portal sin necesidad de acceder al servidor:
@@ -22,18 +36,35 @@ Nueva pantalla para administradores del sistema en *Administración > Terminal d
 # Release 0.6.0
 2026-05-03
 
+## CKAN
+
+Actualizamos CKAN de 2.11.3 a 2.11.5 [#80](https://github.com/unckan/ckan-env/pull/80) [#86](https://github.com/unckan/ckan-env/pull/86). Junto con la actualización:
+
+ - La imagen de Solr pasa a `ckan-solr:2.11-solr9`.
+ - Python 3.11 y el entorno virtual ahora se gestionan con `uv`.
+
+## Gráficos (nuevo)
+
+Nueva extensión [ckanext-charts](https://github.com/DataShades/ckanext-charts) v1.9.1 [#74](https://github.com/unckan/ckan-env/pull/74): permite crear visualizaciones (gráficos) a partir de los datos de los recursos, como vistas del recurso, sin salir del portal.
+
 ## Superset
 
+ - De 0.2.1 a [0.3.0](https://github.com/unckan/ckanext-superset/tree/0.3.0):
  - Add traslations (ES) [#53](https://github.com/unckan/ckanext-superset/pull/53)
  - Allow automatic sync resources [#52](https://github.com/unckan/ckanext-superset/pull/52)
  - Add filters to the charts list [#50](https://github.com/unckan/ckanext-superset/pull/50)
 
+## Citeproc
+
+ - De v1.0.1 a v1.0.3: se agregan archivos que faltaban en el paquete instalado ([cambios](https://github.com/unckan/ckanext-citeproc/compare/v1.0.1...v1.0.3))
+
  ## More
  
  - Remove SelfInfo extension [#83](https://github.com/unckan/ckan-env/pull/83)
- - Move from Datapusher+ to XLoader
+ - Move from Datapusher+ to XLoader ([ckanext-xloader](https://github.com/ckan/ckanext-xloader) 2.3.0) [#84](https://github.com/unckan/ckan-env/pull/84)
  - Dev env notes using Hetzer added
- - Moving from Debian 12 to Debian 13
+ - Moving from Debian 12 to Debian 13 [#80](https://github.com/unckan/ckan-env/pull/80)
+ - Corrección en la construcción de la imagen: GitHub bloqueaba (error 429) la descarga de los `requirements.txt` de las extensiones [#78](https://github.com/unckan/ckan-env/pull/78)
  - Add latest datasets in the home page [#81](https://github.com/unckan/ckan-env/pull/81)
  - Most visited home page block added [#82](https://github.com/unckan/ckan-env/pull/82/)
  - `yacron` installed to run periodic tasks (Superset sync and popular dataset tracking)
