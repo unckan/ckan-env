@@ -28,11 +28,6 @@ ckan db upgrade
 # Rebuild search index
 ckan search-index rebuild
 
-# Update tracking
-echo "Updating CKAN core tracking"
-LAST_MONTH=$(date -d '60 days ago' +'%Y-%m-%d')
-ckan tracking update $LAST_MONTH
-
 # XLoader+ requires a valid API token to operate
 echo "Creating a valid API token for XLoader+"
 XLOADER_TOKEN=$(ckan user token add default xloader_multi expires_in=365 unit=86400 | tail -n 1 | tr -d '\t')
