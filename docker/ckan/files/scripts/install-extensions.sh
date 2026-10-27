@@ -58,6 +58,7 @@ install_extension "https://github.com/unckan/ckanext-dbquery.git" "0.2.3" "ckane
 install_extension "https://github.com/unckan/ckanext-citeproc.git" "v1.1.0" "ckanext-citeproc"
 install_extension "https://github.com/DataShades/ckanext-charts.git" "v1.13.9" "ckanext-charts"
 install_extension "https://github.com/unckan/ckanext-serverterminal.git" "0.2.0" "ckanext-serverterminal"
+install_extension "https://github.com/DataShades/ckanext-charts.git" "v1.13.4" "ckanext-charts"
 
 # Clean up temp directory
 rm -rf "$TEMP_DIR"
