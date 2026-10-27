@@ -1,5 +1,8 @@
 # Next Release
 
+ - La home obtiene «Más visitados» de api-tracking, contando visitas web acumuladas a datasets públicos y activos. El botón lleva al catálogo sin ordenar por visitas.
+ - Se retira el tracking de CKAN de los plugins, el inicio del contenedor, el cron y los comandos permitidos en la terminal del servidor.
+
 # Release 0.6.3
 2026-10-26
 

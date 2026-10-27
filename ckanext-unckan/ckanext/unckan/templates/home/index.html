@@ -57,14 +57,14 @@
                 <span><i class="fa fa-building-o"></i> {{ dataset.organization }}</span>
               {% endif %}
               <span><i class="fa fa-file-o"></i> {{ dataset.num_resources }} {{ _("recursos") }}</span>
-              <span><i class="fa fa-eye"></i> {{ dataset.views_total }} {{ _("visitas") }}</span>
+              <span><i class="fa fa-eye"></i> {{ dataset.visits }} {{ _("visitas") }}</span>
             </div>
           </a>
         </div>
         {% endfor %}
       </div>
       <div class="text-center mt-4">
-        <a href="{{ h.url_for('dataset.search', sort='views_total desc') }}" class="btn btn-primary">
+        <a href="{{ h.url_for('dataset.search') }}" class="btn btn-primary">
           {{ _("Ver todos los conjuntos de datos") }}
         </a>
       </div>
