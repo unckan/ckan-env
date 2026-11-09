@@ -1,6 +1,6 @@
 # Next Release
 
- - 
+ - DBquery puede ejecutar las consultas con un usuario de PostgreSQL de solo lectura, configurable con la variable `DBQUERY_SQLALCHEMY_URL` [#93](https://github.com/unckan/ckan-env/pull/93). Si la variable no se define, todo sigue como antes. Para activarlo en la UNC hay que crear el rol `dbquery_reader` en la base de CKAN (ver el README de ckanext-dbquery) y cargar la variable como secreto.
 
 # Release 0.6.1
 2026-05-24
