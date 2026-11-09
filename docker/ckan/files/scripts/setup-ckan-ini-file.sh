@@ -51,6 +51,19 @@ ckan config-tool ${CKAN_INI} "ckan.datastore.write_url = ${DATASTORE_WRITE_URL}"
 ckan config-tool ${CKAN_INI} "ckan.datastore.read_url = ${DATASTORE_READ_URL}"
 ckan config-tool ${CKAN_INI} "ckanext.xloader.jobs_db.uri = ${SQLALCHEMY_URL}"
 
+# Optional: read-only DB connection for ckanext-dbquery queries.
+# Example: postgresql://dbquery_reader:<pass>@<host>/ckan_default
+# If set, dbquery never falls back to CKAN's user, so the role must exist in the DB.
+# Local dev: the docker/psql init script creates the role on a fresh DB volume; add to local.env:
+#   DBQUERY_SQLALCHEMY_URL=postgresql://dbquery_reader:pass@postgresql_uni/ckan_test
+# Not set in base.env on purpose: base.env is also loaded in the client builds.
+if [ -z "${DBQUERY_SQLALCHEMY_URL}" ]; then
+  echo "DBQUERY_SQLALCHEMY_URL is not set. dbquery will use the CKAN DB user."
+else
+  echo "Configuring a read-only DB connection for dbquery"
+  ckan config-tool ${CKAN_INI} "ckanext.dbquery.sqlalchemy.url = ${DBQUERY_SQLALCHEMY_URL}"
+fi
+
 # Optional: override the site_url xloader uses to fetch resources.
 # Useful when the public site is behind a reverse proxy (e.g. basic auth on dev),
 # so the worker can pull resources from an internal URL instead.
@@ -78,10 +91,16 @@ ckan config-tool ${CKAN_INI} "ckanext.superset.instance.user = ${SUPERSER_USER}"
 ckan config-tool ${CKAN_INI} "ckanext.superset.instance.pass = ${SUPERSER_PASS}"
 ckan config-tool ${CKAN_INI} "ckanext.superset.instance.provider = ${SUPERSER_PROVIDER}"
 ckan config-tool ${CKAN_INI} "ckanext.superset.instance.refresh = ${SUPERSER_REFRESH}"
-ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.url = ${SUPERSER_PROXY_URL}"
-ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.port = ${SUPERSER_PROXY_PORT}"
-ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.user = ${SUPERSER_PROXY_USER}"
-ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.pass = ${SUPERSER_PROXY_PASS}"
+# Proxy settings only when a proxy is used: an empty port is not a valid integer
+# and CKAN refuses to start. Without them the extension defaults apply.
+if [ -n "${SUPERSER_PROXY_URL}" ]; then
+  ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.url = ${SUPERSER_PROXY_URL}"
+  ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.port = ${SUPERSER_PROXY_PORT}"
+  ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.user = ${SUPERSER_PROXY_USER}"
+  ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.pass = ${SUPERSER_PROXY_PASS}"
+else
+  echo "SUPERSER_PROXY_URL is not set. Superset will connect without a proxy."
+fi
 
 # push-errors-settings
 if [ -z "${SLACK_WEBHOOK_URL}" ]; then
