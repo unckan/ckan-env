@@ -7,6 +7,10 @@
  - Corrección en la configuración de Superset: los entornos sin proxy ya no fallan al iniciar
    por un puerto de proxy vacío; la configuración del proxy solo se aplica cuando hay uno
    definido ([ckanext-superset#44](https://github.com/unckan/ckanext-superset/issues/44))
+ - Actualización de [Superset](https://github.com/unckan/ckanext-superset/compare/0.3.0...0.3.1) de 0.3.0 a 0.3.1:
+   - La sincronización con Superset de un conjunto de datos solo se muestra a quienes pueden editarlo
+   - Si Superset no responde o está caído, se muestra un mensaje claro en lugar de un error 500
+     (502 si falla, 504 si tarda demasiado)
 
 # Release 0.6.3
 2026-10-26
