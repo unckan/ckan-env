@@ -2,6 +2,53 @@
 
  - DBquery puede ejecutar las consultas con un usuario de PostgreSQL de solo lectura, configurable con la variable `DBQUERY_SQLALCHEMY_URL` [#93](https://github.com/unckan/ckan-env/pull/93). Se actualiza ckanext-dbquery a la version 0.2.4. Si la variable no se define, todo sigue como antes. Para activarlo en la UNC hay que crear el rol `dbquery_reader` en la base de CKAN (ver el README de ckanext-dbquery) y cargar la variable como secreto.
 
+# Release 0.6.4
+2026-11-09
+
+ - Corrección del error al crear gráficos desde un recurso (*Vistas > Agregar gráfico* daba error 500): la extensión de gráficos necesita que `ckanext-scheming` esté habilitado para armar su formulario, ahora se activa el plugin `scheming_datasets`. No cambia los formularios de los conjuntos de datos [#89](https://github.com/unckan/ckan-env/pull/89)
+ - La home obtiene _Más visitados_ del nuevo api-tracking y se retira el tracking de CKAN
+   de los plugins, el inicio del contenedor, el cron y los comandos permitidos en la
+   terminal del servidor [#96](https://github.com/unckan/ckan-env/pull/96)
+ - Corrección en la configuración de Superset: los entornos sin proxy ya no fallan al iniciar
+   por un puerto de proxy vacío; la configuración del proxy solo se aplica cuando hay uno
+   definido ([ckanext-superset#44](https://github.com/unckan/ckanext-superset/issues/44))
+ - Actualización de [Superset](https://github.com/unckan/ckanext-superset/compare/0.3.0...0.3.1) de 0.3.0 a 0.3.1:
+   - La sincronización con Superset de un conjunto de datos solo se muestra a quienes pueden editarlo
+   - Si Superset no responde o está caído, se muestra un mensaje claro en lugar de un error 500
+     (502 si falla, 504 si tarda demasiado)
+
+## CKAN 2.11.7 (parches de seguridad)
+
+Actualizamos CKAN de 2.11.5 a 2.11.7 [#98](https://github.com/unckan/ckan-env/pull/98). Las versiones [2.11.6](https://github.com/ckan/ckan/releases/tag/ckan-2.11.6) y [2.11.7](https://github.com/ckan/ckan/releases/tag/ckan-2.11.7) corrigen 15 vulnerabilidades publicadas por el equipo de CKAN, entre ellas:
+
+# Release 0.6.3
+2026-10-26
+
+ - Actualización de extensiones: 
+   - [API Tracking](https://github.com/NorwegianRefugeeCouncil/ckanext-api-tracking/blob/0.6.0/CHANGELOG.md) 0.5.2 a 0.6.0,
+   - [XLoader](https://github.com/ckan/ckanext-xloader/releases) 2.3.0 a 2.6.0
+   - [Charts](https://github.com/DataShades/ckanext-charts/blob/v1.13.9/CHANGELOG.md) v1.9.1 a v1.13.9
+   - [Citeproc](https://github.com/unckan/ckanext-citeproc/compare/v1.0.3...v1.1.0) v1.0.3 a v1.1.0
+   - [Push Errors](https://github.com/unckan/ckanext-push-errors/compare/0.1.6...0.1.7) 0.1.6 a 0.1.7 
+   - [Announcements](https://github.com/okfn/ckanext-announcements/compare/0.1.6...0.1.8) 0.1.6 a 0.1.8
+
+# Release 0.6.2
+2026-10-26
+
+## Terminal del servidor (nueva)
+
+Nueva pantalla para administradores del sistema en *Administración > Terminal del servidor* (`/admin/server-terminal`), con la extensión [ckanext-serverterminal](https://github.com/unckan/ckanext-serverterminal) 0.2.0 [#91](https://github.com/unckan/ckan-env/pull/91) [#94](https://github.com/unckan/ckan-env/pull/94). Permite revisar y mantener el portal sin necesidad de acceder al servidor:
+
+ - **Ver logs**: consultar en vivo los logs del servidor web de CKAN, del worker de tareas en segundo plano, de las tareas programadas y de supervisor.
+ - **Comandos de CKAN**: ejecutar tareas de mantenimiento desde la web, por ejemplo reconstruir el índice de búsqueda, revisar las tareas en segundo plano o reenviar recursos a XLoader. Solo se permiten comandos de una lista acotada; no se pueden ejecutar comandos del sistema operativo.
+ - **Servicios**: ver el estado y reiniciar el servidor web de CKAN, el worker de tareas y las tareas programadas.
+ - **Historial**: registro de cada comando y reinicio, con el usuario que lo ejecutó, su resultado y su salida.
+ - Disponible solo para administradores del sistema.
+
+## Más
+
+ - Corrección en las pruebas automáticas (CI): XLoader dejó de publicar `requirements.txt` en su rama principal; ahora se usa la versión 2.3.0, la misma de la imagen [#91](https://github.com/unckan/ckan-env/pull/91)
+
 # Release 0.6.1
 2026-05-24
 
@@ -10,18 +57,35 @@
 # Release 0.6.0
 2026-05-03
 
+## CKAN
+
+Actualizamos CKAN de 2.11.3 a 2.11.5 [#80](https://github.com/unckan/ckan-env/pull/80) [#86](https://github.com/unckan/ckan-env/pull/86). Junto con la actualización:
+
+ - La imagen de Solr pasa a `ckan-solr:2.11-solr9`.
+ - Python 3.11 y el entorno virtual ahora se gestionan con `uv`.
+
+## Gráficos (nuevo)
+
+Nueva extensión [ckanext-charts](https://github.com/DataShades/ckanext-charts) v1.9.1 [#74](https://github.com/unckan/ckan-env/pull/74): permite crear visualizaciones (gráficos) a partir de los datos de los recursos, como vistas del recurso, sin salir del portal.
+
 ## Superset
 
+ - De 0.2.1 a [0.3.0](https://github.com/unckan/ckanext-superset/tree/0.3.0):
  - Add traslations (ES) [#53](https://github.com/unckan/ckanext-superset/pull/53)
  - Allow automatic sync resources [#52](https://github.com/unckan/ckanext-superset/pull/52)
  - Add filters to the charts list [#50](https://github.com/unckan/ckanext-superset/pull/50)
 
+## Citeproc
+
+ - De v1.0.1 a v1.0.3: se agregan archivos que faltaban en el paquete instalado ([cambios](https://github.com/unckan/ckanext-citeproc/compare/v1.0.1...v1.0.3))
+
  ## More
  
  - Remove SelfInfo extension [#83](https://github.com/unckan/ckan-env/pull/83)
- - Move from Datapusher+ to XLoader
+ - Move from Datapusher+ to XLoader ([ckanext-xloader](https://github.com/ckan/ckanext-xloader) 2.3.0) [#84](https://github.com/unckan/ckan-env/pull/84)
  - Dev env notes using Hetzer added
- - Moving from Debian 12 to Debian 13
+ - Moving from Debian 12 to Debian 13 [#80](https://github.com/unckan/ckan-env/pull/80)
+ - Corrección en la construcción de la imagen: GitHub bloqueaba (error 429) la descarga de los `requirements.txt` de las extensiones [#78](https://github.com/unckan/ckan-env/pull/78)
  - Add latest datasets in the home page [#81](https://github.com/unckan/ckan-env/pull/81)
  - Most visited home page block added [#82](https://github.com/unckan/ckan-env/pull/82/)
  - `yacron` installed to run periodic tasks (Superset sync and popular dataset tracking)

@@ -91,10 +91,16 @@ ckan config-tool ${CKAN_INI} "ckanext.superset.instance.user = ${SUPERSER_USER}"
 ckan config-tool ${CKAN_INI} "ckanext.superset.instance.pass = ${SUPERSER_PASS}"
 ckan config-tool ${CKAN_INI} "ckanext.superset.instance.provider = ${SUPERSER_PROVIDER}"
 ckan config-tool ${CKAN_INI} "ckanext.superset.instance.refresh = ${SUPERSER_REFRESH}"
-ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.url = ${SUPERSER_PROXY_URL}"
-ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.port = ${SUPERSER_PROXY_PORT}"
-ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.user = ${SUPERSER_PROXY_USER}"
-ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.pass = ${SUPERSER_PROXY_PASS}"
+# Proxy settings only when a proxy is used: an empty port is not a valid integer
+# and CKAN refuses to start. Without them the extension defaults apply.
+if [ -n "${SUPERSER_PROXY_URL}" ]; then
+  ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.url = ${SUPERSER_PROXY_URL}"
+  ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.port = ${SUPERSER_PROXY_PORT}"
+  ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.user = ${SUPERSER_PROXY_USER}"
+  ckan config-tool ${CKAN_INI} "ckanext.superset.proxy.pass = ${SUPERSER_PROXY_PASS}"
+else
+  echo "SUPERSER_PROXY_URL is not set. Superset will connect without a proxy."
+fi
 
 # push-errors-settings
 if [ -z "${SLACK_WEBHOOK_URL}" ]; then
