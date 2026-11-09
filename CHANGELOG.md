@@ -4,6 +4,9 @@
  - La home obtiene _Más visitados_ del nuevo api-tracking y se retira el tracking de CKAN
    de los plugins, el inicio del contenedor, el cron y los comandos permitidos en la
    terminal del servidor [#96](https://github.com/unckan/ckan-env/pull/96)
+ - Corrección en la configuración de Superset: los entornos sin proxy ya no fallan al iniciar
+   por un puerto de proxy vacío; la configuración del proxy solo se aplica cuando hay uno
+   definido ([ckanext-superset#44](https://github.com/unckan/ckanext-superset/issues/44))
 
 # Release 0.6.3
 2026-10-26
