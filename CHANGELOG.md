@@ -12,9 +12,13 @@
    - Si Superset no responde o está caído, se muestra un mensaje claro en lugar de un error 500
      (502 si falla, 504 si tarda demasiado)
 
+## CKAN 2.11.7 (parches de seguridad)
+
+Actualizamos CKAN de 2.11.5 a 2.11.7 [#98](https://github.com/unckan/ckan-env/pull/98). Las versiones [2.11.6](https://github.com/ckan/ckan/releases/tag/ckan-2.11.6) y [2.11.7](https://github.com/ckan/ckan/releases/tag/ckan-2.11.7) corrigen 15 vulnerabilidades publicadas por el equipo de CKAN, entre ellas:
+
 # Release 0.6.3
 2026-10-26
-https://github.com/unckan/ckan-env/pull/89
+
  - Actualización de extensiones: 
    - [API Tracking](https://github.com/NorwegianRefugeeCouncil/ckanext-api-tracking/blob/0.6.0/CHANGELOG.md) 0.5.2 a 0.6.0,
    - [XLoader](https://github.com/ckan/ckanext-xloader/releases) 2.3.0 a 2.6.0
