@@ -1,4 +1,8 @@
+from sqlalchemy import func
+
+from ckan import model
 import ckan.plugins.toolkit as toolkit
+from ckanext.api_tracking.models import TrackingUsage
 from ckan.common import config
 
 
@@ -8,21 +12,29 @@ def get_unckan_version():
 
 
 def get_unckan_most_visited_datasets(limit=5):
-    """ Retorna los datasets más visitados usando el tracking built-in de CKAN """
-    data_dict = {
-        'rows': limit,
-        'sort': 'views_total desc',
-        'include_private': False,
-    }
-    try:
-        result = toolkit.get_action('package_search')({}, data_dict)
-    except Exception:
+    """Retorna datasets públicos activos por visitas web acumuladas de api-tracking."""
+    if limit <= 0:
         return []
+    views = func.count(TrackingUsage.id).label('views')
+    popular = (
+        model.Session.query(model.Package.id, views)
+        .join(TrackingUsage, TrackingUsage.object_id == model.Package.id)
+        .filter(
+            model.Package.state == 'active',
+            model.Package.private.is_(False),
+            model.Package.type == 'dataset',
+            TrackingUsage.object_type == 'dataset',
+            TrackingUsage.tracking_type == 'ui',
+            TrackingUsage.tracking_sub_type == 'show',
+        )
+        .group_by(model.Package.id)
+        .order_by(views.desc(), model.Package.id)
+        .limit(limit)
+        .all()
+    )
     datasets = []
-    for pkg in result.get('results', []):
-        views = pkg.get('tracking_summary', {}).get('total', 0)
-        if not views:
-            continue
+    for package_id, views in popular:
+        pkg = toolkit.get_action('package_show')({}, {'id': package_id})
         notes = pkg.get('notes', '') or ''
         description = (notes[:200] + '...') if len(notes) > 200 else notes
         datasets.append({
@@ -31,9 +43,9 @@ def get_unckan_most_visited_datasets(limit=5):
             'title': pkg.get('title', pkg['name']),
             'description': description,
             'url': toolkit.url_for('dataset.read', id=pkg['name']),
-            'organization': pkg.get('organization', {}).get('title', ''),
+            'organization': (pkg.get('organization') or {}).get('title', ''),
             'num_resources': pkg.get('num_resources', 0),
-            'views_total': views,
+            'visits': views,
         })
     return datasets
 
@@ -56,7 +68,7 @@ def get_unckan_latest_datasets(limit=5):
             'title': pkg.get('title', pkg['name']),
             'description': description,
             'url': toolkit.url_for('dataset.read', id=pkg['name']),
-            'organization': pkg.get('organization', {}).get('title', ''),
+            'organization': (pkg.get('organization') or {}).get('title', ''),
             'num_resources': pkg.get('num_resources', 0),
             'metadata_modified': pkg.get('metadata_modified', ''),
         })
