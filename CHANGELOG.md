@@ -1,8 +1,10 @@
 # Next Release
 
+ - Corrección del error al crear gráficos desde un recurso (*Vistas > Agregar gráfico* daba error 500): la extensión de gráficos necesita que `ckanext-scheming` esté habilitado para armar su formulario, ahora se activa el plugin `scheming_datasets`. No cambia los formularios de los conjuntos de datos [#89](https://github.com/unckan/ckan-env/pull/89)
+
 # Release 0.6.3
 2026-10-26
-
+https://github.com/unckan/ckan-env/pull/89
  - Actualización de extensiones: 
    - [API Tracking](https://github.com/NorwegianRefugeeCouncil/ckanext-api-tracking/blob/0.6.0/CHANGELOG.md) 0.5.2 a 0.6.0,
    - [XLoader](https://github.com/ckan/ckanext-xloader/releases) 2.3.0 a 2.6.0
