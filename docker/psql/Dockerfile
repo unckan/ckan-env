@@ -6,8 +6,8 @@ LABEL maintainer="CKAN Tech team"
 # Postgres settings
 ENV POSTGRES_PASSWORD="pass"
 
-# Keep the standard data path used by the Compose volume.
-ENV PGDATA="/var/lib/postgresql/data"
+# Point Postgres data files to a persistent location inside the container
+ENV PGDATA="/data"
 
 # CKAN settings
 ENV CKAN_POSTGRES_DB="ckan_test"
